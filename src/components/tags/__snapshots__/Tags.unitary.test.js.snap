@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags | Non-editable matches snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-6"
+  data-test="table-tags"
+  onClick={[Function]}
+>
+  <div
+    className="MuiBox-root MuiBox-root-7"
+    data-test="table-tag"
+    onClick={[Function]}
+  >
+    one
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-8"
+    data-test="table-tag"
+    onClick={[Function]}
+  >
+    two
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-9"
+    data-test="table-tag"
+    onClick={[Function]}
+  >
+    three
+  </div>
+</div>
+`;

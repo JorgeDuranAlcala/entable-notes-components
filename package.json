@@ -1,0 +1,83 @@
+{
+  "name": "react-typescript",
+  "version": "1.0.0",
+  "description": "React and TypeScript example starter project",
+  "keywords": [
+    "typescript",
+    "react",
+    "starter"
+  ],
+  "main": "src/index.tsx",
+  "dependencies": {
+    "@material-ui/core": "^5.0.0-alpha.4",
+    "@material-ui/icons": "^5.0.0-alpha.4",
+    "@material-ui/lab": "^5.0.0-alpha.3",
+    "@material-ui/pickers": "^4.0.0-alpha.10",
+    "@types/react-router-dom": "^5.1.5",
+    "autosuggest-highlight": "^3.1.1",
+    "material-ui-popup-state": "^1.6.1",
+    "overlayscrollbars": "^1.12.0",
+    "overlayscrollbars-react": "^0.2.2",
+    "paging-algorithm": "^1.0.1",
+    "react": "^16.13.1",
+    "react-dom": "16.13.1",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.1"
+  },
+  "devDependencies": {
+    "@types/autosuggest-highlight": "^3.1.0",
+    "@types/material-ui": "^0.21.7",
+    "@types/overlayscrollbars": "^1.12.0",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "16.9.6",
+    "cross-env": "^7.0.2",
+    "docz": "^2.3.2-alpha.0",
+    "docz-core": "^2.3.2-alpha.0",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^1.2.0",
+    "docz-utils": "2.3.0",
+    "gatsby-plugin-alias-imports": "^1.0.5",
+    "gatsby-plugin-module-resolver": "^1.0.3",
+    "gatsby-plugin-sass": "^2.3.13",
+    "node-sass": "4.13.1",
+    "prettier": "1.18.2",
+    "purgecss": "2.2.1",
+    "react-app-rewired": "2.1.5",
+    "react-styleguidist": "^11.0.8",
+    "tailwindcss": "1.4.6",
+    "tailwindcss-dir": "4.0.0",
+    "typeface-roboto": "0.0.75",
+    "typescript": "3.9.7"
+  },
+  "scripts": {
+    "start": "yarn run tailwind && yarn stubby & cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
+    "docz": "docz dev",
+    "docz:build": "docz build",
+    "docz:serve": "docz build && docz serve",
+    "build": "yarn run tailwind && yarn run purge-tailwind && cross-env GENERATE_SOURCEMAP=false react-scripts build  && yarn analyze",
+    "tailwind": "tailwind build ./src/styles/tailwind-config.css -c ./tailwind.config.js -o ./src/styles/tailwind.css",
+    "purge-tailwind": "node ./purge-tailwindcss.js",
+    "start:gmapson": "REACT_APP_NOMOCKS=true yarn start",
+    "docs": "npx styleguidist server",
+    "test": "react-scripts test --testPathIgnorePatterns=src/vendors/*",
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "stubby": "stubby --watch --data ./src/mocks/stubby.json"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

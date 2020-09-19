@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "isolatedModules": false,
+    "paths": {
+      "@apps": ["src/apps/*"],
+      "@components": ["src/components/*"],
+      "@config": ["src/config/*"],
+      "@context": ["src/context/*"],
+      "@endpoints": ["src/endpoints/*"],
+      "@helpers": ["src/helpers/*"],
+      "@i18n": ["src/i18n/*"],
+      "@layouts": ["src/layouts"],
+      "@mocks": ["src/mocks/*"],
+      "@pages": ["src/pages/*"],
+      "@settings": ["src/settings/*"],
+      "@theme": ["src/theme/*"],
+      "@types": ["src/types/*"],
+    }
+  }
+}

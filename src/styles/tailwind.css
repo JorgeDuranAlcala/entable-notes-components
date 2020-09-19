@@ -1,0 +1,49 @@
+/*
+@tailwind base;
+
+@tailwind components;
+*/
+
+.rounded {
+  border-radius: 0.25rem
+}
+
+.border {
+  border-width: 1px
+}
+
+.flex {
+  display: flex
+}
+
+.inline-flex {
+  display: inline-flex
+}
+
+.hidden {
+  display: none
+}
+
+.items-center {
+  align-items: center
+}
+
+.justify-center {
+  justify-content: center
+}
+
+.pl-24 {
+  padding-left: 6rem
+}
+
+.pl-40 {
+  padding-left: 10rem
+}
+
+.pl-56 {
+  padding-left: 14rem
+}
+
+.relative {
+  position: relative
+}

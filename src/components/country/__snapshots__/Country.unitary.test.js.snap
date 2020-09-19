@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Country | Non-editable | Default Country Code matches snapshot 1`] = `
+<span
+  className="CountryCell-isoRoot-1"
+  data-test="table-country"
+  onClick={[Function]}
+  style={
+    Object {
+      "fontSize": "1rem",
+    }
+  }
+>
+  <span
+    data-test="table-country-flag"
+  >
+    🇺🇸
+  </span>
+  <span
+    className="CountryCell-isoVal-2"
+    data-test="table-country-code"
+  >
+    US
+  </span>
+</span>
+`;
+
+exports[`Country | Non-editable | Invalid Country Code matches snapshot 1`] = `
+<span
+  className="CountryCell-isoRoot-1"
+  data-test="table-country"
+  onClick={[Function]}
+  style={
+    Object {
+      "fontSize": "1rem",
+    }
+  }
+>
+  <span
+    data-test="table-country-flag"
+  >
+    🇺🇸
+  </span>
+  <span
+    className="CountryCell-isoVal-2"
+    data-test="table-country-code"
+  >
+    US
+  </span>
+</span>
+`;
+
+exports[`Country | Non-editable | Valid Country Code matches snapshot 1`] = `
+<span
+  className="CountryCell-isoRoot-1"
+  data-test="table-country"
+  onClick={[Function]}
+  style={
+    Object {
+      "fontSize": "1rem",
+    }
+  }
+>
+  <span
+    data-test="table-country-flag"
+  >
+    🇫🇷
+  </span>
+  <span
+    className="CountryCell-isoVal-2"
+    data-test="table-country-code"
+  >
+    FR
+  </span>
+</span>
+`;

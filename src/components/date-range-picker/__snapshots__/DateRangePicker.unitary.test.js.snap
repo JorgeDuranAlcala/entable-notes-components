@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangePicker matches snapshot 1`] = `
+<div
+  className="table-daterangepicker"
+>
+  <div
+    className="MuiFormControl-root MuiTextField-root"
+    data-test="table-daterangepicker"
+    onClick={[Function]}
+    onKeyPress={[Function]}
+    open={true}
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+      onClick={[Function]}
+    >
+      <input
+        aria-invalid={false}
+        autoFocus={false}
+        className="MuiInputBase-input MuiInput-input"
+        disabled={false}
+        mask={null}
+        onAnimationStart={[Function]}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        pipe={null}
+        readOnly={true}
+        required={false}
+        type="text"
+        value="Aug 08 - Aug 23"
+      />
+    </div>
+    
+  </div>
+</div>
+`;

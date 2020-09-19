@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressBar | Non-editable matches snapshot 1`] = `
+<div
+  className="makeStyles-root-1"
+  data-test="table-progressbar"
+  title="63%"
+>
+  <div
+    aria-valuenow={63}
+    className="MuiLinearProgress-root MuiLinearProgress-colorPrimary makeStyles-bar-2 MuiLinearProgress-determinate"
+    role="progressbar"
+  >
+    <div
+      className="MuiLinearProgress-bar MuiLinearProgress-barColorPrimary MuiLinearProgress-bar1Determinate"
+      style={
+        Object {
+          "transform": "translateX(-37%)",
+        }
+      }
+    />
+  </div>
+</div>
+`;

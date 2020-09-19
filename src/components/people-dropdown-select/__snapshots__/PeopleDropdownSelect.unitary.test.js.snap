@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PeopleDropdownSelect Component | No max prop matches snapshot 1`] = `
+Array [
+  " ",
+  <div
+    className="table-people"
+    data-test="table-peopledropdownselect"
+    onClick={[Function]}
+    onTouchEnd={[Function]}
+  >
+    <div
+      aria-expanded={true}
+      aria-owns="checkboxes-tags-demo-popup"
+      className="MuiAutocomplete-root MuiAutocomplete-hasClearIcon MuiAutocomplete-hasPopupIcon"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      role="combobox"
+      style={
+        Object {
+          "width": 250,
+        }
+      }
+    >
+      <div
+        className="selected undefined"
+      >
+        <div
+          className="AvatarGroup-root-196"
+          data-test="table-avatargroup"
+          style={
+            Object {
+              "zIndex": 0,
+            }
+          }
+        >
+          <span
+            className="Avatar-root-198 Avatar-noClass-202 Avatar-circle-200 Avatar-md-209"
+            data-test="table-avatar"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "0",
+                "color": "#fff",
+                "marginLeft": -4,
+                "zIndex": 4,
+              }
+            }
+          >
+            JR
+          </span>
+          <span
+            className="Avatar-root-198 Avatar-noClass-202 Avatar-circle-200 Avatar-md-209 Avatar-colorDefault-199"
+            data-test="table-avatar"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#707264",
+                "color": "#fff",
+                "marginLeft": -4,
+                "zIndex": 3,
+              }
+            }
+          >
+            DF
+          </span>
+          <span
+            className="Avatar-root-198 Avatar-noClass-202 Avatar-circle-200 Avatar-md-209"
+            data-test="table-avatar"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "0",
+                "color": "#fff",
+                "marginLeft": -4,
+                "zIndex": 2,
+              }
+            }
+          >
+            PH
+          </span>
+          <span
+            className="Avatar-root-198 Avatar-noClass-202 Avatar-circle-200 Avatar-md-209"
+            data-test="table-avatar"
+            onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": "#957566",
+                "color": "#fff",
+                "marginLeft": -4,
+                "zIndex": 1,
+              }
+            }
+          >
+            SI
+          </span>
+        </div>
+      </div>
+      <div
+        className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+      >
+        <div
+          className="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-adornedStart MuiOutlinedInput-adornedStart MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd"
+          onClick={[Function]}
+        >
+          <div
+            className="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
+            data-tag-index={0}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <span
+              className="MuiChip-label"
+            >
+              Jerko Raminoff
+            </span>
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root MuiChip-deleteIcon"
+              focusable="false"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
+            data-tag-index={1}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <span
+              className="MuiChip-label"
+            >
+              Dean Fremington
+            </span>
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root MuiChip-deleteIcon"
+              focusable="false"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
+            data-tag-index={2}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <span
+              className="MuiChip-label"
+            >
+              Paula Howard
+            </span>
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root MuiChip-deleteIcon"
+              focusable="false"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+              />
+            </svg>
+          </div>
+          <div
+            className="MuiChip-root MuiAutocomplete-tag MuiChip-deletable"
+            data-tag-index={3}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            role="button"
+            tabIndex={-1}
+          >
+            <span
+              className="MuiChip-label"
+            >
+              Sarah Ilighis
+            </span>
+            <svg
+              aria-hidden="true"
+              className="MuiSvgIcon-root MuiChip-deleteIcon"
+              focusable="false"
+              onClick={[Function]}
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"
+              />
+            </svg>
+          </div>
+          <input
+            aria-activedescendant=""
+            aria-autocomplete="list"
+            aria-controls="checkboxes-tags-demo-popup"
+            aria-invalid={false}
+            autoCapitalize="none"
+            autoComplete="off"
+            autoFocus={false}
+            className="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedStart MuiOutlinedInput-inputAdornedStart MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd"
+            disabled={false}
+            id="checkboxes-tags-demo"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            required={false}
+            spellCheck="false"
+            type="text"
+            value=""
+          />
+          <div
+            className="MuiAutocomplete-endAdornment"
+          >
+            <button
+              aria-label="Clear"
+              className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={-1}
+              title="Clear"
+              type="button"
+            >
+              <span
+                className="MuiIconButton-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                  />
+                </svg>
+              </span>
+            </button>
+            <button
+              aria-label="Close"
+              className="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-popupIndicator MuiAutocomplete-popupIndicatorOpen"
+              disabled={false}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onDragLeave={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              onMouseDown={[Function]}
+              onMouseLeave={[Function]}
+              onMouseUp={[Function]}
+              onTouchEnd={[Function]}
+              onTouchMove={[Function]}
+              onTouchStart={[Function]}
+              tabIndex={-1}
+              title="Close"
+              type="button"
+            >
+              <span
+                className="MuiIconButton-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M7 10l5 5 5-5z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <fieldset
+            aria-hidden={true}
+            className="PrivateNotchedOutline-root-301 MuiOutlinedInput-notchedOutline"
+            style={
+              Object {
+                "paddingLeft": 8,
+              }
+            }
+          >
+            <legend
+              className="PrivateNotchedOutline-legend-302"
+              style={
+                Object {
+                  "width": 0.01,
+                }
+              }
+            >
+              <span
+                dangerouslySetInnerHTML={
+                  Object {
+                    "__html": "&#8203;",
+                  }
+                }
+              />
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

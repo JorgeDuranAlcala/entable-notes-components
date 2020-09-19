@@ -1,0 +1,31 @@
+.table-country.editable {
+    width: 100%;
+    max-width: 50px;
+    overflow: hidden;
+
+    > span {
+        position: absolute;
+        margin-top: 2px;
+    }
+  
+    div, input, fieldset {
+      padding: 0!important;
+    }
+
+    .MuiChip-root, .MuiAutocomplete-clearIndicator, .MuiAutocomplete-popupIndicator, .MuiFormLabel-root {
+      display: none!important;
+    }
+      
+    .MuiAutocomplete-root {
+      width: inherit!important;
+    }
+  
+    .MuiFormControl-root * {
+      border: 0px!important;
+      height: 100%;
+    }
+  
+    .MuiAutocomplete-hasPopupIcon {
+      width: 270px!important
+    }
+}

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar Component | Invalid Image matches snapshot 1`] = `
+Array [
+  " ",
+  <span
+    className="Avatar-root-43 Avatar-border-46 Avatar-round-48 Avatar-xl-56"
+    data-test="table-avatar"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#707264",
+        "color": "#fff",
+      }
+    }
+  >
+    NS
+  </span>,
+]
+`;
+
+exports[`Avatar Component | No Image matches snapshot 1`] = `
+Array [
+  " ",
+  <span
+    className="Avatar-root-80 Avatar-noClass-84 Avatar-circle-82 Avatar-md-91 Avatar-colorDefault-81"
+    data-test="table-avatar"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    <svg
+      aria-hidden="true"
+      className="MuiSvgIcon-root Avatar-fallback-88"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+      />
+    </svg>
+  </span>,
+]
+`;
+
+exports[`Avatar Component | Valid Image matches snapshot 1`] = `
+Array [
+  " ",
+  <span
+    className="Avatar-root-29 Avatar-noClass-33 Avatar-square-35 Avatar-xs-38"
+    data-test="table-avatar"
+    onClick={[Function]}
+    style={
+      Object {
+        "backgroundColor": "#8a564e",
+        "color": "#fff",
+      }
+    }
+  >
+    GW
+  </span>,
+]
+`;

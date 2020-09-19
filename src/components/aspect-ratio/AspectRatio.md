@@ -1,0 +1,7 @@
+```jsx
+  <AspectRatio ratio="300/165" style={{ maxWidth: '300px', margin: 'auto' }}>
+    <img
+      src="https://upload.wikimedia.org/wikipedia/en/7/7d/Minions_characters.png"
+      alt="demo"
+    />
+  </AspectRatio>

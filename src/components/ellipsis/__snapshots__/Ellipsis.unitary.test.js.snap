@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Ellipsis | Non-editable matches snapshot 1`] = `
+<div
+  className="table-ellipsis-container"
+>
+  <div
+    className="MuiFormControl-root MuiTextField-root table-ellipsis noneditable"
+    data-test="table-ellipsis"
+    title="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur"
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+      onClick={[Function]}
+    >
+      <input
+        aria-invalid={false}
+        autoFocus={false}
+        className="MuiInputBase-input MuiInput-input"
+        disabled={false}
+        id="standard-multiline-flexible"
+        onAnimationStart={[Function]}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={false}
+        type="text"
+        value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarGroup Component | No max prop matches snapshot 1`] = `
+Array [
+  " ",
+  <div
+    className="AvatarGroup-root-33"
+    data-test="table-avatargroup"
+  >
+    <span
+      className="Avatar-root-35 Avatar-noClass-39 Avatar-circle-37 Avatar-md-46"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#707264",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 5,
+        }
+      }
+    >
+      NS
+    </span>
+    <span
+      className="Avatar-root-35 Avatar-noClass-39 Avatar-circle-37 Avatar-md-46 Avatar-colorDefault-36"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#512c66",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 4,
+        }
+      }
+    >
+      JS
+    </span>
+    <span
+      className="Avatar-root-35 Avatar-noClass-39 Avatar-circle-37 Avatar-md-46 Avatar-colorDefault-36"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#707264",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 3,
+        }
+      }
+    >
+      NS
+    </span>
+    <span
+      className="Avatar-root-35 Avatar-noClass-39 Avatar-circle-37 Avatar-md-46 Avatar-colorDefault-36"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#957566",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 2,
+        }
+      }
+    >
+      SS
+    </span>
+    <span
+      className="Avatar-root-35 Avatar-noClass-39 Avatar-circle-37 Avatar-md-46 Avatar-colorDefault-36"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "0",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 1,
+        }
+      }
+    >
+      ts
+    </span>
+  </div>,
+]
+`;
+
+exports[`AvatarGroup Component | With max prop matches snapshot 1`] = `
+Array [
+  " ",
+  <div
+    className="AvatarGroup-root-49"
+    data-test="table-avatargroup"
+  >
+    <span
+      className="Avatar-root-51 Avatar-noClass-55 Avatar-circle-53 Avatar-md-62"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#707264",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 5,
+        }
+      }
+    >
+      NS
+    </span>
+    <span
+      className="Avatar-root-51 Avatar-noClass-55 Avatar-circle-53 Avatar-md-62 Avatar-colorDefault-52"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#512c66",
+          "color": "#fff",
+          "marginLeft": -12,
+          "zIndex": 4,
+        }
+      }
+    >
+      JS
+    </span>
+    <span
+      className="Avatar-root-51 Avatar-noClass-55 Avatar-circle-53 Avatar-md-62 Avatar-colorDefault-52 AvatarGroup-avatar-50"
+      data-test="table-avatar"
+      onClick={[Function]}
+      style={
+        Object {
+          "marginLeft": -12,
+          "zIndex": 0,
+        }
+      }
+    >
+      +3
+    </span>
+  </div>,
+]
+`;

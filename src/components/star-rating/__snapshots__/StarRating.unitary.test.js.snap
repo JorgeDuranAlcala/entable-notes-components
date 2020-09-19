@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StarRating | Non-editable matches snapshot 1`] = `
+<span
+  aria-label={null}
+  className="MuiRating-root"
+  data-test="table-starrating"
+  onMouseLeave={[Function]}
+  onMouseMove={[Function]}
+  role={null}
+>
+  <label
+    className="MuiRating-label"
+    htmlFor="Rating-1"
+  >
+    <span
+      className="MuiRating-icon MuiRating-iconFilled"
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+    </span>
+    <span
+      className="MuiRating-visuallyhidden"
+    >
+      1 Star
+    </span>
+  </label>
+  <input
+    checked={false}
+    className="MuiRating-visuallyhidden"
+    disabled={false}
+    id="Rating-1"
+    name="Rating"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    type="radio"
+    value={1}
+  />
+  <label
+    className="MuiRating-label"
+    htmlFor="Rating-2"
+  >
+    <span
+      className="MuiRating-icon MuiRating-iconFilled"
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+    </span>
+    <span
+      className="MuiRating-visuallyhidden"
+    >
+      2 Stars
+    </span>
+  </label>
+  <input
+    checked={false}
+    className="MuiRating-visuallyhidden"
+    disabled={false}
+    id="Rating-2"
+    name="Rating"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    type="radio"
+    value={2}
+  />
+  <label
+    className="MuiRating-label"
+    htmlFor="Rating-3"
+  >
+    <span
+      className="MuiRating-icon MuiRating-iconFilled"
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+    </span>
+    <span
+      className="MuiRating-visuallyhidden"
+    >
+      3 Stars
+    </span>
+  </label>
+  <input
+    checked={true}
+    className="MuiRating-visuallyhidden"
+    disabled={false}
+    id="Rating-3"
+    name="Rating"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    type="radio"
+    value={3}
+  />
+  <label
+    className="MuiRating-label"
+    htmlFor="Rating-4"
+  >
+    <span
+      className="MuiRating-icon MuiRating-iconEmpty"
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+    </span>
+    <span
+      className="MuiRating-visuallyhidden"
+    >
+      4 Stars
+    </span>
+  </label>
+  <input
+    checked={false}
+    className="MuiRating-visuallyhidden"
+    disabled={false}
+    id="Rating-4"
+    name="Rating"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    type="radio"
+    value={4}
+  />
+  <label
+    className="MuiRating-label"
+    htmlFor="Rating-5"
+  >
+    <span
+      className="MuiRating-icon MuiRating-iconEmpty"
+    >
+      <svg
+        aria-hidden="true"
+        className="MuiSvgIcon-root MuiSvgIcon-fontSizeInherit"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+        />
+      </svg>
+    </span>
+    <span
+      className="MuiRating-visuallyhidden"
+    >
+      5 Stars
+    </span>
+  </label>
+  <input
+    checked={false}
+    className="MuiRating-visuallyhidden"
+    disabled={false}
+    id="Rating-5"
+    name="Rating"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    type="radio"
+    value={5}
+  />
+</span>
+`;
