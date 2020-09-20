@@ -1,17 +1,18 @@
-import React from 'react'
-import { GlobalContext } from 'context'
+import React, { useContext } from 'react'
 import renderer from 'react-test-renderer'
 import { mount, configure } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import Avatar from './Avatar'
+
 import { ThemeContext, ThemeProvider } from 'theme'
 
 configure({ adapter: new Adapter() })
 
-const themeZoom = GlobalContext.themeZoom;
-const setThemeZoom = () => true
-
 describe('Avatar Component | Valid Image', () => {
+
+    const theme = useContext(ThemeContext)
+    const { themeZoom, setThemeZoom } = theme
+
     const component = (
       <ThemeContext.Provider value={{ themeZoom, setThemeZoom }}>
         <ThemeProvider>

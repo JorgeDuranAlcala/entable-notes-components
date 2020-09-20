@@ -11,8 +11,9 @@ import ListItem from '@material-ui/core/ListItem'
 import ProjectIcon from 'components/icons/ProjectIcon'
 import { ListItemText } from '@material-ui/core'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react'
+import { useTheme } from '@material-ui/core/styles'
 import { DARK } from 'theme'
-import { GlobalContext } from 'context'
+import { Palettes } from 'theme/palette'
 import { useHistory } from 'react-router-dom'
 import useStyles from './styles'
 
@@ -23,7 +24,8 @@ const ProjectsNav = (props: any) => {
     const projectsIdByDef = projects?.map((project:any) => project.id) as string[]
     const [expanded, setExpanded] = React.useState<string[]>(projectsIdByDef)
     const [selected, setSelected] = React.useState<string[]>([])
-    const { palette } = GlobalContext
+    const { theme } = useTheme()
+    const { palette } = theme
     const { type } = palette
     const history = useHistory()
 
@@ -92,6 +94,7 @@ const ProjectsNav = (props: any) => {
             <div className={classes.nodeContainer}>
                 <Avatar
                     name={project.name.toUpperCase()}
+                    palette={Palettes.avatar}
                     shape="square"
                 />
                 <div className={classes.information}>

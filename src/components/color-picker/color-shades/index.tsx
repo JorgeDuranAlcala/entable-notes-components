@@ -6,17 +6,17 @@ import styles from './styles'
 import ColorSelected from '../color-selected'
 
 interface IProps extends WithStyles<typeof styles> {
-    shades: string[];
-    colorSelected?: IColor;
-    color?: string;
-    handleClick?: (e: any, color?: string) => void;
+    shades: string[]
+    colorSelected?: IColor
+    color?: string
+    handleClick?: (e: any, color?: string) => void
 }
 
 const ColorChosen = (props:IProps) => {
-    const { classes, color, shades, colorSelected, handleClick, ...rest } = props;
+    const { classes, color, shades, colorSelected, handleClick, ...rest } = props
     
     return (
-        <>
+        <React.Fragment>
             <div className={`${classes.root} overflow-x-scroll whitespace-no-wrap`}  {...rest}>
                 { shades.map(shade => <ColorSelected bg={colorSelected&&colorSelected[shade]} handleValue={handleClick} />)  }
             </div>
@@ -28,7 +28,7 @@ const ColorChosen = (props:IProps) => {
                     Cancel
                 </Button>
             </div>
-        </>
+        </React.Fragment>
     )
 }
 

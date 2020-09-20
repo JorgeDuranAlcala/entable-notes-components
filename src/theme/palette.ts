@@ -1,15 +1,72 @@
 import { grey, red, blue, teal, pink, lightBlue, yellow, orange, green, deepPurple, blueGrey } from '@material-ui/core/colors'
-import { Theme, getContrastText } from '@material-ui/core/styles'
-import { emphasize, darken, lighten  } from '@material-ui/core/styles/colorManipulator'
-import { lightenOrDarkenColor, isLightColor } from 'helpers/color'
-import GlobalContext from 'context/global-context'
-
+import { Theme } from '@material-ui/core/styles'
+import { emphasize } from '@material-ui/core/styles/colorManipulator'
+import { lightenOrDarkenColor, getContrastText } from 'helpers/color'
 import { ThemeZoom, Color, ColorValue, ColorObj } from './index'
+
 
 export const WHITE = '#fff'
 export const BLACK = '#000'
 export const DARK = 'dark'
 export const LIGHT = 'light'
+export const lightDefaults = {
+  // The colors used to style the text.
+  text: {
+    // The most important text.
+    primary: 'rgba(0, 0, 0, 0.87)',
+    // Secondary text.
+    secondary: 'rgba(0, 0, 0, 0.54)',
+    // Disabled text have even lower visual prominence.
+    disabled: 'rgba(0, 0, 0, 0.38)',
+    // Text hints.
+    hint: 'rgba(0, 0, 0, 0.38)',
+  },
+  // The color used to divide different elements.
+  divider: 'rgba(0, 0, 0, 0.12)',
+  // The background colors used to style the surfaces.
+  // Consistency between these values is important.
+  background: {
+    paper: WHITE,
+    default: grey[50],
+  },
+  // The colors used to style the action elements.
+  action: {
+    // The color of an active action like an icon button.
+    active: 'rgba(0, 0, 0, 0.54)',
+    // The color of an hovered action.
+    hover: 'rgba(0, 0, 0, 0.08)',
+    hoverOpacity: 0.08,
+    // The color of a selected action.
+    selected: 'rgba(0, 0, 0, 0.14)',
+    // The color of a disabled action.
+    disabled: 'rgba(0, 0, 0, 0.26)',
+    // The background color of a disabled action.
+    disabledBackground: 'rgba(0, 0, 0, 0.12)',
+  },
+}
+
+export const darkDefaults = {
+  text: {
+    primary: WHITE,
+    secondary: 'rgba(255, 255, 255, 0.7)',
+    disabled: 'rgba(255, 255, 255, 0.5)',
+    hint: 'rgba(255, 255, 255, 0.5)',
+    icon: 'rgba(255, 255, 255, 0.5)',
+  },
+  divider: 'rgba(255, 255, 255, 0.12)',
+  background: {
+    paper: grey[800],
+    default: '#303030',
+  },
+  action: {
+    active: WHITE,
+    hover: 'rgba(255, 255, 255, 0.1)',
+    hoverOpacity: 0.1,
+    selected: 'rgba(255, 255, 255, 0.2)',
+    disabled: 'rgba(255, 255, 255, 0.3)',
+    disabledBackground: 'rgba(255, 255, 255, 0.12)',
+  },
+}
 
 export const themePalette = {
   basil: {
@@ -75,23 +132,7 @@ export const themePalette = {
   },
 }
 // https://www.behance.net/gallery/95862937/Kulturminnefondet-rebranded
-export const pastels=[
-  '#D5C2BE', // mauve - brown
-  '#F4D69D', // yellow
-  '#c9e0e1', // cyan
-  '#c5d8c1', // green
-  '#b590ca', // lavendar
-  '#eef9bf', // lemon green
-  '#ffdcf7', // pink
-  '#F9D9CA', // peach
-  '#AEB6BF', // gray
-  '#d4d6c8',
-  '#BDC2BB',
-  '#F0E4D4',
-  '#AFAFC7',
-  '#EEBAB2',
-  '#F5F3E7'
-]
+
 
 export enum PaletteType  {
   pastel = 'pastel',
@@ -117,12 +158,13 @@ export  const Colors = {
 export enum Palettes  {
   labels = PaletteType.pastel,
   status = PaletteType.dark,
-  projects = PaletteType.medium,
-  avatar = PaletteType.all,
+  project = PaletteType.dark,
+  avatar = PaletteType.pastel,
   priority = PaletteType.medium,
   otherLight = PaletteType.pastel,
   otherDark = PaletteType.dark,
-  otherMedium = PaletteType.medium
+  otherMedium = PaletteType.medium,
+  otherAll = PaletteType.all
 }
 
 export const PALETTE_PASTELS = ['100', '200', 'A100']
@@ -131,14 +173,17 @@ export const PALETTE_DARK = ['500', '600', '700', '800', '900']
 export const PALETTE_ALL = [...PALETTE_PASTELS, ...PALETTE_MEDIUM, ...PALETTE_DARK]
 
 export type PaletteColor = {
+  clr: string
   bg: string
   text: string
 }
 
-export function getPalettesColors(pal: Palettes, all:boolean = true) {
+export function getPaletteColors(pal: Palettes, all: boolean=false, color?: string) {
   const colors:PaletteColor[] = []
+  const colorKeys = color ? [color] : Object.keys(Colors)
   let shades: any[]
-  
+  const allShades = all || !!color
+
   switch (Palettes[pal]) {
     case PaletteType.dark:
       shades = PALETTE_DARK
@@ -150,19 +195,20 @@ export function getPalettesColors(pal: Palettes, all:boolean = true) {
       shades = PALETTE_PASTELS
       break
     case PaletteType.all:
+    default:
       shades = PALETTE_ALL
   }
 
-  if (!all) {
-    // @ts-ignore
+  if (!allShades) {
     shades.length = 1
   }
-
-  Object.keys(Colors).forEach(color => {
+  colorKeys.forEach(clr => {
     shades.forEach(shade => {
-      const bg = color[shade]
+      // @ts-ignore
+      const bg = Colors[clr][shade] as string
       const text = getContrastText(bg)
       colors.push({
+        clr: clr,
         bg,
         text
       })
@@ -171,58 +217,12 @@ export function getPalettesColors(pal: Palettes, all:boolean = true) {
   return colors
 }
 
-export const projectColors = {
-  green:'#b8df85', // apple green
-  blue:'#81ACE5',  //   sky blue
-  purple:'#AD7CEA', // purple
-  gray: '#C2C2C2', // gray
-  teal: teal[200],
-  pink: pink[200],
-  yellow: yellow[200],
-  orange: orange[200]
+export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {  
+  const colors = getPaletteColors(pal,true)
+  const idx = hash % colors.length
+  return colors[idx]
 }
 
-export const darkPastels = pastels.map(pastel=>lightenOrDarkenColor(pastel,100))
-
-export const paletteColors = {
-  default:[
-    '#b8df85', // apple green
-    '#81ACE5',  //   sky blue
-    '#AD7CEA', // purple
-    '#C2C2C2', // gray
-    teal[200],
-    pink[200],
-    yellow[200],
-    orange[200]
-  ]
-}
-
-export function getHashColor(hash: number, _pastel: boolean=true) {
-  const { palette} = GlobalContext
-  const idx = hash % pastels.length
-
-  const color = (palette.type === DARK) ? pastels[idx] : darkPastels[idx]
-  return color
-}
-/* 
-export const red =  "#ef5350" // 400
-export const pink = "#f8bbd0"
-export const material = {
-  "red": {
-    "lightest": "#ffcdd2",
-    "lighter": '#ef9a9a',
-    "light": red, // 400
-    "main": lightenOrDarkenColor(red, 50), // 500
-    "dark": lightenOrDarkenColor(red, 75) // 700
-  },
-  "pink": {
-    "lightest": lightenOrDarkenColor(pink, -50),
-    "lighter": pink,
-    "light": lightenOrDarkenColor(pink, 50),
-    "main": "#f48fb1",
-    "dark": "#f06292"
-  }
-} */
 function getColorObj(color: any, label:string, value: number = 600, offset:number=300): ColorValue {
   const light = color[value - offset]
           ? color[value - offset]

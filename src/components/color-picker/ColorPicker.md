@@ -1,7 +1,0 @@
-Color Picker
-
-```jsx 
-
-    <ColorPicker/>
-
-```

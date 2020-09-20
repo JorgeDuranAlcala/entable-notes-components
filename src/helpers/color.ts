@@ -1,28 +1,110 @@
-export interface IColor {
-    '50': string
-    '100': string
-    '200': string
-    '300': string
-    '400': string
-    '500': string
-    '600': string
-    '700': string
-    '800': string
-    '900': string
-    'A100':string 
-    'A200':string 
-    'A400':string 
-    'A700':string 
-    [x: string]: string
-}
 
-export const getAllColors = async () => {
-    return await import("@material-ui/core/colors")
-}
+export const DARK = '#000'
+export const WHITE = '#fff'
+export const logWarnings = true
+export const CONTRAST_TRESHOLD = 3
 
-export const formatColorsToAnArray = (data: any) => {
-    const colors = Object.values(data) as any[]
-    return colors.filter(color => color.hasOwnProperty('50'))
+export function decomposeColor(color: string): {type: string, values: number[]} {
+    if (color.charAt(0) === '#') {
+      return decomposeColor(convertHexToRGB(color));
+    }
+    const logWarnings = true
+    const marker = color.indexOf('(');
+    const type = color.substring(0, marker);
+    const strValues = color.substring(marker + 1, color.length - 1).split(',');
+    const values = strValues.map(value => parseFloat(value));
+  
+    if (logWarnings) {
+      if (['rgb', 'rgba', 'hsl', 'hsla'].indexOf(type) === -1) {
+        throw new Error(
+          [
+            `Material-UI: unsupported \`${color}\` color.`,
+            'We support the following formats: #nnn, #nnnnnn, rgb(), rgba(), hsl(), hsla().',
+          ].join('\n'),
+        );
+      }
+    }
+  
+    return { type, values };
+  }
+  
+  export function convertHexToRGB(color: string) {
+    color = color.substr(1);
+  
+    const re = new RegExp(`.{1,${color.length / 3}}`, 'g');
+    let colors = color.match(re);
+  
+    if (colors && colors[0].length === 1) {
+      colors = colors.map(n => n + n);
+    }
+  
+    return colors ? `rgb(${colors.map(n => parseInt(n, 16)).join(', ')})` : '';
+  }
+  
+  export function getLuminance(color: string) {
+    logWarnings && console.warn(color, `Material-UI: missing color argument in getLuminance(${color}).`);
+  
+    const decomposedColor = decomposeColor(color);
+  
+    if (decomposedColor.type.indexOf('rgb') !== -1) {
+      const rgb = decomposedColor.values.map((val: number) => {
+        val /= 255; // normalized
+        return val <= 0.03928 ? val / 12.92 : ((val + 0.055) / 1.055) ** 2.4;
+      });
+      // Truncate at 3 digits
+      return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3));
+    }
+  
+    // else if (decomposedColor.type.indexOf('hsl') !== -1)
+    return decomposedColor.values[2] / 100;
+  }
+  
+  export function getContrastRatio(foreground: string, background: string) {
+    if(logWarnings) {
+      console.warn(
+        foreground,
+        `Material-UI: missing foreground argument in getContrastRatio(${foreground}, ${background}).`,
+      );
+      console.warn(
+        background,
+        `Material-UI: missing background argument in getContrastRatio(${foreground}, ${background}).`,
+      );
+    }
+  
+    const lumA = getLuminance(foreground);
+    const lumB = getLuminance(background);
+    return (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
+  }
+  
+  export function getContrastText(
+    background: string,
+    contrastThreshold = CONTRAST_TRESHOLD,
+    warnings = true
+  ) {
+  
+    logWarnings && warnings &&  console.warn(
+      background,
+      `Material-UI: missing background argument in getContrastText(${background}).`,
+    );
+  
+    const contrastText =
+      getContrastRatio(background, DARK) >= contrastThreshold
+        ? DARK
+        : WHITE
+  
+    if (logWarnings) {
+      const contrast = getContrastRatio(background, contrastText);
+      console.warn(
+        contrast >= contrastThreshold,
+        [
+          `Material-UI: the contrast ratio of ${contrast}:1 for ${contrastText} on ${background}`,
+          'falls below the WACG recommended absolute minimum contrast ratio of 3:1.',
+          'https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast',
+        ].join('\n'),
+      );
+    }
+  
+    return contrastText;
 }
   
 // https://awik.io/determine-color-bright-dark-using-javascript/

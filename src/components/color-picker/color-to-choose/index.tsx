@@ -1,16 +1,16 @@
 import React from 'react'
 import { withStyles, WithStyles } from '@material-ui/core'
-import styles from "./styles";
-import { IColor } from 'helpers/color';
+import styles from "./styles"
+import { IColor } from 'helpers/color'
 
 interface IProps extends WithStyles<typeof styles> {
-    bg?: string;
-    color?: IColor;
-    handleClick?: (e: any, color: IColor, colorSelected?: string) => void;
+    bg?: string
+    color?: string
+    handleClick?: (e: any, color: string, colorSelected?: string) => void
 }
 
 const ColorToChoose = (props:IProps) => {
-    const { classes, color, bg, handleClick, ...rest } = props;
+    const { classes, color, bg, handleClick, ...rest } = props
 
     return <div 
                 className={`${classes.root} cursor-pointer inline-block`} 
