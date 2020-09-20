@@ -1,29 +1,29 @@
 export interface IColor {
-    '50': string;
-    '100': string;
-    '200': string;
-    '300': string;
-    '400': string;
-    '500': string;
-    '600': string;
-    '700': string;
-    '800': string;
-    '900': string;
-    'A100':string; 
-    'A200':string; 
-    'A400':string; 
-    'A700':string; 
-    [x: string]: string;
+    '50': string
+    '100': string
+    '200': string
+    '300': string
+    '400': string
+    '500': string
+    '600': string
+    '700': string
+    '800': string
+    '900': string
+    'A100':string 
+    'A200':string 
+    'A400':string 
+    'A700':string 
+    [x: string]: string
 }
 
 export const getAllColors = async () => {
-    return await import("@material-ui/core/colors");
-  };
+    return await import("@material-ui/core/colors")
+}
 
 export const formatColorsToAnArray = (data: any) => {
     const colors = Object.values(data) as any[]
     return colors.filter(color => color.hasOwnProperty('50'))
-};
+}
   
 // https://awik.io/determine-color-bright-dark-using-javascript/
 export function isLightColor(color:any) {

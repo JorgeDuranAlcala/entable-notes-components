@@ -1,5 +1,5 @@
 {
-  "name": "react-typescript",
+  "name": "entable-components",
   "version": "1.0.0",
   "description": "React and TypeScript example starter project",
   "keywords": [
@@ -23,7 +23,8 @@
     "react-dom": "16.13.1",
     "react-router-config": "^5.1.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "react-select": "^3.1.0"
   },
   "devDependencies": {
     "@types/autosuggest-highlight": "^3.1.0",
@@ -52,10 +53,10 @@
   },
   "scripts": {
     "start": "yarn run tailwind && yarn stubby & cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
-    "docz": "docz dev",
+    "docz": "yarn run tailwind && docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "build": "yarn run tailwind && yarn run purge-tailwind && cross-env GENERATE_SOURCEMAP=false react-scripts build  && yarn analyze",
+    "build": "yarn run tailwind && yarn run purge-tailwind && yarn postinstall && cross-env GENERATE_SOURCEMAP=false react-scripts build  && yarn analyze",
     "tailwind": "tailwind build ./src/styles/tailwind-config.css -c ./tailwind.config.js -o ./src/styles/tailwind.css",
     "purge-tailwind": "node ./purge-tailwindcss.js",
     "start:gmapson": "REACT_APP_NOMOCKS=true yarn start",
@@ -63,7 +64,8 @@
     "test": "react-scripts test --testPathIgnorePatterns=src/vendors/*",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "stubby": "stubby --watch --data ./src/mocks/stubby.json"
+    "stubby": "stubby --watch --data ./src/mocks/stubby.json",
+    "postinstall": "node-prune"
   },
   "eslintConfig": {
     "extends": "react-app"

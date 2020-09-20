@@ -1,0 +1,80 @@
+---
+name: ChipSelect
+route: /chip-select
+---
+import { Playground } from 'docz'
+import ChipSelect from './ChipSelect'
+
+<Playground>
+  {() => {
+	const [options, setOptions] = React.useState([
+		{
+			id: '26022e4129ad3a5sc28b36cd',
+			label: 'High Priority',
+			bg: '#9fa8da',
+			text: '#000'
+		},
+		{
+			id: '56027e4119ad3a5dc28b36cd',
+			label: 'Design',
+			bg: '#90caf9',
+			text: '#000'
+		},
+		{
+			id: '5640635e19ad3a5dc21416b2',
+			label: 'App',
+			bg: '#80cbc4',
+			text: '#000'
+		},
+		{
+			id: '6540635g19ad3s5dc31412b2',
+			label: 'Feature',
+			bg: '#ffab91',
+			text: '#000'
+		}
+	])
+		
+	const [values, setValues] = React.useState([
+	{
+		id: '26022e4129ad3a5sc28b36cd',
+		label: 'High Priority',
+		bg: '#9fa8da',
+		text: '#000'
+	},
+	{
+		id: '5640635e19ad3a5dc21416b2',
+		label: 'App',
+		bg: '#80cbc4',
+		text: '#000'
+	}])
+	return (	
+    <ChipSelect
+        className=""
+        value={values}
+        onChange={value => 
+					setValues(value)
+				}
+        placeholder="Select multiple Labels"
+        isMulti
+        textFieldProps={{
+            variant: 'outlined'
+        }}
+        options={options.map(label => ({
+            value: label.id,
+            label: label.label,
+            bg: label.bg,
+			text: label.text
+        }))}
+        onCreateOption={name => {
+						const newLabel = {
+							id: 'id'+Math.floor(Math.random()*100),
+							label: name,
+						}
+						values.push(newLabel)
+						setValues(values)
+						options.push(newLabel)
+						setOptions(options)
+        }}
+	/>)}}
+</Playground>
+

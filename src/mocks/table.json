@@ -1,0 +1,209 @@
+{
+  "id": 1,
+  "editable": true,
+  "people": [
+      ["https://material-ui.com/static/images/avatar/1.jpg",
+        "Remy Sharp"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/2.jpg",
+        "Jerko Raminoff"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/3.jpg",
+        "Cindy Baker"
+      ],
+      [
+        "",
+        "Dean Fremington"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/5.jpg",
+        "Winko Wiskardin"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/4.jpg",
+        "Paula Howard"
+      ],
+      [
+        "",
+        "Paula Escariante"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/6.jpg",
+        "Domino Ramp"
+      ],
+      [
+        "https://material-ui.com/static/images/avatar/7.jpg",
+        "Sarah Ilighis"
+      ]
+    ],
+  "columns": [
+      {
+          "id": "id",
+          "hidden": true
+      },
+      {
+          "id":"name",
+          "label":"Dessert (100g serving)",
+          "type": "ellipsis",
+          "width": 20
+      },
+      {
+          "id":"bar",
+          "label":"Progress",
+          "type": "progressPercentage"
+      },
+      {
+          "id":"calories",
+          "label":"Calories",
+          "type": "number",
+          "width": 7
+      },
+      {
+          "id":"assignments",
+          "label":"Assigned to",
+          "type": "people",
+          "options": [
+          ["https://material-ui.com/static/images/avatar/1.jpg",
+              "Remy Sharp"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/2.jpg",
+              "Jerko Raminoff"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/3.jpg",
+              "Cindy Baker"
+          ],
+          [
+              "",
+              "Dean Fremington"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/5.jpg",
+              "Winko Wiskardin"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/4.jpg",
+              "Paula Howard"
+          ],
+          [
+              "",
+              "Paula Escariante"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/6.jpg",
+              "Domino Ramp"
+          ],
+          [
+              "https://material-ui.com/static/images/avatar/7.jpg",
+              "Sarah Ilighis"
+          ]
+          ]
+      },
+      {
+          "id":"tags",
+          "label":"Tags",
+          "type": "tags"
+      },
+      {
+        "id":"label",
+        "label":"Label",
+        "type": "label"
+    },
+      {
+          "id":"date",
+          "label":"Date",
+          "type": "dateRange"
+      },
+      {
+          "id":"rating",
+          "label":"Rating",
+          "type": "rating",
+          "step": null,
+          "options": [{
+            "icon": "circle",
+            "max": 5
+          }]
+      },
+      { 
+          "id": "location",
+          "label": "Location",
+          "type": "location"
+      },
+      { 
+          "id": "flagWithISO",
+          "label": "Country",
+          "type": "flagWithISO"
+      }
+  ],
+  "totalCount": 4,
+  "rows":[
+      [
+        "1",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur",
+        30,
+        3.7,
+        [
+          ["https://material-ui.com/static/images/avatar/2.jpg","Jerko Raminoff"],
+          ["","Dean Fremington"],
+          ["https://material-ui.com/static/images/avatar/4.jpg","Paula Howard"]
+        ],
+        ["tag1","tag2","tag3","tag4"],
+        "OK",
+        [1596783600000, 1598166000000],
+        1,
+        "Ontario, Canada",
+        "CA"
+      ],  [
+        "2",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur",
+        30,
+        3.7,
+        [
+          ["https://material-ui.com/static/images/avatar/2.jpg","Jerko Raminoff"],
+          ["","Dean Fremington"],
+          ["https://material-ui.com/static/images/avatar/4.jpg","Paula Howard"]
+        ],
+        ["tag1","tag2"],
+        "OK1",
+        [1596783600000, 1598166000000],
+        1,
+        "San Francisco, California, EE. UU.",
+        "US"
+      ],  [
+        "1",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur",
+        50,
+        2.7,
+        [
+          ["https://material-ui.com/static/images/avatar/2.jpg","Jerko Raminoff"],
+          ["","Dean Fremington"],
+          ["https://material-ui.com/static/images/avatar/4.jpg","Paula Howard"]
+        ],
+        ["tag3","tag4"],
+        "OK2",
+        [1596783600000, 1598166000000],
+        1,
+        "Buenos Aires, CABA, Argentina",
+        "AR"
+      ],  [
+        "1",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque quis vestibulum augue, ut ullamcorper velit. Etiam sodales odio ut luctus efficitur",
+        60,
+        5,
+        [
+          ["https://material-ui.com/static/images/avatar/2.jpg","Jerko Raminoff"],
+          ["","Dean Fremington"],
+          ["https://material-ui.com/static/images/avatar/4.jpg","Paula Howard"]
+        ],
+        ["tag1","tag4"],
+        "OK",
+        [1596783600000, 1598166000000],
+        1,
+        "Santiago, Chile",
+        "CL"
+      ]
+    ]
+}

@@ -8,7 +8,7 @@ import ThemeContext from './theme-context'
 export default function ThemeProvider(props: any) {
   const { children } = props
   const { themeZoom } = useContext(ThemeContext)
-  const theme:any = createTheme(themeZoom)
+  const theme: any = createTheme(themeZoom)
   return (<MuiThemeProvider 
             theme={theme}> 
             {children}
