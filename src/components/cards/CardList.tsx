@@ -87,19 +87,15 @@ function CardList(props: ICardList) {
   const grouped = items.length !== 0 && Array.isArray(items[0])
   function handleSearch(str: string) {
     // 
-    debugger
   }
   function handleSearchMode() {
-    debugger
     setSearchMode(!searchMode)
   }
   const placeholder = `Search ${properCase(title)}...`
   const theme = useTheme()
   // @ts-ignore
   const secondColor: string = theme.palette.neutral.secondColor
-  debugger
   const searchCls = searchMode ? "inline-flex w-full" : "inline-flex justify-end" 
-  debugger
   const headerRight =  (
     <div className={searchCls}>
       {search && <Search

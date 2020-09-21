@@ -16,19 +16,15 @@ const ColorPicker = (props:IProps) => {
     const { classes, shadeSelect = true, cb, pal = Palettes.otherAll, ...rest } = props;
     const [colors, setColors] = useState<PaletteColor[]>([])
     const [colorSelected, setColorSelected] = useState<PaletteColor|null>(null)
-    const [color, setColor] = useState<PaletteColor|null>(null)
     const [shades, setShades] = useState<PaletteColor[] | null>(null)
 
     const handleColorSelection = (e: React.MouseEvent<HTMLElement>, selectColor: PaletteColor) => {
-        debugger
         if (selectColor) { 
             if (!shadeSelect ) {
                 cb && cb(selectColor)
                 return
             }
-            debugger
             const colorShades = getPaletteColors(pal, true, selectColor.clr)
-            debugger
             if (colorShades.length === 1) {
                 cb && cb(selectColor)
                 return
@@ -58,7 +54,7 @@ const ColorPicker = (props:IProps) => {
                     colors.map((color, index) => <ColorToChoose key={index} color={color}  handleClick={(e: React.MouseEvent<HTMLElement>)=>handleColorSelection(e,color)} />)
                 }
             </div>
-            {shades && <ColorShades shades={shades} colorSelected={color} color={colorSelected} handleClick={handleShadeSelection} />}
+            {shades && <ColorShades shades={shades}  color={colorSelected} handleClick={handleShadeSelection} />}
         </div>
     )
 }

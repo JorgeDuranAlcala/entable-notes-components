@@ -200,7 +200,7 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
   }
 
   if (!allShades) {
-    shades.splice(shades.length / 2)
+    shades.splice(0, shades.length / 2)
     shades.length=1
   }
   colorKeys.forEach(clr => {
@@ -350,7 +350,6 @@ export function getColors(theme: Theme, props: any)  {
   bgColor = bgColorObj[shade]
   let textColor: string = bgColorObj.color
   const hasBorder = rest.border || rest.borderRight || rest.borderLeft || rest.borderTop || rest.borderBottom
-  debugger
   let borderColor: string = ''
   if (hasBorder && !rest.borderColor) {
     borderColor = shade === 'dark' ? bgColorObj.main
