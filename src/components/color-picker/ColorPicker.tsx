@@ -49,7 +49,7 @@ const ColorPicker = (props:IProps) => {
 
     return (
         <div className={classes.root}>
-            <div className={`grid grid-cols-5 grid-rows-5 ${classes.root}`} { ...rest }>
+            <div className={`grid grid-cols-5 grid-rows-5  gap-1 ${classes.root}`} { ...rest }>
                 {
                     colors.map((color, index) => <ColorToChoose key={index} color={color}  handleClick={(e: React.MouseEvent<HTMLElement>)=>handleColorSelection(e,color)} />)
                 }

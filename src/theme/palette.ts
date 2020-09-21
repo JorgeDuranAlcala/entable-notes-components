@@ -142,7 +142,6 @@ export enum PaletteType  {
 }
 
 export  const Colors = {
-  grey,
   red,
   blue,
   teal,
