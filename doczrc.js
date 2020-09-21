@@ -1,6 +1,6 @@
 export default {
   typescript: true,
-  files: '**/*.{mdx}',
+  files: '**/*.{md,mdx}',
   menu: ['Components'],
   base: 'src',
   port: 4000,

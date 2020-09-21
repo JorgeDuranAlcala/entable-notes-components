@@ -186,21 +186,22 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
 
   switch (Palettes[pal]) {
     case PaletteType.dark:
-      shades = PALETTE_DARK
+      shades = [...PALETTE_DARK]
       break
     case PaletteType.medium:
-      shades = PALETTE_MEDIUM
+      shades = [...PALETTE_MEDIUM]
       break
     case PaletteType.pastel:
-      shades = PALETTE_PASTELS
+      shades = [...PALETTE_PASTELS]
       break
     case PaletteType.all:
     default:
-      shades = PALETTE_ALL
+      shades = [...PALETTE_ALL]
   }
 
   if (!allShades) {
-    shades.length = 1
+    shades.splice(shades.length / 2)
+    shades.length=1
   }
   colorKeys.forEach(clr => {
     shades.forEach(shade => {

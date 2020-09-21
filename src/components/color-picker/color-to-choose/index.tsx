@@ -1,21 +1,21 @@
 import React from 'react'
 import { withStyles, WithStyles } from '@material-ui/core'
+import { PaletteColor } from 'theme/palette'
 import styles from "./styles"
-import { IColor } from 'helpers/color'
+
 
 interface IProps extends WithStyles<typeof styles> {
-    bg?: string
-    color?: string
-    handleClick?: (e: any, color: string, colorSelected?: string) => void
+    color:  PaletteColor
+    handleClick?: (e: any, color: PaletteColor) => void
 }
 
 const ColorToChoose = (props:IProps) => {
-    const { classes, color, bg, handleClick, ...rest } = props
+    const { classes, color, handleClick, ...rest } = props
 
     return <div 
                 className={`${classes.root} cursor-pointer inline-block`} 
-                style={{ background: bg }} 
-                onClick={ (e:any) => handleClick && color && handleClick(e, color, bg) }
+                style={{ background:color.bg }} 
+                onClick={ (e:any) => handleClick && color && handleClick(e, color) }
                 { ...rest }
             >
         </div>

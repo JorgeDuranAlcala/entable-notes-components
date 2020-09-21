@@ -7,32 +7,45 @@ import ColorShades from './color-shades'
 import styles from "./styles"
 
 interface IProps extends WithStyles<typeof styles> {
-    pal: Palettes
+    pal?: Palettes
+    shadeSelect?: boolean
+    cb?: (val: PaletteColor) => void
 }
 
 const ColorPicker = (props:IProps) => {
-    const { classes, pal, ...rest } = props;
+    const { classes, shadeSelect = true, cb, pal = Palettes.otherAll, ...rest } = props;
     const [colors, setColors] = useState<PaletteColor[]>([])
     const [colorSelected, setColorSelected] = useState<PaletteColor|null>(null)
-    const [color, setColor] = useState<PaletteColo|null>(null)
-    const [shade, setShades] = useState<PaletteColor[]>()
+    const [color, setColor] = useState<PaletteColor|null>(null)
+    const [shades, setShades] = useState<PaletteColor[] | null>(null)
 
-    const handleClick = (e: React.MouseEvent<HTMLElement>, color?: string, colorSelected?: string) => {
-        if (color && colorSelected) { 
-            const bgColor = {bg: colorSelected, color: color}
-            setShades(getPaletteColors())
-            setColorSelected(colorSelected)
-            setColor(bgColor)
+    const handleColorSelection = (e: React.MouseEvent<HTMLElement>, selectColor: PaletteColor) => {
+        debugger
+        if (selectColor) { 
+            if (!shadeSelect ) {
+                cb && cb(selectColor)
+                return
+            }
+            debugger
+            const colorShades = getPaletteColors(pal, true, selectColor.clr)
+            debugger
+            if (colorShades.length === 1) {
+                cb && cb(selectColor)
+                return
+            }
+            setShades(colorShades)
+            setColorSelected(selectColor)
         }
     }
 
-    const handleValue = (e: React.MouseEvent<HTMLElement>, color?: string) => {
-        setColorSelected(color)
+    const handleShadeSelection = (e: React.MouseEvent<HTMLElement>, selectColor?: PaletteColor) => {
+        setShades(null)
+        selectColor && cb && cb(selectColor)
     }
 
     useEffect(() => {
         (async () => {
-            const bgColors =  getPaletteColors(pal) 
+            const bgColors =  getPaletteColors(pal, false)
             setColors(bgColors)
         }
         )()
@@ -42,10 +55,10 @@ const ColorPicker = (props:IProps) => {
         <div className={classes.root}>
             <div className={`grid grid-cols-5 grid-rows-5 ${classes.root}`} { ...rest }>
                 {
-                    colors.map((color, index) => <ColorToChoose key={index} bg={color.bg} color={color.text} handleClick={handleClick} />)
+                    colors.map((color, index) => <ColorToChoose key={index} color={color}  handleClick={(e: React.MouseEvent<HTMLElement>)=>handleColorSelection(e,color)} />)
                 }
             </div>
-            {shade && <ColorShades shades={shade} colorSelected={color} color={colorSelected} handleClick={handleValue} />}
+            {shades && <ColorShades shades={shades} colorSelected={color} color={colorSelected} handleClick={handleShadeSelection} />}
         </div>
     )
 }
