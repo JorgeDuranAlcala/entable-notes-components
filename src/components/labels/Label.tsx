@@ -39,7 +39,6 @@ export default function Label(props: LabelProps) {
   const { bgColor, li, color, value, onClick } = props;
   const classes = useStyles();
   const cls = clsx(classes.li, "cursor", "inline-flex", "items-center", "justify-center")
-  debugger
   return li ? (
     <li
       style={{ backgroundColor: bgColor, color }}

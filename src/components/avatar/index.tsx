@@ -2,17 +2,22 @@ import React, { ReactNode } from 'react'
 import { OverridableComponent } from '@material-ui/core/OverridableComponent'
 import { SvgIconTypeMap } from '@material-ui/core/SvgIcon'
 import Avatar, { valToAvatars } from './Avatar'
-import { Status } from 'models/users'
-
+import { Palettes } from 'theme/palette'
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type Shape = 'square' | 'circle' | 'square'
-
+export enum Status  {
+  online = 'Online',
+  away = 'Away',
+  inactive = 'Inactive',
+  busy = 'Busy'
+}
 export interface IAvatar {
   src?: string
   name?: string
   title?: string
   tooltip?: boolean
   online?: Status
+  pal?: Palettes
   lastSeen?: number
   imgProps?: React.ImgHTMLAttributes<HTMLImageElement>
   size?: Size

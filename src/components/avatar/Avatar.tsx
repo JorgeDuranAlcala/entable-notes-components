@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
 
 import Person from '@material-ui/icons/Person'
-import { WithStyles, withStyles, Theme} from '@material-ui/core/styles'
+import { WithStyles, withStyles, Theme } from '@material-ui/core/styles'
 import { hashNumber, getInitials } from 'helpers/misc'
-import GlobalContext from 'context/global-context'
 
-import { LIGHT, WHITE, BLACK, getHashColor } from 'theme/palette'
+import { getHashColor, Palettes } from 'theme/palette'
 import Tooltip from 'components/tooltip'
 import { IAvatar } from './index'
 
@@ -128,6 +127,7 @@ const Avatar = function Avatar(props: AvatarProps) {
     component: Component = 'div',
     imgProps,
     src,
+    pal = Palettes.avatar,
     tooltip = true,
     custom,
     size='md',
@@ -146,7 +146,6 @@ const Avatar = function Avatar(props: AvatarProps) {
     // @ts-ignore
     style.cursor = 'pointer'
   }
-  const { palette } = GlobalContext.theme
   const [loadedSrc, setLoadedSrc] = useState<boolean>(false)
 
   let children = null;
@@ -178,12 +177,12 @@ const Avatar = function Avatar(props: AvatarProps) {
   } else if (name) {
     if (!extra) {
       const number = hashNumber(name)
-      const color = getHashColor(number)
+      const { bg, text } = getHashColor(number, pal)
       children = getInitials(name,initials)
       // @ts-ignore
-      style.backgroundColor = color
+      style.backgroundColor = bg
       // @ts-ignore
-      style.color = palette.type === LIGHT ? WHITE : BLACK
+      style.color = text
     } else {
       children = name
     }

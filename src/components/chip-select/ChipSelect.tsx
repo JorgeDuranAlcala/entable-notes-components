@@ -9,6 +9,8 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Select from 'react-select'
 import Creatable from 'react-select/creatable'
+import ColorPicker from 'components/color-picker'
+import { PaletteColor, Palettes } from 'theme/palette'
 
 import './styles.scss'
 
@@ -39,24 +41,10 @@ const useStyles = makeStyles((theme:Theme) => ({
 			'& $placeholder': {
 				left: 12
 			},
-			'& $valueContainer': {
-				paddingLeft: 12,
-				paddingTop: 12
-			}
 		}
 	},
-	input: {
-		display: 'flex',
-		padding: 0,
-		height: 'auto'
-	},
 	valueContainer: {
-		display: 'flex',
-		flexWrap: 'wrap',
 		flex: 1,
-		alignItems: 'center',
-		paddingBottom: 4,
-		paddingTop: 12,
 		minHeight: 40
 	},
 	chip: {
@@ -118,7 +106,7 @@ function Control(props:any) {
 			InputProps={{
 				inputComponent,
 				inputProps: {
-					className: classes.input,
+					className: 'flex p-0 h-auto',
 					inputRef: props.innerRef,
 					children: props.children,
 					...props.innerProps
@@ -167,8 +155,11 @@ function SingleValue(props:any) {
 
 function ValueContainer(props:any) {
 	const classes = useStyles()
+	const cls = clsx('flex flex-wrap items-center pb-4', classes.valueContainer)
 
-	return <div className={classes.valueContainer}>{props.children}</div>
+	return <div className={cls}>
+					{props.children}
+				</div>
 }
 
 function MultiValue(props:any) {
@@ -196,7 +187,7 @@ function MultiValue(props:any) {
 
 function Menu(props:any) {
 	const classes = useStyles()
-
+	debugger
 	return (
 		<Paper square className={classes.paper} {...props.innerProps}>
 			{props.children}
@@ -217,8 +208,11 @@ const components = {
 
 function ChipSelect(props: any) {
 	const [showColorPicker, setShowColorPicker] = useState(false)
-
-	const handleOnChange = (value:any) => {
+	function selectColor(color: PaletteColor) {
+	}
+	
+	const handleOnChange = (value: any) => {
+		console.log('handle change ' + value)
 		if (value === null) {
 			value = []
 		}

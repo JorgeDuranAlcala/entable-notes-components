@@ -3,8 +3,8 @@ import { withStyles, WithStyles } from '@material-ui/core'
 import styles from "./styles"
 
 interface IProps extends WithStyles<typeof styles> {
-    bg?: string;
-    handleValue?: (e: any, color: string) => void;
+    bg?: string
+    handleValue?: (e: any, color: string) => void
 }
 
 const ColorSelected = (props:IProps) => {

@@ -4,5 +4,4 @@ export default (theme: Theme) => createStyles({
     root: {
         width: '16rem',
     },
-
 })
