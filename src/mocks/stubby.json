@@ -1,0 +1,28 @@
+[
+    {
+      "request": {
+        "url": "^/table",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "file": "./table.json"
+      }
+    },
+    {
+      "request": {
+        "url": "^/maps/api/js?$",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+]
+  

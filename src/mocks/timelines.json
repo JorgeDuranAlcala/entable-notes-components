@@ -1,0 +1,80 @@
+{
+    "editable": true,
+    "timelines":[
+        {
+            "lane": "Front End",
+            "color": "green",
+            "people": ["1"],
+            "lines": [
+                {
+                    "name": "Timeline",
+                    "dates": [1590637365737, 1594364400000],
+                    "milestone": true
+                },
+                {
+                    "name": "Notes",
+                    "dates": [1590908400000, 1594364400000]
+                }
+            ]
+        },
+        {
+            "lane": "Design ",
+            "people": ["1","2", "3","6"],
+            "color": "teal",
+            "lines": [
+                {
+                    "name": "Design 1",
+                    "dates": [1590994800000,1594796400000]
+                },
+                {
+                    "name": "Design 2",
+                    "dates": [1590994800000,1596092400000]
+                }
+            ]
+        },
+        {
+            "lane": "BackEnd",
+            "people": ["3"],
+            "color": "orange",
+            "lines" :[
+                {
+                    "name": "Select Server",
+                    "dates": [1590908400000, 1590994800000]
+                },
+                {
+                    "name": "Develop",
+                    "dates": [1590908400000, 1590994800000],
+                    "milestone": true
+                }
+            ]
+        },
+        {
+            "lane": "Testing",
+            "people": ["6", "3"],
+            "color": "pink",
+            "lines" :[
+                {
+                    "name": "Test Frontend",
+                    "dates":  [1598943600000, 1604127600000]
+                },
+                {
+                    "name": "Develop",
+                    "dates": [1590908400000, 1590994800000],
+                    "milestone": true
+                }
+            ]
+        },
+        {
+            "lane": "Beta Testing",
+            "people": ["1"],
+            "color": "pink",
+            "lines": [
+                {
+                    "name": "Test",
+                    "icon": "star",
+                    "dates": [1604214000000,1609401600000]
+                }
+            ]
+        }
+    ]
+}
