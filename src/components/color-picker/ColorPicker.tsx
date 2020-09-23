@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { withStyles, WithStyles } from '@material-ui/core'
-import { IColor, getAllColors, formatColorsToAnArray } from 'helpers/color'
 import { getPaletteColors, Palettes, PaletteColor } from 'theme/palette'
 import ColorToChoose from "./color-to-choose"
 import ColorShades from './color-shades'
@@ -9,11 +8,11 @@ import styles from "./styles"
 interface IProps extends WithStyles<typeof styles> {
     pal?: Palettes
     shadeSelect?: boolean
-    cb?: (val: PaletteColor) => void
+    handleSelect?: (val: PaletteColor) => void
 }
 
 const ColorPicker = (props:IProps) => {
-    const { classes, shadeSelect = true, cb, pal = Palettes.otherAll, ...rest } = props;
+    const { classes, shadeSelect = true, handleSelect, pal = Palettes.otherAll, ...rest } = props;
     const [colors, setColors] = useState<PaletteColor[]>([])
     const [colorSelected, setColorSelected] = useState<PaletteColor|null>(null)
     const [shades, setShades] = useState<PaletteColor[] | null>(null)
@@ -21,12 +20,12 @@ const ColorPicker = (props:IProps) => {
     const handleColorSelection = (e: React.MouseEvent<HTMLElement>, selectColor: PaletteColor) => {
         if (selectColor) { 
             if (!shadeSelect ) {
-                cb && cb(selectColor)
+                handleSelect && handleSelect(selectColor)
                 return
             }
             const colorShades = getPaletteColors(pal, true, selectColor.clr)
             if (colorShades.length === 1) {
-                cb && cb(selectColor)
+                handleSelect && handleSelect(selectColor)
                 return
             }
             setShades(colorShades)
@@ -36,7 +35,7 @@ const ColorPicker = (props:IProps) => {
 
     const handleShadeSelection = (e: React.MouseEvent<HTMLElement>, selectColor?: PaletteColor) => {
         setShades(null)
-        selectColor && cb && cb(selectColor)
+        selectColor && handleSelect && handleSelect(selectColor)
     }
 
     useEffect(() => {
