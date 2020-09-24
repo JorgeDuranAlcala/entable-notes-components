@@ -164,6 +164,10 @@
   padding: 0.5rem
 }
 
+.p-4 {
+  padding: 1rem
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem
@@ -232,8 +236,17 @@
   gap: 0.25rem
 }
 
+.gap-5 {
+  grid-gap: 1.25rem;
+  gap: 1.25rem
+}
+
 .grid-flow-col {
   grid-auto-flow: column
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr))
 }
 
 .grid-cols-5 {

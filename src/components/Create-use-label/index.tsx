@@ -5,6 +5,7 @@ import {
     bindPopover
  } from "material-ui-popup-state/hooks";
 import { Popover, Typography } from '@material-ui/core';
+import AddLabelsPopover from './add-labels-popover';
 
 type Label = { id: string, bg: string, color: string, name: string }
 
@@ -46,21 +47,7 @@ function CreateUseLabel({ labels }: Props): ReactElement {
                         ))
                 }
             </div>
-            <Popover
-                {...bindPopover(popupState)}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center'
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center'
-                }}
-            >
-                <Typography>
-                    The content of the popover
-                </Typography>
-            </Popover>
+            <AddLabelsPopover {...bindPopover(popupState)} />
         </div>
     )
 }
