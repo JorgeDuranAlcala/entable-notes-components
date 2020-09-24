@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { Button, makeStyles, Popover, Theme, Typography } from '@material-ui/core'
 import board from "mocks/board.json";
-import { grey } from '@material-ui/core/colors';
+import { blue, grey, purple, yellow } from '@material-ui/core/colors';
 
 interface Props {
     
@@ -41,9 +41,18 @@ function Label({ className, name, addNewLevel , bg, ...rest }:any) {
                 transition: 'width ease .5s'
             }} 
             {...rest}>
-        <Typography>{name}</Typography>
+        <Typography>{ !addNewLevel && name}</Typography>
     </div>
 }
+
+function Color({ color, onClick }: any) {
+    return <div 
+            className="rounded-full p-4 cursor-pointer mr-2" 
+            onClick={() => onClick&&onClick(color)} 
+            style={{backgroundColor: color}}>
+            </div>
+} 
+
 
 function AddLabelsPopover(props:any): ReactElement {
 
@@ -52,6 +61,27 @@ function AddLabelsPopover(props:any): ReactElement {
     const [input, setInput] = useState<string>('Add label')
     const [addNewLevel, setAddNewLabel] = useState<boolean>(false)
     const [activeInput, setActiveInput] = useState<boolean>(false)
+    const [colorSelected, setColorSelected] = useState<string>('')
+
+
+    const handleSubmit = (e?: React.FormEvent<HTMLFontElement>) => {
+        e && e.preventDefault();
+
+        let newLabel = {
+            id: (Number(labels.slice(-1)[0].id) + 1).toString(),
+            name: input,
+            class: '',
+            bg: colorSelected ? colorSelected : grey[200],
+            color: '#000'
+        }
+
+        setLabels([...labels, newLabel])
+    }
+
+    const handleColor = (color: string) => {
+        setColorSelected(color)
+        /* alert(`This is your color broh >>> ${colorSelected}`) */
+    }
 
     return (
         <Popover
@@ -78,23 +108,29 @@ function AddLabelsPopover(props:any): ReactElement {
                     ))
                 }
 
-              { activeInput && <div className="flex" style={{ backgroundColor: grey[200]}} >
-                    <div 
-                        className="flex p-4"
-                        style={{ 
-                            backgroundColor: grey[600], 
-                            width: addNewLevel ? '20%': '100%',
-                            transition: 'width ease .5s'
-                        }} >
-                            <input 
-                                type="text" 
-                                className={classes.input} 
-                                value={input}
-                                onChange={e => setInput(e.target.value)}  />
-                        </div>
-        
-                </div>}
-                <div 
+              { activeInput && addNewLevel && 
+                ( <div className="flex" style={{ backgroundColor: grey[200]}} >
+                        <div 
+                            className="flex p-4"
+                            style={{ 
+                                backgroundColor: colorSelected ? colorSelected : grey[200], 
+                                width: addNewLevel ? '20%': '100%',
+                                transition: 'width ease .5s'
+                            }} >
+                                <form onSubmit={e => handleSubmit(e)}>
+                                    <input 
+                                        type="text" 
+                                        className={classes.input} 
+                                        value={input}
+                                        onChange={e => setInput(e.target.value)}  />
+                                    <button type="submit" hidden></button>
+                                </form>
+                            </div>
+            
+                    </div>
+                )
+            }
+               { addNewLevel && <div 
                     className="p-4 cursor-pointer" 
                     style={{ 
                         backgroundColor: 'transparent', 
@@ -102,15 +138,29 @@ function AddLabelsPopover(props:any): ReactElement {
                         }} 
                     onClick={() => setActiveInput(!activeInput)}>
                         New Label
-                </div>
+                </div>}
             </div>
+            {/* A panel where you can choose a color for new label */}
+            { addNewLevel && <div className="color-to-choose flex p-4">
+                        <Color color={blue[200]} onClick={(color: string) => handleColor(color)} />
+                        <Color color={yellow[700]} onClick={(color: string) => handleColor(color)} />
+                        <Color color={purple[500]} onClick={(color: string) => handleColor(color)} />
+                </div>
+            }
             <div className={`${classes.popover_footer} flex`} >
                 <Button 
                     fullWidth 
-                    className={classes.btn} 
-                    onClick={() => setAddNewLabel(!addNewLevel)}
+                    className={`${classes.btn} p-4`} 
+                    onClick={() => addNewLevel 
+                                ? handleSubmit() 
+                                : setAddNewLabel(!addNewLevel)
+                            }
                     >
-                    Add/edit label
+                    {
+                        !addNewLevel 
+                            ? "Add/edit label"
+                            : "Apply"
+                    }
                 </Button>
             </div>
         </div>

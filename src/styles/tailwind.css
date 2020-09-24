@@ -8,6 +8,10 @@
   border-radius: 0.25rem
 }
 
+.rounded-full {
+  border-radius: 9999px
+}
+
 .border {
   border-width: 1px
 }
