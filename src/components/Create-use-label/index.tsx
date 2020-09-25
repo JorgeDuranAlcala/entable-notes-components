@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useRef } from 'react'
 import { 
     usePopupState,
     bindTrigger,
@@ -20,34 +20,23 @@ function CreateUseLabel({ labels }: Props): ReactElement {
         popupId: 'add-new-labels'
     })
 
+    const ref = useRef<HTMLDivElement | null>(null)
+
     return (
         <div className="grid grid-cols-5">
             <div className="people">
-                people
+                <h3>People</h3>
             </div>
             <div className="priority">
-                {
-                    labels.map(label => ( 
-                        <div 
-                        className="cursor-pointer" 
-                        style={{backgroundColor: label.bg}}
-                        {...bindTrigger(popupState)}
-                         >{label.name}</div> 
-                    ))
-                }
+                <h3>Priority</h3>
+                <div
+                    className="cursor-pointer"
+                    style={{backgroundColor: labels[0].bg}} 
+                    ref={ref}
+                    {...bindTrigger(popupState)}
+                >{labels[0].name}</div>
             </div>
-            <div className="status">
-                {
-                    labels.filter(l => Number(l.id) % 2 === 0).map(label => ( 
-                            <div 
-                            className="cursor-pointer" 
-                            style={{backgroundColor: label.bg}} 
-                            {...bindTrigger(popupState)}
-                            >{label.name}</div> 
-                        ))
-                }
-            </div>
-            <AddLabelsPopover {...bindPopover(popupState)} />
+            <AddLabelsPopover labelref={ref} {...bindPopover(popupState)} />
         </div>
     )
 }

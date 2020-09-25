@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, Ref, useState } from 'react'
 import { Button, makeStyles, Popover, Theme, Typography } from '@material-ui/core'
 import board from "mocks/board.json";
 import { blue, grey, purple, yellow } from '@material-ui/core/colors';
@@ -32,7 +32,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-function Label({ className, name, addNewLevel , bg, ...rest }:any) {
+function Label({ 
+    className, 
+    name, 
+    addNewLevel, 
+    onClick , 
+    bg, 
+    ...rest 
+}:any) {
     return <div 
             className={className} 
             style={{ 
@@ -40,6 +47,7 @@ function Label({ className, name, addNewLevel , bg, ...rest }:any) {
                 width: addNewLevel ? '20%': '100%',
                 transition: 'width ease .5s'
             }} 
+            onClick={onClick&&onClick}
             {...rest}>
         <Typography>{ !addNewLevel && name}</Typography>
     </div>
@@ -63,8 +71,8 @@ function AddLabelsPopover(props:any): ReactElement {
     const [activeInput, setActiveInput] = useState<boolean>(false)
     const [colorSelected, setColorSelected] = useState<string>('')
 
-
-    const handleSubmit = (e?: React.FormEvent<HTMLFontElement>) => {
+    
+    const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
         e && e.preventDefault();
 
         let newLabel = {
@@ -74,8 +82,9 @@ function AddLabelsPopover(props:any): ReactElement {
             bg: colorSelected ? colorSelected : grey[200],
             color: '#000'
         }
-
+        
         setLabels([...labels, newLabel])
+        setAddNewLabel(!addNewLevel)
     }
 
     const handleColor = (color: string) => {
@@ -83,6 +92,12 @@ function AddLabelsPopover(props:any): ReactElement {
         /* alert(`This is your color broh >>> ${colorSelected}`) */
     }
 
+    const selectLabel = (bg: string, name: string) => {
+        const { current } = props.labelref 
+        current.innerText = name;
+        current.style.backgroundColor = bg
+    }
+    
     return (
         <Popover
             {...props}
@@ -100,8 +115,10 @@ function AddLabelsPopover(props:any): ReactElement {
                 {
                     labels.map(label => (
                         <Label 
+                            key={label.id}
                             name={label.name}
-                            className="p-4"
+                            className="p-4 cursor-pointer"
+                            onClick={() => selectLabel(label.bg, label.name)}
                             bg={label.bg}
                             addNewLevel={addNewLevel}
                         />
