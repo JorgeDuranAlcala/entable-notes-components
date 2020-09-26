@@ -31,8 +31,7 @@ export default makeStyles((theme: Theme) => ({
         backgroundColor: grey[700],
     },
     color: {
-        /* transition: 'all ease .5s',
-        */
+        
         '&:hover': {
             transform: 'scale(1.2)',
             boxShadow: `0 0 20px ${theme.palette.neutral.dark}`,
@@ -42,9 +41,6 @@ export default makeStyles((theme: Theme) => ({
         zIndex: 99,
     },
     input: {
-        backgroundColor: 'transparent',
         flex: 0.8,
-        paddingLeft: '1.5rem',
-        outline: 'none',
     }
 }))

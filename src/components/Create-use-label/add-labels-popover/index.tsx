@@ -113,7 +113,7 @@ function AddLabelsPopover(props: any): ReactElement {
                   transform: addNewLabel ? "scaleX(20)" : "scaleX(120)",
                 }}
               ></div>
-              <input type="text" onChange={e => setInput(e.target.value)} className={`${classes.input} pl-6`} value={input} />
+              <input type="text" onChange={e => setInput(e.target.value)} className={`${classes.input} bg-transparent outline-none pl-6`} value={input} />
             </div>
           )}
           {addNewLabel && (
