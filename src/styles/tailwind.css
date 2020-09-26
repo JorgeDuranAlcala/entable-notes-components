@@ -181,12 +181,20 @@
   padding-left: 0
 }
 
+.pl-2 {
+  padding-left: 0.5rem
+}
+
 .pl-3 {
   padding-left: 0.75rem
 }
 
 .pb-4 {
   padding-bottom: 1rem
+}
+
+.pl-6 {
+  padding-left: 1.5rem
 }
 
 .pl-24 {
@@ -272,6 +280,15 @@
   transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))
 }
 
+.origin-left {
+  transform-origin: left
+}
+
+.scale-125 {
+  --transform-scale-x: 1.25;
+  --transform-scale-y: 1.25
+}
+
 .transition-all {
   transition-property: all
 }
@@ -280,6 +297,14 @@
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform
 }
 
+.transition-transform {
+  transition-property: transform
+}
+
 .duration-300 {
   transition-duration: 300ms
+}
+
+.duration-500 {
+  transition-duration: 500ms
 }
