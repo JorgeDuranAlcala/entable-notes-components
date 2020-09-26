@@ -4,8 +4,16 @@
 @tailwind components;
 */
 
+.bg-transparent {
+  background-color: transparent
+}
+
 .rounded {
   border-radius: 0.25rem
+}
+
+.rounded-full {
+  border-radius: 9999px
 }
 
 .border {
@@ -148,6 +156,10 @@
   min-width: 0
 }
 
+.outline-none {
+  outline: 0
+}
+
 .overflow-auto {
   overflow: auto
 }
@@ -164,6 +176,10 @@
   padding: 0.5rem
 }
 
+.p-4 {
+  padding: 1rem
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem
@@ -173,12 +189,20 @@
   padding-left: 0
 }
 
+.pl-2 {
+  padding-left: 0.5rem
+}
+
 .pl-3 {
   padding-left: 0.75rem
 }
 
 .pb-4 {
   padding-bottom: 1rem
+}
+
+.pl-6 {
+  padding-left: 1.5rem
 }
 
 .pl-24 {
@@ -232,8 +256,17 @@
   gap: 0.25rem
 }
 
+.gap-5 {
+  grid-gap: 1.25rem;
+  gap: 1.25rem
+}
+
 .grid-flow-col {
   grid-auto-flow: column
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr))
 }
 
 .grid-cols-5 {
@@ -255,6 +288,15 @@
   transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))
 }
 
+.origin-left {
+  transform-origin: left
+}
+
+.scale-125 {
+  --transform-scale-x: 1.25;
+  --transform-scale-y: 1.25
+}
+
 .transition-all {
   transition-property: all
 }
@@ -263,6 +305,14 @@
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform
 }
 
+.transition-transform {
+  transition-property: transform
+}
+
 .duration-300 {
   transition-duration: 300ms
+}
+
+.duration-500 {
+  transition-duration: 500ms
 }
