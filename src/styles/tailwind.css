@@ -4,6 +4,10 @@
 @tailwind components;
 */
 
+.bg-transparent {
+  background-color: transparent
+}
+
 .rounded {
   border-radius: 0.25rem
 }
@@ -150,6 +154,10 @@
 
 .min-w-0 {
   min-width: 0
+}
+
+.outline-none {
+  outline: 0
 }
 
 .overflow-auto {
