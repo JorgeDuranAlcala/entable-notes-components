@@ -1,41 +1,52 @@
-import React, { ReactElement, Ref, useState } from "react";
-import {
-  Button,
-  makeStyles,
-  Popover,
-  Theme,
-  Typography,
-  useTheme,
-} from "@material-ui/core";
-import PencilIcon from "@material-ui/icons/Edit"
+import React, { ReactElement, useState, useRef } from "react";
+import { Button, Popover, Typography, useTheme } from "@material-ui/core";
+import PencilIcon from "@material-ui/icons/Edit";
 import board from "mocks/board.json";
-import { blue, green, grey, purple, red, yellow } from "@material-ui/core/colors";
+import {
+  blue,
+  green,
+  grey,
+  purple,
+  red,
+  yellow,
+} from "@material-ui/core/colors";
 import useStyles from "./styles";
-import { bindToggle } from "material-ui-popup-state";
 
 interface Props {}
 
-function Label({ className, name, addNewLevel, popupState, onClick, bg, ...rest }: any) {
+function Label({
+  className,
+  name,
+  addNewLevel,
+  popupState,
+  onClick,
+  bg,
+  ...rest
+}: any) {
   const classes = useStyles();
   return (
     <div className={className} onClick={onClick && onClick} {...rest}>
       <div
-        className={`${classes.left} flex absolute origin-left transition-transform duration-500`}
+        className={`${classes.left} left-0 top-0 bottom-0 flex absolute origin-left transition-transform duration-500`}
         style={{
           backgroundColor: bg,
           transform: addNewLevel ? "scaleX(20)" : "scaleX(120)",
         }}
       ></div>
-      <Typography className={`pl-2 ${classes.labelText}`}>{name}</Typography>
+      <Typography className={`pl-2  ${classes.labelText}`}>
+        {name}
+      </Typography>
     </div>
   );
 }
 
-function Color({ color, onClick, className }: any) {
+function Color({ color, onClick, className, setColorOnMouse }: any) {
   return (
     <div
       className={`${className} hover:scale-125 hover:shadow-md transition-all rounded-full p-4 cursor-pointer mr-2`}
       onClick={() => onClick && onClick(color)}
+      onMouseOver={() => setColorOnMouse&&setColorOnMouse(color)}
+      onMouseLeave={() => setColorOnMouse&&setColorOnMouse('')}
       style={{ backgroundColor: color }}
     ></div>
   );
@@ -43,17 +54,23 @@ function Color({ color, onClick, className }: any) {
 
 function AddLabelsPopover(props: any): ReactElement {
   const classes = useStyles();
-  const theme = useTheme()
+  const theme = useTheme();
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [labels, setLabels] = useState(board.labels);
   const [input, setInput] = useState<string>("Add label");
   const [addNewLabel, setAddNewLabel] = useState<boolean>(false);
   const [activeInput, setActiveInput] = useState<boolean>(false);
   const [colorSelected, setColorSelected] = useState<string>("");
-  const [colors, setColors] = useState<string[]>([blue[500], red[300], green[500], purple[400], yellow[300] ]);
+  const [colorOnMouse, setColorOnMouse] = useState<string>("");
+  const [colors, setColors] = useState<string[]>([
+    blue[500],
+    red[300],
+    green[500],
+    purple[400],
+    yellow[300],
+  ]);
 
-  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
-    e && e.preventDefault();
-
+  const create_label = () => {
     let newLabel = {
       id: (Number(labels.slice(-1)[0].id) + 1).toString(),
       name: input,
@@ -63,19 +80,23 @@ function AddLabelsPopover(props: any): ReactElement {
     };
 
     setLabels([...labels, newLabel]);
-    setAddNewLabel(!addNewLabel);
   };
-
   const handleColor = (color: string) => {
     setColorSelected(color);
-    /* alert(`This is your color broh >>> ${colorSelected}`) */
+    setActiveInput(true);
+    inputRef.current?.focus()
+  };
+  const onApply = () => {
+    create_label();
+    setActiveInput(false);
+    setAddNewLabel(!addNewLabel);
   };
 
   const selectLabel = (bg: string, name: string) => {
     const { current } = props.labelref;
     current.innerText = name;
     current.style.backgroundColor = bg;
-    props.popupState.close()
+    props.popupState.close();
   };
 
   return (
@@ -105,25 +126,38 @@ function AddLabelsPopover(props: any): ReactElement {
           ))}
 
           {activeInput && addNewLabel && (
-            <div className="flex items-center relative" style={{ backgroundColor: grey[200] }}>
+            <div
+              className="flex items-center relative"
+              style={{ backgroundColor: grey[200] }}
+            >
               <div
-                className={`${classes.left} flex absolute origin-left transition-transform duration-500`}
+                className={`${classes.left} left-0 top-0 bottom-0 flex absolute origin-left transition-transform duration-500`}
                 style={{
                   backgroundColor: colorSelected ? colorSelected : grey[400],
                   transform: addNewLabel ? "scaleX(20)" : "scaleX(120)",
                 }}
               ></div>
-              <input type="text" onChange={e => setInput(e.target.value)} className={`${classes.input} bg-transparent outline-none pl-6`} value={input} />
+              <input
+                type="text"
+                onChange={(e) => setInput(e.target.value)}
+                className={`${classes.input} text-gray-500  bg-transparent outline-none pl-6`}
+                value={input}
+                ref={inputRef}
+              />
             </div>
           )}
           {addNewLabel && (
             <div
               className="p-4 cursor-pointer"
               style={{
-                backgroundColor: "transparent",
+                backgroundColor: colorOnMouse ? colorOnMouse : "transparent",
                 border: `2px dashed ${grey[300]}`,
               }}
-              onClick={() => setActiveInput(!activeInput)}
+              onClick={() => {
+                setActiveInput(true);
+                inputRef.current?.focus()
+                if (activeInput) create_label();
+              }}
             >
               <Typography>New Label</Typography>
             </div>
@@ -132,13 +166,15 @@ function AddLabelsPopover(props: any): ReactElement {
         {/* A panel where you can choose a color for new label */}
         {addNewLabel && (
           <div className="color-to-choose flex p-4">
-              { colors.map(color => (
-                   <Color
-                    color={color}
-                    className={classes.color}
-                    onClick={(color: string) => handleColor(color)}
-                    />
-              )) }
+            {colors.map((color, i) => (
+              <Color
+                key={i}
+                color={color}
+                className={classes.color}
+                onClick={(color: string) => handleColor(color)}
+                setColorOnMouse={setColorOnMouse}
+              />
+            ))}
           </div>
         )}
         <div className={`${classes.popover_footer} flex`}>
@@ -146,12 +182,12 @@ function AddLabelsPopover(props: any): ReactElement {
             fullWidth
             className={`${classes.btn} p-4`}
             onClick={() =>
-              addNewLabel ? handleSubmit() : setAddNewLabel(!addNewLabel)
+              addNewLabel ? onApply() : setAddNewLabel(!addNewLabel)
             }
           >
             <Typography className="bold flex items-center">
-                { !addNewLabel && <PencilIcon/> }
-                {!addNewLabel ? "Add/edit label" : "Apply"}
+              {!addNewLabel && <PencilIcon />}
+              {!addNewLabel ? "Add/edit label" : "Apply"}
             </Typography>
           </Button>
         </div>

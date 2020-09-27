@@ -23,24 +23,22 @@ export default makeStyles((theme: Theme) => ({
         backgroundColor: grey[200],
     },
     left: {
-        top: 0,
-        left: 0,
-        bottom: 0,
         width: 1,
         zIndex: 1,
         backgroundColor: grey[700],
     },
     color: {
-        
         '&:hover': {
             transform: 'scale(1.2)',
             boxShadow: `0 0 20px ${theme.palette.neutral.dark}`,
         } 
     },
     labelText: {
+        maxWidth: '5.625rem',
         zIndex: 99,
     },
     input: {
         flex: 0.8,
+        maxWidth: '5.625rem',
     }
 }))
