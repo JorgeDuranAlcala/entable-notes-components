@@ -15,27 +15,47 @@ import useStyles from "./styles";
 interface Props {}
 
 function Label({
+  id,
   className,
   name,
   addNewLevel,
   popupState,
   onClick,
+  editInput,
+  editLabel,
+  setEditInput,
+  editColor,
   bg,
   ...rest
 }: any) {
   const classes = useStyles();
+  const [input, setinput] = useState(name)
   return (
-    <div className={className} onClick={onClick && onClick} {...rest}>
+    <div className={className} onDoubleClick={onClick&& onClick} onClick={() => console.log("hey")} {...rest}>
       <div
         className={`${classes.left} left-0 top-0 bottom-0 flex absolute origin-left transition-transform duration-500`}
         style={{
           backgroundColor: bg,
           transform: addNewLevel ? "scaleX(20)" : "scaleX(120)",
         }}
-      ></div>
-      <Typography className={`pl-2  ${classes.labelText}`}>
-        {name}
-      </Typography>
+        onClick={() => editColor(id)}
+      ></div>{
+             !editInput  ?  (
+                <Typography className={`pl-2  ${classes.labelText}`}>
+                  {name}
+                </Typography>
+                )
+              : ( <input
+                type="text"
+                onChange={(e) => {
+                  setinput(e.target.value)
+                  editLabel(e.target.value, id)
+                }}
+                value={input}
+                className={`${classes.input} text-gray-500  bg-transparent outline-none pl-6`}
+              />
+              )
+          }
     </div>
   );
 }
@@ -60,6 +80,7 @@ function AddLabelsPopover(props: any): ReactElement {
   const [input, setInput] = useState<string>("Add label");
   const [addNewLabel, setAddNewLabel] = useState<boolean>(false);
   const [activeInput, setActiveInput] = useState<boolean>(false);
+  const [activeEditInput, setActiveEditInput] = useState<boolean>(false);
   const [colorSelected, setColorSelected] = useState<string>("");
   const [colorOnMouse, setColorOnMouse] = useState<string>("");
   const [colors, setColors] = useState<string[]>([
@@ -79,8 +100,31 @@ function AddLabelsPopover(props: any): ReactElement {
       color: theme.palette.text.primary,
     };
 
-    setLabels([...labels, newLabel]);
+    setInput("")
+    setColorSelected("")
+
+    if(labels.find(label => label.name === newLabel.name)) { 
+      setLabels([...labels]);
+    } else {
+      setLabels([...labels, newLabel]);
+    }
   };
+  const edit_label = (value: string, id: string) => {
+     let x = labels.map(label => (
+        (label.id == id)
+          ? {...label, name: value}
+          : label
+      ))
+      setLabels([...x])
+  };
+  const edit_color = (id: string) => {
+    let x = labels.map(label => (
+      (label.id == id)
+        ? {...label, bg: colorSelected}
+        : label
+    ))
+    setLabels([...x])
+ };
   const handleColor = (color: string) => {
     setColorSelected(color);
     setActiveInput(true);
@@ -89,6 +133,7 @@ function AddLabelsPopover(props: any): ReactElement {
   const onApply = () => {
     create_label();
     setActiveInput(false);
+    setActiveEditInput(!activeEditInput)
     setAddNewLabel(!addNewLabel);
   };
 
@@ -115,9 +160,14 @@ function AddLabelsPopover(props: any): ReactElement {
         <div className={`${classes.popover_body} p-4 grid grid-cols-3 gap-5`}>
           {labels.map((label) => (
             <Label
+              id={label.id}
               key={label.id}
               name={label.name}
               popupState={props.popupState}
+              editInput={activeEditInput}
+              setEditInput={setActiveEditInput}
+              editLabel={edit_label}
+              editColor={edit_color}
               className={`p-4 flex items-center cursor-pointer relative ${classes.label}`}
               onClick={() => selectLabel(label.bg, label.name)}
               bg={label.bg}
@@ -181,9 +231,15 @@ function AddLabelsPopover(props: any): ReactElement {
           <Button
             fullWidth
             className={`${classes.btn} p-4`}
-            onClick={() =>
-              addNewLabel ? onApply() : setAddNewLabel(!addNewLabel)
+            onClick={() => {
+              if(addNewLabel) {
+                onApply() 
+              } else {
+                setActiveEditInput(!activeEditInput)
+                setAddNewLabel(!addNewLabel)
+              }
             }
+          }
           >
             <Typography className="bold flex items-center">
               {!addNewLabel && <PencilIcon />}
