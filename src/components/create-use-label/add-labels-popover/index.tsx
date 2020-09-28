@@ -10,67 +10,13 @@ import {
   red,
   yellow,
 } from "@material-ui/core/colors";
+import Label from './Label';
+import Color from './Color';
+
 import useStyles from "./styles";
 
 interface Props {}
 
-function Label({
-  id,
-  className,
-  name,
-  addNewLevel,
-  popupState,
-  onClick,
-  editInput,
-  editLabel,
-  setEditInput,
-  editColor,
-  bg,
-  ...rest
-}: any) {
-  const classes = useStyles();
-  const [input, setinput] = useState(name)
-  return (
-    <div className={className} onDoubleClick={onClick&& onClick} onClick={() => console.log("hey")} {...rest}>
-      <div
-        className={`${classes.left} left-0 top-0 bottom-0 flex absolute origin-left transition-transform duration-500`}
-        style={{
-          backgroundColor: bg,
-          transform: addNewLevel ? "scaleX(20)" : "scaleX(120)",
-        }}
-        onClick={() => editColor(id)}
-      ></div>{
-             !editInput  ?  (
-                <Typography className={`pl-2  ${classes.labelText}`}>
-                  {name}
-                </Typography>
-                )
-              : ( <input
-                type="text"
-                onChange={(e) => {
-                  setinput(e.target.value)
-                  editLabel(e.target.value, id)
-                }}
-                value={input}
-                className={`${classes.input} text-gray-500  bg-transparent outline-none pl-6`}
-              />
-              )
-          }
-    </div>
-  );
-}
-
-function Color({ color, onClick, className, setColorOnMouse }: any) {
-  return (
-    <div
-      className={`${className} hover:scale-125 hover:shadow-md transition-all rounded-full p-4 cursor-pointer mr-2`}
-      onClick={() => onClick && onClick(color)}
-      onMouseOver={() => setColorOnMouse&&setColorOnMouse(color)}
-      onMouseLeave={() => setColorOnMouse&&setColorOnMouse('')}
-      style={{ backgroundColor: color }}
-    ></div>
-  );
-}
 
 function AddLabelsPopover(props: any): ReactElement {
   const classes = useStyles();
@@ -81,7 +27,9 @@ function AddLabelsPopover(props: any): ReactElement {
   const [addNewLabel, setAddNewLabel] = useState<boolean>(false);
   const [activeInput, setActiveInput] = useState<boolean>(false);
   const [activeEditInput, setActiveEditInput] = useState<boolean>(false);
+  const [activeEditColor, setActiveEditColor] = useState<boolean>(false);
   const [colorSelected, setColorSelected] = useState<string>("");
+  const [labelId, setLabelId] = useState<string>("");
   const [colorOnMouse, setColorOnMouse] = useState<string>("");
   const [colors, setColors] = useState<string[]>([
     blue[500],
@@ -118,13 +66,20 @@ function AddLabelsPopover(props: any): ReactElement {
       setLabels([...x])
   };
   const edit_color = (id: string) => {
+    setLabelId(id)
+    setActiveEditColor(true)
+ };
+
+  const choose_color_edit = (color: string) => {
     let x = labels.map(label => (
-      (label.id == id)
-        ? {...label, bg: colorSelected}
+      (label.id == labelId)
+        ? {...label, bg: color}
         : label
     ))
     setLabels([...x])
+    setActiveEditColor(false)
  };
+
   const handleColor = (color: string) => {
     setColorSelected(color);
     setActiveInput(true);
@@ -168,25 +123,27 @@ function AddLabelsPopover(props: any): ReactElement {
               setEditInput={setActiveEditInput}
               editLabel={edit_label}
               editColor={edit_color}
-              className={`p-4 flex items-center cursor-pointer relative ${classes.label}`}
+              className={`flex items-center justify-center cursor-pointer relative ${classes.label}`}
               onClick={() => selectLabel(label.bg, label.name)}
               bg={label.bg}
               addNewLevel={addNewLabel}
             />
           ))}
 
+
           {activeInput && addNewLabel && (
             <div
-              className="flex items-center relative"
+              className="flex items-center justify-center relative"
               style={{ backgroundColor: grey[200] }}
             >
               <div
-                className={`${classes.left} left-0 top-0 bottom-0 flex absolute origin-left transition-transform duration-500`}
+                className={`${classes.left} h-full absolute left-0 top-0 bottom-0 flex items-center transition-all duration-500`}
                 style={{
                   backgroundColor: colorSelected ? colorSelected : grey[400],
-                  transform: addNewLabel ? "scaleX(20)" : "scaleX(120)",
+                  width: addNewLabel ? '20%' : '100%',
                 }}
-              ></div>
+              >
+              </div>
               <input
                 type="text"
                 onChange={(e) => setInput(e.target.value)}
@@ -223,6 +180,8 @@ function AddLabelsPopover(props: any): ReactElement {
                 className={classes.color}
                 onClick={(color: string) => handleColor(color)}
                 setColorOnMouse={setColorOnMouse}
+                editColor={activeEditColor}
+                chooseColorToEdit={choose_color_edit}
               />
             ))}
           </div>

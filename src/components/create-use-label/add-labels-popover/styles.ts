@@ -1,5 +1,6 @@
 import { makeStyles, Theme } from '@material-ui/core'
 import { blue, grey } from '@material-ui/core/colors';
+import { common } from '@material-ui/core/colors/';
 
 export default makeStyles((theme: Theme) => ({
     container: {
@@ -21,10 +22,11 @@ export default makeStyles((theme: Theme) => ({
     },
     label: {
         backgroundColor: grey[200],
+        width:'7.5rem',
+        height:'3rem',
     },
     left: {
-        width: 1,
-        zIndex: 1,
+        zIndex:2,
         backgroundColor: grey[700],
     },
     color: {
@@ -35,10 +37,15 @@ export default makeStyles((theme: Theme) => ({
     },
     labelText: {
         maxWidth: '5.625rem',
-        zIndex: 99,
+        zIndex: 3,
     },
     input: {
         flex: 0.8,
         maxWidth: '5.625rem',
+    },
+    opacityIcon: {
+        '&:hover': {
+            fontSize: '1.4rem'
+        }
     }
 }))
