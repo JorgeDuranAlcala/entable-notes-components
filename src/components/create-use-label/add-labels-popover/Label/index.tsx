@@ -29,7 +29,7 @@ export default function Label({
               width: addNewLevel ? '20%' : '100%',
             }}
           >
-          { addNewLevel && <OpacityIcon className={classes.opacityIcon} />}
+          { addNewLevel && <OpacityIcon className={`${classes.opacityIcon} cursor-pointer`} />}
           </div>
           {
                !editInput  ?  (
