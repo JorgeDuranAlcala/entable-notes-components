@@ -39,12 +39,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontSize: theme.fontSize.sm
   },
   secondText: {
-    opacity: 0.7,
+    opacity: 0.8,
     fontSize: theme.fontSize.xs
   }
 }))
+
 function RenderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "circle", indent, index, secondColor, last }: RenderItemType) {
   const { avatar } = item
+  debugger
   const renderAvatar = avatar ? <Avatar src={avatar.src}
     name={avatar.name}
     size={size || "xl"}
@@ -64,7 +66,7 @@ function RenderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "cir
         {renderAvatar}
         <div className="flex flex-col min-w-0 ml-2">
         <div className={`${styles.firstText} leading-none mr-2`}>
-            {itemObj.name}
+            {avatar.name}
           </div>
         <div className={`${styles.secondText} leading-none mt-1`} >
               {itemObj.subTitle}

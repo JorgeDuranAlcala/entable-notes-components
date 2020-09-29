@@ -66,8 +66,7 @@
     "test": "react-scripts test --testPathIgnorePatterns=src/vendors/*",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "stubby": "stubby --watch --data ./src/mocks/stubby.json",
-    "postinstall": "node-prune"
+    "stubby": "stubby --watch --data ./src/mocks/stubby.json"
   },
   "eslintConfig": {
     "extends": "react-app"
