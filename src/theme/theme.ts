@@ -20,13 +20,13 @@ function createTheme(variant: ThemeZoom):any {
     zoomFontSize: (factor:number):string => `${roundNum(0.30 * factor * zoom)}${unit}`,
     zoomSpacing: (factor: number) => spacing(roundNum(factor * zoom)),
     fontSize: GlobalContext.fontSize,
-    spacing: factor => `${roundNum(0.60 * factor)}${unit}`,
+    spacing: (factor:number) => `${roundNum(0.60 * factor)}${unit}`,
     lineHeight: GlobalContext.fontSize
   });
   const { spacing, zoomSpacing, zoomFontSize } = theme
   const fontSize =  {
       xs: zoomFontSize(FONT_BASIS),
-      sm: zoomFontSize(FONT_BASIS+1),
+      sm: zoomFontSize(FONT_BASIS+0.5),
       md: zoomFontSize(FONT_BASIS+2),
       lg: zoomFontSize(FONT_BASIS+3),
       xl: zoomFontSize(FONT_BASIS+4)

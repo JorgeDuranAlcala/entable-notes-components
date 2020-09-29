@@ -49,18 +49,20 @@ function RenderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "cir
   debugger
   const renderAvatar = avatar ? <Avatar src={avatar.src}
     name={avatar.name}
-    size={size || "xl"}
+    size={size}
     shape={shape}
   /> : null
   const styles = useStyles()
   const itemObj: any = item || {}
-  itemObj.name = itemObj.name  || 'Unknown'
+  itemObj.name = itemObj.name  || avatar.name
   itemObj.subTitle = Array.isArray(itemObj.subTitle)
-                ? itemObj.subTitle[0]
-    : itemObj.subTitle || ''
+                ? itemObj.subTitle[0] 
+                : itemObj.subTitle ? itemObj.subTitle
+                  : avatar.title ? avatar.title : ''
   let cls = "flex items-center w-full "
   cls += index ? " mt-6" : " mt-4 "
-  cls += last ? " mb-4": ""
+  cls += last ? " mb-4" : ""
+
   return (
     <div className={cls}>
         {renderAvatar}

@@ -65,7 +65,7 @@ export type ThemeZoom = {
 export const AVAILABLE_THEMES = Object.keys(Themes) as ThemeType[]
 export const unit = 'rem'
 export const tablePadding = [1,0]
-export const FONT_BASIS = 2
+export const FONT_BASIS = 2.5
 export enum Shade {
   light = 'light',
   dark = 'dark',
