@@ -5,10 +5,9 @@ import { IconButton } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AddIcon from '@material-ui/icons/Add'
 import { properCase } from 'helpers/string'
-import { Avatar  } from 'components/avatar'
+import { Avatar, Size, Shape  } from 'components/avatar/index'
 import { Search } from 'components/search'
 import Box from 'components/box'
-import { Size, Shape } from 'components/avatar'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
 
@@ -77,10 +76,9 @@ function CardList(props: ICardList) {
     showZero = true,
     borderless = false
   } = props
+  debugger
   // @ts-ignore
-  const dropdowns = menu.menus
-                  ? menu.menus as MenuAction[]
-                  : menu as MenuAction[]
+  const dropdowns = null
   const [filterItems, setFilterItems] = useState(items)
   const [searchMode, setSearchMode] = useState(false)
   const emptyArray = items.length === 0
@@ -147,4 +145,5 @@ function CardList(props: ICardList) {
     {renderItems}
   </Box>
 }
+
 export default CardList

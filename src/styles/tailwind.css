@@ -84,12 +84,12 @@
   font-weight: 500
 }
 
-.font-bold {
-  font-weight: 700
-}
-
 .h-auto {
   height: auto
+}
+
+.h-full {
+  height: 100%
 }
 
 .text-2xl {
@@ -114,10 +114,6 @@
 
 .mb-1 {
   margin-bottom: 0.25rem
-}
-
-.ml-1 {
-  margin-left: 0.25rem
 }
 
 .mr-2 {
@@ -160,20 +156,12 @@
   outline: 0
 }
 
-.overflow-auto {
-  overflow: auto
-}
-
 .overflow-x-scroll {
   overflow-x: scroll
 }
 
 .p-0 {
   padding: 0
-}
-
-.p-2 {
-  padding: 0.5rem
 }
 
 .p-4 {
@@ -183,10 +171,6 @@
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem
-}
-
-.pl-0 {
-  padding-left: 0
 }
 
 .pl-2 {
@@ -257,10 +241,6 @@
   color: rgba(160, 174, 192, var(--text-opacity))
 }
 
-.tracking-widest {
-  letter-spacing: 0.1em
-}
-
 .whitespace-no-wrap {
   white-space: nowrap
 }
@@ -306,10 +286,6 @@
   transform: translateX(var(--transform-translate-x)) translateY(var(--transform-translate-y)) rotate(var(--transform-rotate)) skewX(var(--transform-skew-x)) skewY(var(--transform-skew-y)) scaleX(var(--transform-scale-x)) scaleY(var(--transform-scale-y))
 }
 
-.origin-left {
-  transform-origin: left
-}
-
 .scale-125 {
   --transform-scale-x: 1.25;
   --transform-scale-y: 1.25
@@ -321,14 +297,6 @@
 
 .transition {
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform
-}
-
-.transition-transform {
-  transition-property: transform
-}
-
-.duration-300 {
-  transition-duration: 300ms
 }
 
 .duration-500 {
