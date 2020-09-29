@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, useEffect } from 'react'
 import clsx from 'clsx'
-import { WithStyles, withStyles, Theme, useTheme } from '@material-ui/core/styles'
+import { makeStyles, withStyles, Theme, useTheme } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AddIcon from '@material-ui/icons/Add'
@@ -11,13 +11,7 @@ import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
 
-const Style = withStyles((theme: Theme) => ({
-  secondColor: {
-      // @ts-ignore
-      color: theme.palette.neutral.secondColor
-    },
-}))
-type RenderItem = {
+type RenderItemType = {
   item: CardItem
   checkbox?: boolean
   oppSide?: boolean
@@ -30,13 +24,33 @@ type RenderItem = {
   last: boolean
 }
 
-function renderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "circle", indent, index, secondColor, last }: RenderItem) {
+const useStyles = makeStyles((theme: Theme) => ({
+  secondColor: {
+    // @ts-ignore
+    color: theme.palette.neutral.secondColor
+  },
+  btn: {
+    '&:hover': {
+      backgroundColor: theme.palette.primary.bg,
+      color: theme.palette.text.primary
+    }
+  },
+  firstText: {
+    fontSize: theme.fontSize.sm
+  },
+  secondText: {
+    opacity: 0.7,
+    fontSize: theme.fontSize.xs
+  }
+}))
+function RenderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "circle", indent, index, secondColor, last }: RenderItemType) {
   const { avatar } = item
   const renderAvatar = avatar ? <Avatar src={avatar.src}
     name={avatar.name}
     size={size || "xl"}
     shape={shape}
   /> : null
+  const styles = useStyles()
   const itemObj: any = item || {}
   itemObj.name = itemObj.name  || 'Unknown'
   itemObj.subTitle = Array.isArray(itemObj.subTitle)
@@ -49,10 +63,10 @@ function renderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "cir
     <div className={cls}>
         {renderAvatar}
         <div className="flex flex-col min-w-0 ml-2">
-          <div className="font-medium leading-none mr-2">
+        <div className={`${styles.firstText} leading-none mr-2`}>
             {itemObj.name}
           </div>
-          <div className="text-md leading-none mt-1" style={{color: secondColor}}>
+        <div className={`${styles.secondText} leading-none mt-1`} >
               {itemObj.subTitle}
           </div>
         </div>
@@ -112,7 +126,8 @@ function CardList(props: ICardList) {
       </div>}
       {headerRight}
     </div>
-    )
+  )
+  
   // @ts-ignore
   const renderItems = filterItems.map((item: GroupedItem | CardItem, index: number) => {
     // @ts-ignore
@@ -121,7 +136,9 @@ function CardList(props: ICardList) {
       if ((!groupItem.items || !groupItem.items.length) && !showZero) {
         return null
       }
-      const groupItems = groupItem.items.map((gItem: CardItem, gIndex: number) => renderItem({ item: gItem, size, shape, checkbox, indent:5, index: gIndex, secondColor, last: gIndex === groupItem.items.length-1 }))
+      const groupItems = groupItem.items.map((gItem: CardItem, gIndex: number) => (
+        <RenderItem item={gItem} size={size} shape={shape} checkbox={checkbox} indent={5} index={gIndex} secondColor={secondColor} last={gIndex === groupItem.items.length - 1} />))
+      
       const groupCount = groupItems.length
       const groupTitleInfo = groupItem.group
       const groupTitle = groupTitleInfo.title
@@ -135,7 +152,8 @@ function CardList(props: ICardList) {
       )
     }
     else {
-      return renderItem({ item: item as CardItem, size, shape, checkbox, metric, index, secondColor,last: index === items.length-1 })
+      return <RenderItem item={item as CardItem}
+        size={size} shape={shape} checkbox={checkbox} metric={metric} index={index} secondColor={secondColor} last={index === items.length - 1}/>
     }
   })
   let cls = "flex-col max-w-xs w-full pl-3  py-4"
