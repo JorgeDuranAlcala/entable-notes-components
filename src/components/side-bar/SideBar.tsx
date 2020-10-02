@@ -15,7 +15,7 @@ import { Palettes } from 'theme/palette'
 import Avatar, { IAvatar } from 'components/avatar'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import { Profile } from 'components'
+import Text from 'components/Text'
 import Scrollbar from 'simplebar-react'
 import { DARK } from 'theme'
 import Tooltip from 'components/tooltip'
@@ -67,18 +67,15 @@ export const SpaceNode = (space: any) => {
               name={space.name.toUpperCase()}
               shape="square"
           />
-        
       </li>
   )
 }
 
 export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
-  if (depth > 0) {
-    debugger
-  }
   const members: number = getMembers(space)
   const classes = useStyles()
   const layoutClasses = useLayoutStyles()
+  const theme = useTheme()
   let cls = layoutClasses.sidebar
   cls += mini ? layoutClasses.miniMenu : ''
   cls += ' flex flex-col justify-between'
@@ -94,7 +91,10 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   if (depth > 1) {
     debugger;
   }
-  const size = depth ? 'xs' : 'sm'
+  const avatarSize = depth ? 'xs' : 'sm'
+  const fontSize = !depth ? 'md' : 'sm'
+  const secondFontSize = !depth? 'sm' : 'xs'
+  
   if (icon && icons[icon]) {
     if (typeof icons[icon] === 'string') {
       src = icons[icon]
@@ -107,7 +107,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
                       src={src}
                       icon={isIcon}
                       Icon={IconComp}
-                      size={size}
+                      size={avatarSize}
                       border={false}
                       shape={SpaceShape}
                       name={name}
@@ -135,21 +135,23 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   const expandLess = !even && open && <ExpandLess />
   const nodeInfo =
           (<div className="flex align-center  flex-col">
-              <Typography
-                  color="textPrimary"
-                  className="mt-1 ml-4"
+              <Text
+                color={theme.palette.side.main.color}
+                fontSize={fontSize}
+                className="mt-1 ml-4"
               >
                 {name}
-              </Typography>
-              <Typography
-                  variant="caption"
-                  color="textSecondary"
-                  className="mt-1 ml-4"
+              </Text>
+              <Text
+                color={theme.palette.side.main.color}
+                fontSize={secondFontSize}
+                opacity="0.8"
+                className="ml-6"
               >
               {
-                  `${members ? `${members} Team ${members ? 'Members' : 'Member'}` : `No Members`}`
+                  `${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`
               }
-              </Typography>
+              </Text>
             </div>)
   const children = open &&
     <li className="flex flex-col space-between">

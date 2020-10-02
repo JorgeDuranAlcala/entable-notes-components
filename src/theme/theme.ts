@@ -27,16 +27,16 @@ function createTheme(variant: ThemeZoom):any {
   const fontSize =  {
       xs: zoomFontSize(FONT_BASIS),
       sm: zoomFontSize(FONT_BASIS+0.5),
-      md: zoomFontSize(FONT_BASIS+2),
-      lg: zoomFontSize(FONT_BASIS+3),
-      xl: zoomFontSize(FONT_BASIS+4)
+      md: zoomFontSize(FONT_BASIS+1),
+      lg: zoomFontSize(FONT_BASIS+1.5),
+      xl: zoomFontSize(FONT_BASIS+2)
   }
   const lineHeight =  {
-    xs: zoomFontSize(FONT_BASIS+0.5),
-    sm: zoomFontSize(FONT_BASIS+1.5),
-    md: zoomFontSize(FONT_BASIS+2.5),
-    lg: zoomFontSize(FONT_BASIS+3.5),
-    xl: zoomFontSize(FONT_BASIS+4.5)
+    xs: zoomFontSize(FONT_BASIS+0.25),
+    sm: zoomFontSize(FONT_BASIS+0.75),
+    md: zoomFontSize(FONT_BASIS+1.25),
+    lg: zoomFontSize(FONT_BASIS+1.75),
+    xl: zoomFontSize(FONT_BASIS+2.25)
   }
   let padding:string = tablePadding[0].toString()
   if (tablePadding[0]) {
