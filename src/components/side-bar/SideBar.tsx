@@ -84,17 +84,22 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   const [currentSpace, setCurrentSpace] = useState(null)
   const name = space.name.toUpperCase()
   const { icon, description, spaces } = space
-  let src = ""
-  let IconComp: any = null
-  let isIcon = false
+  const notOpen = !!(!open && spaces && spaces.length)
 
-  if (depth > 1) {
-    debugger;
+  const handleClick = () => {
+    if (!space.spaces || !space.spaces.length) {
+      setCurrentSpace(space)
+    } else {
+      setOpen(!open)
+    }
   }
   const avatarSize = depth ? 'xs' : 'sm'
   const fontSize = !depth ? 'md' : 'sm'
   const secondFontSize = !depth? 'sm' : 'xs'
   
+  let src = ""
+  let IconComp: any = null
+  let isIcon = false 
   if (icon && icons[icon]) {
     if (typeof icons[icon] === 'string') {
       src = icons[icon]
@@ -114,23 +119,33 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
                       pal={Palettes.space}
                       title={description} />
 
-  const even = (depth % 2 === 0)
-
-  const handleClick = () => {
-    if (!space.spaces || !space.spaces.length) {
-      setCurrentSpace(space)
-    } else {
-      setOpen(!open)
-    }
-  }
-
   const listItemCls = clsx({
     [classes.listItem]: true,
     [classes.activeListItem]: space.active,
-    'flex w-full justify-between p-2 items-center': true
+    'flex w-full  p-2 items-center': true,
+    'justify-between': !mini,
+    'justify-center flex-col': mini
   })
+  const children = open &&
+  <li className="flex flex-col space-between">
+    {(spaces).map((cspace: any, cindex: number) => {
+      return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
+    })}
+  </li>
 
-  const notOpen = !!(!open &&  spaces &&  spaces.length)
+  if (mini) {
+    return (
+      <li
+        className={listItemCls}
+        onClick={handleClick}
+      >
+          {renderIcon}
+        {children && <div className="flex flex-col">{children}</div>}
+      </li>
+    ) 
+  }
+
+  const even = (depth % 2 === 0)
   const expandMore = !even && notOpen && <ExpandMore />
   const expandLess = !even && open && <ExpandLess />
   const nodeInfo =
@@ -153,12 +168,6 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
               }
               </Text>
             </div>)
-  const children = open &&
-    <li className="flex flex-col space-between">
-      {(spaces).map((cspace: any, cindex: number) => {
-        return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
-      })}
-    </li>
   const items =  (
     <li
       className={listItemCls}
@@ -171,6 +180,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
       {expandMore}
     </li>
   )
+
   return (children ? (<div className="flex flex-col">{items}{children}</div>) : items )
   
   /*
