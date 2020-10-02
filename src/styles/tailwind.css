@@ -132,6 +132,10 @@
   margin-bottom: 1rem
 }
 
+.ml-4 {
+  margin-left: 1rem
+}
+
 .ml-5 {
   margin-left: 1.25rem
 }
@@ -162,6 +166,10 @@
 
 .p-0 {
   padding: 0
+}
+
+.p-2 {
+  padding: 0.5rem
 }
 
 .p-4 {

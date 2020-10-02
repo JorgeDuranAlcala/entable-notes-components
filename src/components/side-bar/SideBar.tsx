@@ -41,7 +41,9 @@ interface Props {
 const getMembers = (space: any) => {
   const { members } = space
   let memberCount: number = 0
-
+  if (!members) {
+    return 0
+  }
   memberCount += members.owner ? members.owner.length : 0
   memberCount += members.admins ? members.admins.length : 0
   memberCount += members.users ? members.users.length : 0
@@ -65,23 +67,7 @@ export const SpaceNode = (space: any) => {
               name={space.name.toUpperCase()}
               shape="square"
           />
-          <div className={classes.information}>
-              <Typography
-                  color="textPrimary"
-                  className="mt-1 ml-4"
-              >
-                  {space.name}
-              </Typography>
-              <Typography
-                  variant="caption"
-                  color="textSecondary"
-                  className="mt-1 ml-4"
-              >
-                  {
-                      `${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`
-                  }
-              </Typography>
-          </div>
+        
       </li>
   )
 }
@@ -90,6 +76,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   if (depth > 0) {
     debugger
   }
+  const members: number = getMembers(space)
   const classes = useStyles()
   const layoutClasses = useLayoutStyles()
   let cls = layoutClasses.sidebar
@@ -107,7 +94,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   if (depth > 1) {
     debugger;
   }
-
+  const size = depth ? 'xs' : 'sm'
   if (icon && icons[icon]) {
     if (typeof icons[icon] === 'string') {
       src = icons[icon]
@@ -120,7 +107,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
                       src={src}
                       icon={isIcon}
                       Icon={IconComp}
-                      size="sm"
+                      size={size}
                       border={false}
                       shape={SpaceShape}
                       name={name}
@@ -139,36 +126,48 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
 
   const listItemCls = clsx({
     [classes.listItem]: true,
-    [classes.activeListItem]: space.active
+    [classes.activeListItem]: space.active,
+    'flex w-full justify-between p-2 items-center': true
   })
 
   const notOpen = !!(!open &&  spaces &&  spaces.length)
   const expandMore = !even && notOpen && <ExpandMore />
   const expandLess = !even && open && <ExpandLess />
-
+  const nodeInfo =
+          (<div className="flex align-center  flex-col">
+              <Typography
+                  color="textPrimary"
+                  className="mt-1 ml-4"
+              >
+                {name}
+              </Typography>
+              <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  className="mt-1 ml-4"
+              >
+              {
+                  `${members ? `${members} Team ${members ? 'Members' : 'Member'}` : `No Members`}`
+              }
+              </Typography>
+            </div>)
   const children = open &&
-    <List className="flex flex-col space-between" component="nav" disablePadding>
+    <li className="flex flex-col space-between">
       {(spaces).map((cspace: any, cindex: number) => {
         return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
       })}
-    </List>
+    </li>
   const items =  (
-    <ListItem
-      key={space.title}
+    <li
       className={listItemCls}
-      component="li"
-      to={space.href}
       onClick={handleClick}
     >
       {!even ? renderIcon : null}
-      {!mini && <ListItemText
-        classes={{ primary: classes.listItemText }}
-        primary={name}
-      />}
+      {!mini && nodeInfo}
       {even ? renderIcon : null}
       {expandLess}
       {expandMore}
-    </ListItem>
+    </li>
   )
   return (children ? (<div className="flex flex-col">{items}{children}</div>) : items )
   

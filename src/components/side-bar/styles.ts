@@ -43,10 +43,6 @@ export default makeStyles((theme: Theme) => createStyles({
     overflow: 'auto',
     marginBottom: theme.spacing(2),
   },
-  information: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   headerText: {
     marginLeft: theme.spacing(3.5),
   },
