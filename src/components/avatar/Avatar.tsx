@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
 
 import Person from '@material-ui/icons/Person'
-import { WithStyles, withStyles, Theme } from '@material-ui/core/styles'
+import { WithStyles, withStyles, Theme, useTheme} from '@material-ui/core/styles'
 import { hashNumber, getInitials } from 'helpers/misc'
-
-import { getHashColor, Palettes } from 'theme/palette'
+import GlobalContext from 'context/global-context'
+import { LIGHT, WHITE, BLACK, getHashColor, Palettes } from 'theme/palette'
 import Tooltip from 'components/tooltip'
 import { IAvatar } from './index'
 
@@ -28,7 +28,6 @@ const styles = (theme: Theme):any => {
     const spacing4 = zoomSpacing(4)
     const spacing5 = zoomSpacing(5)
     const spacing6 = zoomSpacing(6)
-
     return {
         root: {
             position: 'relative',
@@ -55,6 +54,12 @@ const styles = (theme: Theme):any => {
         },
         noClass: {
           
+        },
+        icon: {
+          height: '100%'
+        },
+        iconRoot: {
+          textAlign: 'center'
         },
         /* Styles applied to the root element if `variant="rounded"`. */
         round: {
@@ -119,33 +124,37 @@ export interface AvatarProps extends StyleProps, IAvatar{
 }
 
 const Avatar = function Avatar(props: AvatarProps) {
+  const { icon } = props
   const {
     name,
     children: childrenProp,
     classes,
     className,
-    component: Component = 'div',
+    component: Component = icon ? 'RenderIcon' : 'div',
     imgProps,
     src,
-    pal = Palettes.avatar,
     tooltip = true,
     custom,
     size='md',
     shape = 'circle',
     border = true,
-    style={},
+    style = {backgroundColor: '#000', color: '#fff'},
     extra,
     cStyle={},
     Icon,
+    color,
+    trans = false,
+    pal = Palettes.avatar,
     handleClick,
     initials=2,
     ...other
   } = props
-
   if (handleClick) {
     // @ts-ignore
     style.cursor = 'pointer'
   }
+  const theme = useTheme()
+  const { palette, themeZoom } = theme
   const [loadedSrc, setLoadedSrc] = useState<boolean>(false)
 
   let children = null;
@@ -161,7 +170,7 @@ const Avatar = function Avatar(props: AvatarProps) {
       image.onerror = () => {
       }
     }
-  },[src, setLoadedSrc ])
+  }, [src, setLoadedSrc])
 
   if (loadedSrc) {
     children = (
@@ -173,19 +182,18 @@ const Avatar = function Avatar(props: AvatarProps) {
       />
     )
   } else if (childrenProp != null) {
-    children = childrenProp;
-  } else if (name) {
-    if (!extra) {
-      const number = hashNumber(name)
-      const { bg, text } = getHashColor(number, pal)
-      children = getInitials(name,initials)
-      // @ts-ignore
-      style.backgroundColor = bg
-      // @ts-ignore
-      style.color = text
-    } else {
-      children = name
-    }
+    children = childrenProp
+  } else if (name && !extra) {
+      if (trans) {
+        style.backgroundColor = 'transparent'
+        style.color = color ? color : palette.type === LIGHT ? BLACK : WHITE
+      } else {
+        const number = hashNumber(name)
+        const color = getHashColor(number, pal)
+        style.backgroundColor = color.bg
+        style.color = color.text
+      }
+      children = Icon ? <Icon style={style}/> : getInitials(name, initials)
   } else {
     children = Icon? <Icon className={classes.fallback} />: <Person className={classes.fallback} />;
   }
@@ -208,7 +216,8 @@ const Avatar = function Avatar(props: AvatarProps) {
   
   const component = (
     <Component
-      data-test="table-avatar"
+      data-test="avatar"
+      aria-label="avatar"
       className={cls}
       style={style}
       {...other}

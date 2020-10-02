@@ -157,7 +157,7 @@ export  const Colors = {
 export enum Palettes  {
   labels = PaletteType.pastel,
   status = PaletteType.dark,
-  project = PaletteType.dark,
+  space = PaletteType.dark,
   avatar = PaletteType.pastel,
   priority = PaletteType.medium,
   otherLight = PaletteType.pastel,
@@ -218,8 +218,10 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
 }
 
 export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {  
-  const colors = getPaletteColors(pal,true)
+  const colors = getPaletteColors(pal, true)
   const idx = hash % colors.length
+  debugger
+  console.log(colors)
   return colors[idx]
 }
 
