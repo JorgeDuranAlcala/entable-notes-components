@@ -1,5 +1,5 @@
-import * as React from "react"
-import { isFunction } from "./assertion"
+import * as React from 'react'
+import { isFunction } from './assertion'
 
 export interface CreateContextOptions {
   /**
@@ -27,7 +27,7 @@ type CreateContextReturn<T> = [React.Provider<T>, () => T, React.Context<T>]
 export function createContext<ContextType>(options: CreateContextOptions = {}) {
   const {
     strict = true,
-    errorMessage = "useContext: `context` is undefined. Seems you forgot to wrap component within the Provider",
+    errorMessage = 'useContext: `context` is undefined. Seems you forgot to wrap component within the Provider',
     name,
   } = options
 
@@ -45,9 +45,7 @@ export function createContext<ContextType>(options: CreateContextOptions = {}) {
     return context
   }
 
-  return [Context.Provider, useContext, Context] as CreateContextReturn<
-    ContextType
-  >
+  return [Context.Provider, useContext, Context] as CreateContextReturn<ContextType>
 }
 
 /**
@@ -57,9 +55,7 @@ export function createContext<ContextType>(options: CreateContextOptions = {}) {
  * @param children the children
  */
 export function getValidChildren(children: React.ReactNode) {
-  return React.Children.toArray(children).filter((child) =>
-    React.isValidElement(child),
-  ) as React.ReactElement[]
+  return React.Children.toArray(children).filter(child => React.isValidElement(child)) as React.ReactElement[]
 }
 
 type ReactRef<T> = React.Ref<T> | React.RefObject<T> | React.MutableRefObject<T>
@@ -95,6 +91,6 @@ export function assignRef<T = any>(ref: ReactRef<T> | undefined, value: T) {
  */
 export function mergeRefs<T>(...refs: (ReactRef<T> | undefined)[]) {
   return (value: T) => {
-    refs.forEach((ref) => assignRef(ref, value))
+    refs.forEach(ref => assignRef(ref, value))
   }
 }

@@ -1,5 +1,5 @@
-import { Omit, Dict } from "./types"
-import merge from "lodash.merge"
+import { Omit, Dict } from './types'
+import merge from 'lodash.merge'
 
 export function omit<T extends Dict, K extends keyof T>(object: T, keys: K[]) {
   const result: Dict = {}
@@ -43,14 +43,9 @@ export function split<T extends Dict, K extends keyof T>(object: T, keys: K[]) {
  * @param path - the string path
  * @param def  - the fallback value
  */
-export function get(
-  obj: any,
-  path: string | number,
-  fallback?: any,
-  index?: number,
-) {
+export function get(obj: any, path: string | number, fallback?: any, index?: number) {
   //@ts-ignore
-  path = (path?.split?.(".") ?? [path]) as string
+  path = (path?.split?.('.') ?? [path]) as string
   for (index = 0; index < path.length; index++) {
     obj = obj ? obj[path[index]] : undefined
   }
@@ -80,5 +75,4 @@ export function filterUndefined(object: Dict) {
   return result
 }
 
-export const objectKeys = <T extends Dict>(obj: T) =>
-  (Object.keys(obj) as unknown) as (keyof T)[]
+export const objectKeys = <T extends Dict>(obj: T) => (Object.keys(obj) as unknown) as (keyof T)[]

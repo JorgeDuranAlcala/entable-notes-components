@@ -2,7 +2,7 @@ import Box from './Box'
 import { BoxProps } from '@material-ui/core/Box'
 import { Color, Shade } from 'theme'
 
-export interface IBox extends BoxProps  {
+export interface IBox extends BoxProps {
   bg?: Color
   color?: 'inverse'
   inverse?: boolean

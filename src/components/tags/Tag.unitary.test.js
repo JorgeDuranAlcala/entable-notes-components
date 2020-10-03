@@ -6,27 +6,21 @@ import Tag from './Tag'
 
 configure({ adapter: new Adapter() })
 
-
 describe('Tag | Non-editable', () => {
-    const value = "OK"
-    const component = (
-    <Tag 
-        css={{backgroundColor:'pink', fontSize:'1em'}}>
-        {value}
-    </Tag>
-    )
+  const value = 'OK'
+  const component = <Tag css={{ backgroundColor: 'pink', fontSize: '1em' }}>{value}</Tag>
 
-    it('renders component correctly', () => {
-        const wrapper = mount(component)
-        const tag = wrapper.find('.MuiBox-root[data-test="table-tag"]')
+  it('renders component correctly', () => {
+    const wrapper = mount(component)
+    const tag = wrapper.find('.MuiBox-root[data-test="table-tag"]')
 
-        expect(tag.text()).toEqual(value)
-    });
+    expect(tag.text()).toEqual(value)
+  })
 
-    it('matches snapshot', () => {
-        const tree = renderer.create(component,).toJSON()
+  it('matches snapshot', () => {
+    const tree = renderer.create(component).toJSON()
 
-        expect(tree).toMatchSnapshot()
-        expect(tree.children[0]).toEqual(value)
-    });
+    expect(tree).toMatchSnapshot()
+    expect(tree.children[0]).toEqual(value)
+  })
 })

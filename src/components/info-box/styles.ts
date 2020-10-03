@@ -5,7 +5,7 @@ export default makeStyles((theme: any) => ({
     height: '100%',
   },
   caption: {
-    color: '#000'
+    color: '#000',
   },
   difference: {
     marginTop: theme.spacing(1),

@@ -1,4 +1,4 @@
-@import-normalize ;
+@import-normalize;
 
 @import 'tailwind-base.css';
 
@@ -50,14 +50,14 @@ select:-webkit-autofill:focus {
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap
+  white-space: nowrap;
 }
 .inline {
   display: inline-flex;
   flex-wrap: nowrap;
 }
 .gray {
-  color: lighten(gray,15%);
+  color: lighten(gray, 15%);
 }
 
 @import 'tailwind.css';

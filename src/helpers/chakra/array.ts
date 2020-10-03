@@ -26,7 +26,7 @@ export function addItem<T>(array: T[], item: T) {
 }
 
 export function removeItem<T>(array: T[], item: T) {
-  return array.filter((eachItem) => eachItem !== item)
+  return array.filter(eachItem => eachItem !== item)
 }
 
 /**
@@ -37,12 +37,7 @@ export function removeItem<T>(array: T[], item: T) {
  * @param step the number of steps
  * @param loop whether to circle back once `currentIndex` is at the start/end
  */
-export function getNextIndex(
-  currentIndex: number,
-  length: number,
-  step = 1,
-  loop = true,
-) {
+export function getNextIndex(currentIndex: number, length: number, step = 1, loop = true) {
   const lastIndex = length - 1
 
   if (currentIndex === -1) {
@@ -105,7 +100,7 @@ export function getNextItemFromSearch<T>(
   items: T[],
   searchString: string,
   itemToString: (item: T) => string,
-  currentItem: T,
+  currentItem: T
 ) {
   if (searchString == null) {
     return currentItem
@@ -113,16 +108,12 @@ export function getNextItemFromSearch<T>(
 
   // If current item doesn't exist, find the item that matches the search string
   if (!currentItem) {
-    const foundItem = items.find((item) =>
-      itemToString(item).toLowerCase().startsWith(searchString.toLowerCase()),
-    )
+    const foundItem = items.find(item => itemToString(item).toLowerCase().startsWith(searchString.toLowerCase()))
     return foundItem
   }
 
   // Filter items for ones that match the search string (case insensitive)
-  const matchingItems = items.filter((item) =>
-    itemToString(item).toLowerCase().startsWith(searchString.toLowerCase()),
-  )
+  const matchingItems = items.filter(item => itemToString(item).toLowerCase().startsWith(searchString.toLowerCase()))
 
   // If there's a match, let's get the next item to select
   if (matchingItems.length > 0) {

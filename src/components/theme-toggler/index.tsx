@@ -19,7 +19,7 @@ export default function ThemeToggler({ className }: any) {
 
   const onChangeTheme = (theme: ThemeType) => {
     const { zoom } = themeZoom
-    setThemeZoom({theme, zoom})
+    setThemeZoom({ theme, zoom })
     setTheme(theme)
     setAnchorEl(null)
   }
@@ -27,12 +27,7 @@ export default function ThemeToggler({ className }: any) {
   return (
     <div className={className}>
       <Tooltip title="Change Theme">
-        <IconButton
-          aria-label="theme-palette"
-          aria-controls="theme-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
+        <IconButton aria-label="theme-palette" aria-controls="theme-menu" aria-haspopup="true" onClick={handleClick}>
           <PaletteIcon />
         </IconButton>
       </Tooltip>
@@ -44,11 +39,7 @@ export default function ThemeToggler({ className }: any) {
         onClose={() => onChangeTheme(theme)}
       >
         {AVAILABLE_THEMES.map(option => (
-          <MenuItem
-            key={option}
-            selected={option === theme}
-            onClick={() => onChangeTheme(option)}
-          >
+          <MenuItem key={option} selected={option === theme} onClick={() => onChangeTheme(option)}>
             {option}
           </MenuItem>
         ))}

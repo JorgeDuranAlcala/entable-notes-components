@@ -1,4 +1,4 @@
-import React, { forwardRef} from "react"
+import React, { forwardRef } from 'react'
 
 export interface FlexProps {
   /**
@@ -42,17 +42,16 @@ export interface FlexProps {
  *
  */
 
-export const Flex = forwardRef((props: FlexProps, ref:any) => {
-  const { inline=false, direction, align, justify, wrap,  center, component="div", ...rest } = props
+export const Flex = forwardRef((props: FlexProps, ref: any) => {
+  const { inline = false, direction, align, justify, wrap, center, component = 'div', ...rest } = props
   let cls = inline ? 'inline-flex okdo ' : 'flex okdo '
-  cls+= ' w-full '
+  cls += ' w-full '
   if (direction) {
     cls += `flex-${direction} `
   }
   if (center) {
     cls += 'align-center justify-center'
-  }
-  else {
+  } else {
     if (align) {
       cls += `align-${align} `
     }

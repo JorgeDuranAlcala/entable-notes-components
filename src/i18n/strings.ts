@@ -16,7 +16,7 @@ const strings = {
   PHONENUMBER_REQUIRED: 'Phone number is required',
   PHONENUMBER_FORMAT_ERROR: 'Phone number is not valid',
   USERNAME_LENGTH_ERROR: 'Username should be 4 - 20 characters',
-  USERNAME_FORMAT_ERROR: 'Username should be alphanumeric'
-};
+  USERNAME_FORMAT_ERROR: 'Username should be alphanumeric',
+}
 
-export default strings;
+export default strings

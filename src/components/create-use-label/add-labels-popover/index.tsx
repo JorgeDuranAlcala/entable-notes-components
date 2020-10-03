@@ -1,83 +1,61 @@
-import React, { ReactElement, useState, useRef } from "react"
-import { Button, Popover, Typography, useTheme } from "@material-ui/core"
-import PencilIcon from "@material-ui/icons/Edit"
-import board from "mocks/board.json"
-import {
-  blue,
-  green,
-  grey,
-  purple,
-  red,
-  yellow,
-} from "@material-ui/core/colors"
+import React, { ReactElement, useState, useRef } from 'react'
+import { Button, Popover, Typography, useTheme } from '@material-ui/core'
+import PencilIcon from '@material-ui/icons/Edit'
+import board from 'mocks/board.json'
+import { blue, green, grey, purple, red, yellow } from '@material-ui/core/colors'
 import Label from './label'
 import Color from './color'
-import useStyles from "./styles"
+import useStyles from './styles'
 
 interface Props {}
-
 
 function AddLabelsPopover(props: any): ReactElement {
   const classes = useStyles()
   const theme = useTheme()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [labels, setLabels] = useState(board.labels)
-  const [input, setInput] = useState<string>("Add label")
+  const [input, setInput] = useState<string>('Add label')
   const [addNewLabel, setAddNewLabel] = useState<boolean>(false)
   const [activeInput, setActiveInput] = useState<boolean>(false)
   const [activeEditInput, setActiveEditInput] = useState<boolean>(false)
   const [activeEditColor, setActiveEditColor] = useState<boolean>(false)
-  const [colorSelected, setColorSelected] = useState<string>("")
-  const [labelId, setLabelId] = useState<string>("")
-  const [colorOnMouse, setColorOnMouse] = useState<string>("")
-  const [colors, setColors] = useState<string[]>([
-    blue[500],
-    red[300],
-    green[500],
-    purple[400],
-    yellow[300],
-  ])
+  const [colorSelected, setColorSelected] = useState<string>('')
+  const [labelId, setLabelId] = useState<string>('')
+  const [colorOnMouse, setColorOnMouse] = useState<string>('')
+  const [colors, setColors] = useState<string[]>([blue[500], red[300], green[500], purple[400], yellow[300]])
 
   const create_label = () => {
     let newLabel = {
       id: (Number(labels.slice(-1)[0].id) + 1).toString(),
       name: input,
-      class: "",
+      class: '',
       bg: colorSelected ? colorSelected : grey[200],
       color: theme.palette.text.primary,
     }
 
-    setInput("")
-    setColorSelected("")
+    setInput('')
+    setColorSelected('')
 
-    if(labels.find(label => label.name === newLabel.name)) { 
+    if (labels.find(label => label.name === newLabel.name)) {
       setLabels([...labels])
     } else {
       setLabels([...labels, newLabel])
     }
   }
   const edit_label = (value: string, id: string) => {
-     let x = labels.map(label => (
-        (label.id == id)
-          ? {...label, name: value}
-          : label
-      ))
-      setLabels([...x])
+    let x = labels.map(label => (label.id == id ? { ...label, name: value } : label))
+    setLabels([...x])
   }
   const edit_color = (id: string) => {
     setLabelId(id)
     setActiveEditColor(true)
- }
+  }
 
   const choose_color_edit = (color: string) => {
-    let x = labels.map(label => (
-      (label.id == labelId)
-        ? {...label, bg: color}
-        : label
-    ))
+    let x = labels.map(label => (label.id == labelId ? { ...label, bg: color } : label))
     setLabels([...x])
     setActiveEditColor(false)
- }
+  }
 
   const handleColor = (color: string) => {
     setColorSelected(color)
@@ -102,17 +80,17 @@ function AddLabelsPopover(props: any): ReactElement {
     <Popover
       {...props}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "center",
+        vertical: 'bottom',
+        horizontal: 'center',
       }}
       transformOrigin={{
-        vertical: "top",
-        horizontal: "center",
+        vertical: 'top',
+        horizontal: 'center',
       }}
     >
       <div className={`${classes.container} flex flex-col`}>
         <div className={`${classes.popoverBody} p-4 grid grid-cols-3 gap-5`}>
-          {labels.map((label) => (
+          {labels.map(label => (
             <Label
               id={label.id}
               key={label.id}
@@ -129,23 +107,18 @@ function AddLabelsPopover(props: any): ReactElement {
             />
           ))}
 
-
           {activeInput && addNewLabel && (
-            <div
-              className="flex items-center justify-center relative"
-              style={{ backgroundColor: grey[200] }}
-            >
+            <div className="flex items-center justify-center relative" style={{ backgroundColor: grey[200] }}>
               <div
                 className={`${classes.left} h-full absolute left-0 top-0 bottom-0 flex items-center transition-all duration-500`}
                 style={{
                   backgroundColor: colorSelected ? colorSelected : grey[400],
                   width: addNewLabel ? '20%' : '100%',
                 }}
-              >
-              </div>
+              ></div>
               <input
                 type="text"
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 className={`${classes.input} text-gray-500  bg-transparent outline-none pl-6`}
                 value={input}
                 ref={inputRef}
@@ -156,7 +129,7 @@ function AddLabelsPopover(props: any): ReactElement {
             <div
               className="p-4 cursor-pointer"
               style={{
-                backgroundColor: colorOnMouse ? colorOnMouse : "transparent",
+                backgroundColor: colorOnMouse ? colorOnMouse : 'transparent',
                 border: `2px dashed ${grey[300]}`,
               }}
               onClick={() => {
@@ -190,18 +163,17 @@ function AddLabelsPopover(props: any): ReactElement {
             fullWidth
             className={`${classes.btn} p-4`}
             onClick={() => {
-              if(addNewLabel) {
-                onApply() 
+              if (addNewLabel) {
+                onApply()
               } else {
                 setActiveEditInput(!activeEditInput)
                 setAddNewLabel(!addNewLabel)
               }
-            }
-          }
+            }}
           >
             <Typography className="bold flex items-center">
               {!addNewLabel && <PencilIcon />}
-              {!addNewLabel ? "Add/edit label" : "Apply"}
+              {!addNewLabel ? 'Add/edit label' : 'Apply'}
             </Typography>
           </Button>
         </div>

@@ -1,5 +1,5 @@
 ```jsx
-  <Flex center={true} inline={true}>
-    <span>OKDOKAY</span>
-  </Flex>
+<Flex center={true} inline={true}>
+  <span>OKDOKAY</span>
+</Flex>
 ```

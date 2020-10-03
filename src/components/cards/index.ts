@@ -3,13 +3,13 @@ import { IAvatar, Size, Shape } from 'components/avatar'
 export enum LabelPosition {
   left = 'left',
   right = 'right',
-  center = 'center'
+  center = 'center',
 }
 export type MenuAction = {
   icon?: any
   label: string
   position?: LabelPosition.left | LabelPosition.right
-  action?: (val?:any) => void
+  action?: (val?: any) => void
 }
 
 export type Menu = {
@@ -20,20 +20,20 @@ export type Menu = {
 export type BottomButtonAction = {
   label: string
   position?: LabelPosition
-  action: (val?:any) => void
+  action: (val?: any) => void
 }
 
 export type CardMenu = {
   menus?: MenuAction[]
   bottomAction?: BottomButtonAction
 }
-export enum CardItemMetric  {
+export enum CardItemMetric {
   ago = 'ago',
   followers = 'followers',
   following = 'following',
   time = 'time',
   date = 'date',
-  percentage = 'percentage'
+  percentage = 'percentage',
 }
 
 export type CardItem = {
@@ -63,10 +63,10 @@ export interface ICardList {
   size?: Size // refers to avatar size
   shape?: Shape // refers to avatar shape
   oppSide?: boolean // avatar or checklist on opposit side
-                    // rtl => left side avatar/checklist
-                    // ltl => right side 
+  // rtl => left side avatar/checklist
+  // ltl => right side
   tabable?: boolean
   showZero?: boolean // for groups
   items: GroupedItem[] | CardItem[]
-  [key:string]: any
+  [key: string]: any
 }

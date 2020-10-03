@@ -1,2 +1,2 @@
-import PeopleDropdownSelect from './PeopleDropdownSelect';
-export default PeopleDropdownSelect;
+import PeopleDropdownSelect from './PeopleDropdownSelect'
+export default PeopleDropdownSelect

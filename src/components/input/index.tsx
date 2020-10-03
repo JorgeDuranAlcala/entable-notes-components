@@ -1,2 +1,2 @@
 import { BootstrapInput } from './BootstrapInput'
-export  { BootstrapInput }
+export { BootstrapInput }

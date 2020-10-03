@@ -4,7 +4,6 @@ import LegalIcon from '@material-ui/icons/Gavel'
 import EventNoteIcon from '@material-ui/icons/EventNote'
 import DescriptionIcon from '@material-ui/icons/Description'
 
-
 export default {
   accounting: './icons/accounting.svg',
   contacts: './icons/contacts.svg',
@@ -15,5 +14,5 @@ export default {
   space: './icons/space.svg',
   legal: LegalIcon,
   event: EventNoteIcon,
-  description: DescriptionIcon
-} as  any
+  description: DescriptionIcon,
+} as any

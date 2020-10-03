@@ -4,5 +4,5 @@ export type Shape = 'square' | 'circle' | 'square'
 export interface IAvatar {
   src?: string
   name?: string
-  handleClick?: (e:any) => void
+  handleClick?: (e: any) => void
 }

@@ -1,29 +1,29 @@
 // Credit goes to Diego Haz for this one
 // https://github.com/reakit/reakit/blob/master/packages/reakit-utils/src/createOnKeyDown.ts
 
-import * as React from "react"
-import { runIfFn } from "./function"
-import { normalizeEventKey } from "./dom"
+import * as React from 'react'
+import { runIfFn } from './function'
+import { normalizeEventKey } from './dom'
 
 type EventKeys =
-  | "ArrowDown"
-  | "ArrowUp"
-  | "ArrowLeft"
-  | "ArrowRight"
-  | "Enter"
-  | "Space"
-  | "Tab"
-  | "Backspace"
-  | "Control"
-  | "Meta"
-  | "Home"
-  | "End"
-  | "PageDown"
-  | "PageUp"
-  | "Delete"
-  | "Escape"
-  | " "
-  | "Shift"
+  | 'ArrowDown'
+  | 'ArrowUp'
+  | 'ArrowLeft'
+  | 'ArrowRight'
+  | 'Enter'
+  | 'Space'
+  | 'Tab'
+  | 'Backspace'
+  | 'Control'
+  | 'Meta'
+  | 'Home'
+  | 'End'
+  | 'PageDown'
+  | 'PageUp'
+  | 'Delete'
+  | 'Escape'
+  | ' '
+  | 'Shift'
 
 type KeyMapReturn = (event: React.KeyboardEvent) => any
 type KeyMap = Partial<Record<EventKeys, KeyMapReturn>>
@@ -38,14 +38,7 @@ export interface CreateOnKeyDownOptions {
 }
 
 export function createOnKeyDown(options: CreateOnKeyDownOptions) {
-  const {
-    keyMap,
-    onKey,
-    stopPropagation,
-    onKeyDown,
-    shouldKeyDown = () => true,
-    preventDefault = true,
-  } = options
+  const { keyMap, onKey, stopPropagation, onKeyDown, shouldKeyDown = () => true, preventDefault = true } = options
 
   return (event: React.KeyboardEvent) => {
     if (!keyMap) return
@@ -59,7 +52,7 @@ export function createOnKeyDown(options: CreateOnKeyDownOptions) {
     if (eventKey in finalKeyMap) {
       const action = finalKeyMap[eventKey as EventKeys]
 
-      if (typeof action === "function" && shouldKeyDown(event)) {
+      if (typeof action === 'function' && shouldKeyDown(event)) {
         if (shouldPreventDefault) event.preventDefault()
         if (shouldStopPropagation) event.stopPropagation()
         onKey?.(event)

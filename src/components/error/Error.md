@@ -1,7 +1,5 @@
 Error Example:
-```jsx
-    <Error
-       message="I am error"
-    />
-```
 
+```jsx
+<Error message="I am error" />
+```

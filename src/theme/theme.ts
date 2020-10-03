@@ -1,54 +1,54 @@
-import { createMuiTheme, responsiveFontSizes} from '@material-ui/core'
-import PaletteOptions from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
+import PaletteOptions from '@material-ui/core/styles/createMuiTheme'
 import { GlobalContext } from 'context/global-context'
 import { FONT_BASIS, makePalette, ThemeZoom, unit, tablePadding } from './index'
 import { roundNum } from 'helpers'
 // https://www.sipios.com/blog-tech/how-to-use-styled-components-with-material-ui-in-a-react-app
 import typography from './typography'
 
-function createTheme(variant: ThemeZoom):any {
-  let palette:any = makePalette(variant)
+function createTheme(variant: ThemeZoom): any {
+  let palette: any = makePalette(variant)
   const { zoom } = variant
   const { colors } = palette
   delete palette.colors
   GlobalContext.palette = colors
   GlobalContext.palette.type = palette.type
   GlobalContext.palette.contrastText = palette.contrastText
-  palette = {...palette, ...colors}
+  palette = { ...palette, ...colors }
   GlobalContext.setThemeZoom(variant)
   const theme = createMuiTheme({
-    zoomFontSize: (factor:number):string => `${roundNum(0.30 * factor * zoom)}${unit}`,
+    zoomFontSize: (factor: number): string => `${roundNum(0.3 * factor * zoom)}${unit}`,
     zoomSpacing: (factor: number) => spacing(roundNum(factor * zoom)),
     fontSize: GlobalContext.fontSize,
-    spacing: (factor:number) => `${roundNum(0.60 * factor)}${unit}`,
-    lineHeight: GlobalContext.fontSize
-  });
+    spacing: (factor: number) => `${roundNum(0.6 * factor)}${unit}`,
+    lineHeight: GlobalContext.fontSize,
+  })
   const { spacing, zoomSpacing, zoomFontSize } = theme
-  const fontSize =  {
-      xs: zoomFontSize(FONT_BASIS),
-      sm: zoomFontSize(FONT_BASIS+0.5),
-      md: zoomFontSize(FONT_BASIS+1),
-      lg: zoomFontSize(FONT_BASIS+1.5),
-      xl: zoomFontSize(FONT_BASIS+2)
+  const fontSize = {
+    xs: zoomFontSize(FONT_BASIS),
+    sm: zoomFontSize(FONT_BASIS + 0.5),
+    md: zoomFontSize(FONT_BASIS + 1),
+    lg: zoomFontSize(FONT_BASIS + 1.5),
+    xl: zoomFontSize(FONT_BASIS + 2),
   }
-  const lineHeight =  {
-    xs: zoomFontSize(FONT_BASIS+0.25),
-    sm: zoomFontSize(FONT_BASIS+0.75),
-    md: zoomFontSize(FONT_BASIS+1.25),
-    lg: zoomFontSize(FONT_BASIS+1.75),
-    xl: zoomFontSize(FONT_BASIS+2.25)
+  const lineHeight = {
+    xs: zoomFontSize(FONT_BASIS + 0.25),
+    sm: zoomFontSize(FONT_BASIS + 0.75),
+    md: zoomFontSize(FONT_BASIS + 1.25),
+    lg: zoomFontSize(FONT_BASIS + 1.75),
+    xl: zoomFontSize(FONT_BASIS + 2.25),
   }
-  let padding:string = tablePadding[0].toString()
+  let padding: string = tablePadding[0].toString()
   if (tablePadding[0]) {
-    padding+= unit
+    padding += unit
   }
-  padding+= ' '
-  padding+= tablePadding[1].toString()
+  padding += ' '
+  padding += tablePadding[1].toString()
   if (tablePadding[1]) {
-    padding+= unit
+    padding += unit
   }
   GlobalContext.fontSize = fontSize
-  const modTheme:any = createMuiTheme(
+  const modTheme: any = createMuiTheme(
     /**
      * @see https://material-ui.com/customization/themes/#theme-configuration-variables
      * https://material-ui.com/customization/typography/
@@ -63,15 +63,15 @@ function createTheme(variant: ThemeZoom):any {
       lineHeight,
       props: {
         MuiButtonBase: {
-          disableRipple: true
+          disableRipple: true,
         },
         MuiButton: {
-            variant: 'contained',
-            disableElevation: true,
+          variant: 'contained',
+          disableElevation: true,
         },
         MuiTextField: {
-            variant: 'outlined'
-        }
+          variant: 'outlined',
+        },
       },
       zIndex: {
         appBar: 1200,
@@ -91,8 +91,8 @@ function createTheme(variant: ThemeZoom):any {
           },
         },
         MuiTableCell: {
-          root: { 
-            borderBottom: '1px solid rgba(224, 224, 224, .5)', 
+          root: {
+            borderBottom: '1px solid rgba(224, 224, 224, .5)',
             lineHeight: lineHeight.md,
             fontSize: fontSize.md,
             backgroundColor: theme.palette.background.default,
@@ -101,20 +101,21 @@ function createTheme(variant: ThemeZoom):any {
         MuiAutocomplete: {
           root: {
             backgroundColor: theme.palette.background.default,
-            color: theme.palette.getContrastText(theme.palette.background.default)
-          }
+            color: theme.palette.getContrastText(theme.palette.background.default),
+          },
         },
         MuiButton: {
           root: {
             color: theme.palette.primary.contrastText,
-          }
+          },
         },
         MuiTextField: {
           root: {
-            variant: 'outlined'
-          }
-        }
-    }}
+            variant: 'outlined',
+          },
+        },
+      },
+    }
   )
   //  return responsiveFontSizes(modTheme)
   GlobalContext.theme = theme

@@ -1,9 +1,20 @@
-import { grey, red, blue, teal, pink, lightBlue, yellow, orange, green, deepPurple, blueGrey } from '@material-ui/core/colors'
+import {
+  grey,
+  red,
+  blue,
+  teal,
+  pink,
+  lightBlue,
+  yellow,
+  orange,
+  green,
+  deepPurple,
+  blueGrey,
+} from '@material-ui/core/colors'
 import { Theme } from '@material-ui/core/styles'
 import { emphasize } from '@material-ui/core/styles/colorManipulator'
 import { lightenOrDarkenColor, getContrastText } from 'helpers/color'
 import { ThemeZoom, Color, ColorValue, ColorObj } from './index'
-
 
 export const WHITE = '#fff'
 export const BLACK = '#000'
@@ -133,15 +144,14 @@ export const themePalette = {
 }
 // https://www.behance.net/gallery/95862937/Kulturminnefondet-rebranded
 
-
-export enum PaletteType  {
+export enum PaletteType {
   pastel = 'pastel',
   dark = 'dark',
   medium = 'medium',
-  all = 'all'
+  all = 'all',
 }
 
-export  const Colors = {
+export const Colors = {
   red,
   blue,
   teal,
@@ -151,10 +161,10 @@ export  const Colors = {
   orange,
   green,
   deepPurple,
-  blueGrey
+  blueGrey,
 }
 
-export enum Palettes  {
+export enum Palettes {
   labels = PaletteType.pastel,
   status = PaletteType.dark,
   space = PaletteType.dark,
@@ -163,7 +173,7 @@ export enum Palettes  {
   otherLight = PaletteType.pastel,
   otherDark = PaletteType.dark,
   otherMedium = PaletteType.medium,
-  otherAll = PaletteType.all
+  otherAll = PaletteType.all,
 }
 
 export const PALETTE_PASTELS = ['100', '200', 'A100']
@@ -177,8 +187,8 @@ export type PaletteColor = {
   text: string
 }
 
-export function getPaletteColors(pal: Palettes, all: boolean=false, color?: string) {
-  const colors:PaletteColor[] = []
+export function getPaletteColors(pal: Palettes, all: boolean = false, color?: string) {
+  const colors: PaletteColor[] = []
   const colorKeys = color ? [color] : Object.keys(Colors)
   let shades: any[]
   const allShades = all || !!color
@@ -200,7 +210,7 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
 
   if (!allShades) {
     shades.splice(0, shades.length / 2)
-    shades.length=1
+    shades.length = 1
   }
   colorKeys.forEach(clr => {
     shades.forEach(shade => {
@@ -210,29 +220,23 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
       colors.push({
         clr: clr,
         bg,
-        text
+        text,
       })
     })
   })
   return colors
 }
 
-export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {  
+export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {
   const colors = getPaletteColors(pal, true)
   const idx = hash % colors.length
   return colors[idx]
 }
 
-function getColorObj(color: any, label:string, value: number = 600, offset:number=300): ColorValue {
-  const light = color[value - offset]
-          ? color[value - offset]
-          : lightenOrDarkenColor(color, -50)
-  const main = color[value]
-          ? color[value]
-          : color
-  const dark = color[value + offset]
-          ? color[value + offset]
-          : lightenOrDarkenColor(color, 50)
+function getColorObj(color: any, label: string, value: number = 600, offset: number = 300): ColorValue {
+  const light = color[value - offset] ? color[value - offset] : lightenOrDarkenColor(color, -50)
+  const main = color[value] ? color[value] : color
+  const dark = color[value + offset] ? color[value + offset] : lightenOrDarkenColor(color, 50)
   const colorMain = label === 'yellow' ? BLACK : WHITE
   const secondColor = colorMain === BLACK ? blueGrey[800] : blueGrey[50]
   const ret = {
@@ -243,18 +247,18 @@ function getColorObj(color: any, label:string, value: number = 600, offset:numbe
     color: colorMain,
     secondColor: secondColor,
     inverse: {
-      light: color[100]? color[100] : emphasize(light),
-      main: color[50] ? color[50]: emphasize(main),
-      dark: color[200] ? color[200]: emphasize(main),
-      contrastText: color[900] ? color[900]: emphasize(main),
+      light: color[100] ? color[100] : emphasize(light),
+      main: color[50] ? color[50] : emphasize(main),
+      dark: color[200] ? color[200] : emphasize(main),
+      contrastText: color[900] ? color[900] : emphasize(main),
       color: BLACK,
-      secondColor: blueGrey[800]
-    }
+      secondColor: blueGrey[800],
+    },
   }
-  return ret;
+  return ret
 }
 
-const danger = getColorObj(red,'red')
+const danger = getColorObj(red, 'red')
 const dark = {
   light: blueGrey[700],
   main: blueGrey[900],
@@ -268,8 +272,8 @@ const dark = {
     dark: blueGrey[100],
     contrastText: blueGrey[900],
     color: DARK,
-    secondColor: blueGrey[800]
-  }
+    secondColor: blueGrey[800],
+  },
 }
 const light = {
   light: dark.inverse.light,
@@ -284,12 +288,12 @@ const light = {
     dark: dark.dark,
     contrastText: dark.contrastText,
     color: dark.color,
-    secondColor: dark.secondColor
-  }
+    secondColor: dark.secondColor,
+  },
 }
 
 export const defaultColors: ColorObj = {
-  default: getColorObj(grey,'grey'),
+  default: getColorObj(grey, 'grey'),
   neutral: light,
   inverse: dark,
   primary: getColorObj(lightBlue, 'lightblue'),
@@ -298,7 +302,7 @@ export const defaultColors: ColorObj = {
   info: getColorObj(blue, 'blue'),
   accent: getColorObj(yellow, 'yellow'),
   warning: getColorObj(orange, 'orange'),
-  side: getColorObj(blueGrey,'bluegrey'),
+  side: getColorObj(blueGrey, 'bluegrey'),
   danger,
   error: danger,
 }
@@ -316,12 +320,15 @@ const makePalette = (themeZoom: ThemeZoom, colors = { ...defaultColors }) => {
 
   const { contrastText, ...rest } = themePalette[theme]
   const cols: Color[] = Object.keys(colors) as Color[]
- 
-  const clrs = cols.reduce((obj:ColorObj, color: Color) => {
-    const col:ColorValue = colors[color]
-    obj[color] = {...col}
-    return obj
-  }, {...colors})
+
+  const clrs = cols.reduce(
+    (obj: ColorObj, color: Color) => {
+      const col: ColorValue = colors[color]
+      obj[color] = { ...col }
+      return obj
+    },
+    { ...colors }
+  )
   const palette = {
     ...rest,
     contrastThreshold: 2,
@@ -332,13 +339,13 @@ const makePalette = (themeZoom: ThemeZoom, colors = { ...defaultColors }) => {
       BLACK,
       WHITE,
     },
-    colors: clrs
+    colors: clrs,
   }
   return palette
 }
 
-export function getColors(theme: Theme, props: any)  {
-  const { shade = 'main', bg = "neutral", color, style, inverse, round,  ...rest } = props
+export function getColors(theme: Theme, props: any) {
+  const { shade = 'main', bg = 'neutral', color, style, inverse, round, ...rest } = props
   const { palette } = theme
   // @ts-ignore
   let bgColorObj: any = palette[bg]
@@ -351,9 +358,7 @@ export function getColors(theme: Theme, props: any)  {
   const hasBorder = rest.border || rest.borderRight || rest.borderLeft || rest.borderTop || rest.borderBottom
   let borderColor: string = ''
   if (hasBorder && !rest.borderColor) {
-    borderColor = shade === 'dark' ? bgColorObj.main
-      : shade === 'light' ? bgColorObj.main
-        : bgColorObj.light
+    borderColor = shade === 'dark' ? bgColorObj.main : shade === 'light' ? bgColorObj.main : bgColorObj.light
   }
   if (color === 'inverse') {
     textColor = bgColorObj[shade]
@@ -365,7 +370,7 @@ export function getColors(theme: Theme, props: any)  {
   return {
     borderColor: rest.borderColor || borderColor,
     textColor: rest.textColor || textColor,
-    bgColor: rest.bgColor || bgColor
+    bgColor: rest.bgColor || bgColor,
   }
 }
 

@@ -51,5 +51,5 @@ export default makeStyles((theme: any) => ({
     paddingBottom: theme.spacing(1.5),
     marginBottom: theme.spacing(0.5),
     borderRadius: 5,
-  }
+  },
 }))

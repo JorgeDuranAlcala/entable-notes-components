@@ -7,7 +7,7 @@
 /**
  * "Safer" String.toLowerCase()
  */
-export function lowerCase(str:string) {
+export function lowerCase(str: string) {
   return str.toLowerCase()
 }
 
@@ -24,9 +24,9 @@ export function upperCase(str: string) {
 export function camelCase(str: string) {
   str = replaceAccents(str)
   str = removeNonWord(str)
-    .replace(/\-/g, " ") //convert all hyphens to spaces
+    .replace(/\-/g, ' ') //convert all hyphens to spaces
     .replace(/\s[a-z]/g, upperCase) //convert first char of each word to UPPERCASE
-    .replace(/\s+/g, "") //remove spaces
+    .replace(/\s+/g, '') //remove spaces
     .replace(/^[A-Z]/g, lowerCase) //convert first char to lowercase
   return str
 }
@@ -37,7 +37,7 @@ export function camelToProperCase(str: string) {
  * Add space between camelCase text.
  */
 export function unCamelCase(str: string) {
-  str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, "$1 $2")
+  str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, '$1 $2')
   str = str.toLowerCase() //add space between camelCase text
   return str
 }
@@ -45,7 +45,7 @@ export function unCamelCase(str: string) {
 /**
  * UPPERCASE first char of each word.
  */
-export  function properCase(str: string) {
+export function properCase(str: string) {
   return lowerCase(str).replace(/^\w|\s\w/g, upperCase)
 }
 
@@ -55,13 +55,13 @@ export function capitalize(str: string) {
 /**
  * camelCase + UPPERCASE first char
  */
-export  function pascalCase(str: string) {
+export function pascalCase(str: string) {
   return camelCase(str).replace(/^[a-z]/, upperCase)
 }
 /**
  * UPPERCASE first char of each sentence and lowercase other chars.
  */
-export  function sentenceCase(str: string) {
+export function sentenceCase(str: string) {
   // Replace first char of each sentence (new line or after '.\s+') to
   // UPPERCASE
   return lowerCase(str).replace(/(^\w)|\.\s+(\w)/gm, upperCase)
@@ -72,8 +72,7 @@ export  function sentenceCase(str: string) {
  * replace spaces with the specified delimeter.
  * Does not split camelCase text.
  */
-export function slugify(str:string, delimeter:string='_') {
-
+export function slugify(str: string, delimeter: string = '_') {
   str = replaceAccents(str)
   str = removeNonWord(str)
   str = trim(str) //should come after removeNonWord
@@ -88,37 +87,36 @@ export function slugify(str:string, delimeter:string='_') {
  */
 export function hyphenate(str: string) {
   str = unCamelCase(str)
-  return slugify(str, "-")
+  return slugify(str, '-')
 }
 
 /**
  * Replaces hyphens with spaces. (only hyphens between word chars)
  */
-export  function unhyphenate(str: string) {
-  return str.replace(/(\w)(-)(\w)/g, "$1 $3")
+export function unhyphenate(str: string) {
+  return str.replace(/(\w)(-)(\w)/g, '$1 $3')
 }
 
 /**
  * Replaces spaces with underscores, split camelCase text, remove
  * non-word chars, remove accents and convert to lower case.
  */
-export  function underscore(str: string) {
+export function underscore(str: string) {
   str = unCamelCase(str)
-  return slugify(str, "_")
+  return slugify(str, '_')
 }
 
 /**
  * Remove non-word chars.
  */
-export  function removeNonWord(str: string) {
-  return str.replace(/[^0-9a-zA-Z\xC0-\xFF \-]/g, "")
+export function removeNonWord(str: string) {
+  return str.replace(/[^0-9a-zA-Z\xC0-\xFF \-]/g, '')
 }
 
 /**
  * Convert line-breaks from DOS/MAC to a single standard (UNIX by default)
  */
-export  function normalizeLineBreaks(str:string, lineEnd:string="\n") {
-
+export function normalizeLineBreaks(str: string, lineEnd: string = '\n') {
   return str
     .replace(/\r\n/g, lineEnd) // DOS
     .replace(/\r/g, lineEnd) // Mac
@@ -128,31 +126,31 @@ export  function normalizeLineBreaks(str:string, lineEnd:string="\n") {
 /**
  * Replaces all accented chars with regular ones
  */
-export  function replaceAccents(str: string) {
+export function replaceAccents(str: string) {
   // verifies if the String has accents and replace them
   if (str.search(/[\xC0-\xFF]/g) > -1) {
     str = str
-      .replace(/[\xC0-\xC5]/g, "A")
-      .replace(/[\xC6]/g, "AE")
-      .replace(/[\xC7]/g, "C")
-      .replace(/[\xC8-\xCB]/g, "E")
-      .replace(/[\xCC-\xCF]/g, "I")
-      .replace(/[\xD0]/g, "D")
-      .replace(/[\xD1]/g, "N")
-      .replace(/[\xD2-\xD6\xD8]/g, "O")
-      .replace(/[\xD9-\xDC]/g, "U")
-      .replace(/[\xDD]/g, "Y")
-      .replace(/[\xDE]/g, "P")
-      .replace(/[\xE0-\xE5]/g, "a")
-      .replace(/[\xE6]/g, "ae")
-      .replace(/[\xE7]/g, "c")
-      .replace(/[\xE8-\xEB]/g, "e")
-      .replace(/[\xEC-\xEF]/g, "i")
-      .replace(/[\xF1]/g, "n")
-      .replace(/[\xF2-\xF6\xF8]/g, "o")
-      .replace(/[\xF9-\xFC]/g, "u")
-      .replace(/[\xFE]/g, "p")
-      .replace(/[\xFD\xFF]/g, "y")
+      .replace(/[\xC0-\xC5]/g, 'A')
+      .replace(/[\xC6]/g, 'AE')
+      .replace(/[\xC7]/g, 'C')
+      .replace(/[\xC8-\xCB]/g, 'E')
+      .replace(/[\xCC-\xCF]/g, 'I')
+      .replace(/[\xD0]/g, 'D')
+      .replace(/[\xD1]/g, 'N')
+      .replace(/[\xD2-\xD6\xD8]/g, 'O')
+      .replace(/[\xD9-\xDC]/g, 'U')
+      .replace(/[\xDD]/g, 'Y')
+      .replace(/[\xDE]/g, 'P')
+      .replace(/[\xE0-\xE5]/g, 'a')
+      .replace(/[\xE6]/g, 'ae')
+      .replace(/[\xE7]/g, 'c')
+      .replace(/[\xE8-\xEB]/g, 'e')
+      .replace(/[\xEC-\xEF]/g, 'i')
+      .replace(/[\xF1]/g, 'n')
+      .replace(/[\xF2-\xF6\xF8]/g, 'o')
+      .replace(/[\xF9-\xFC]/g, 'u')
+      .replace(/[\xFE]/g, 'p')
+      .replace(/[\xFD\xFF]/g, 'y')
   }
 
   return str
@@ -161,14 +159,14 @@ export  function replaceAccents(str: string) {
 /**
  * Searches for a given substring
  */
-export  function contains(str:string, substring:string, fromIndex:number=0) {
+export function contains(str: string, substring: string, fromIndex: number = 0) {
   return str.indexOf(substring, fromIndex) !== -1
 }
 
 /**
  * Truncate string at full words.
  */
-export  function crop(str:string, maxChars:number, append:string='...') {
+export function crop(str: string, maxChars: number, append: string = '...') {
   return truncate(str, maxChars, true, append)
 }
 
@@ -177,7 +175,7 @@ export  function crop(str:string, maxChars:number, append:string='...') {
  */
 export function escapeRegExp(str: string) {
   var ESCAPE_CHARS = /[\\.+*?\^$\[\](){}\/'#]/g
-  return str.replace(ESCAPE_CHARS, "\\$&")
+  return str.replace(ESCAPE_CHARS, '\\$&')
 }
 
 /**
@@ -185,11 +183,11 @@ export function escapeRegExp(str: string) {
  */
 export function escapeHtml(str: string) {
   return str
-    .replace(/&/g, "&amp")
-    .replace(/</g, "&lt")
-    .replace(/>/g, "&gt")
-    .replace(/'/g, "&#39")
-    .replace(/"/g, "&quot")
+    .replace(/&/g, '&amp')
+    .replace(/</g, '&lt')
+    .replace(/>/g, '&gt')
+    .replace(/'/g, '&#39')
+    .replace(/"/g, '&quot')
 }
 
 /**
@@ -197,9 +195,9 @@ export function escapeHtml(str: string) {
  */
 export function unescapeHtml(str: string) {
   return str
-    .replace(/&amp/g, "&")
-    .replace(/&lt/g, "<")
-    .replace(/&gt/g, ">")
+    .replace(/&amp/g, '&')
+    .replace(/&lt/g, '<')
+    .replace(/&gt/g, '>')
     .replace(/&#39/g, "'")
     .replace(/&quot/g, '"')
 }
@@ -207,15 +205,15 @@ export function unescapeHtml(str: string) {
 /**
  * Escape string into unicode sequences
  */
-export function escapeUnicode(str:string, shouldEscapePrintable:boolean = true) {
-  return str.replace(/[\s\S]/g, function(ch) {
+export function escapeUnicode(str: string, shouldEscapePrintable: boolean = true) {
+  return str.replace(/[\s\S]/g, function (ch) {
     // skip printable ASCII chars if we should not escape them
     if (!shouldEscapePrintable && /[\x20-\x7E]/.test(ch)) {
       return ch
     }
     // we use "000" and slice(-4) for brevity, need to pad zeros,
     // unicode escape always have 4 chars after "\u"
-    return "\\u" + ("000" + ch.charCodeAt(0).toString(16)).slice(-4)
+    return '\\u' + ('000' + ch.charCodeAt(0).toString(16)).slice(-4)
   })
 }
 
@@ -223,7 +221,7 @@ export function escapeUnicode(str:string, shouldEscapePrintable:boolean = true) 
  * Remove HTML tags from string.
  */
 export function stripHtmlTags(str: string) {
-  return str.replace(/<[^>]*>/g, "")
+  return str.replace(/<[^>]*>/g, '')
 }
 
 /**
@@ -232,18 +230,18 @@ export function stripHtmlTags(str: string) {
 export function removeNonASCII(str: string) {
   // Matches non-printable ASCII chars -
   // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
-  return str.replace(/[^\x20-\x7E]/g, "")
+  return str.replace(/[^\x20-\x7E]/g, '')
 }
 
 /**
  * String interpolation
  */
-export  function interpolate(template:string, replacements:object, syntax:string) {
+export function interpolate(template: string, replacements: object, syntax: string) {
   var stache = /\{\{(\w+)\}\}/g //mustache-like
 
-  var replaceFn = function(match:any, prop:string) {
+  var replaceFn = function (match: any, prop: string) {
     // @ts-ignore
-    return prop in replacements ? replacements[prop] : ""
+    return prop in replacements ? replacements[prop] : ''
   }
 
   return template.replace(syntax || stache, replaceFn)
@@ -252,28 +250,28 @@ export  function interpolate(template:string, replacements:object, syntax:string
 /**
  * Pad string with `char` if its' length is smaller than `minLen`
  */
-export  function rpad(str:string, minLen:number, ch:string = " ") {
+export function rpad(str: string, minLen: number, ch: string = ' ') {
   return str.length < minLen ? str + repeat(ch, minLen - str.length) : str
 }
 
 /**
  * Pad string with `char` if its' length is smaller than `minLen`
  */
-export  function lpad(str:string, minLen:number, ch:string = " ") {
+export function lpad(str: string, minLen: number, ch: string = ' ') {
   return str.length < minLen ? repeat(ch, minLen - str.length) + str : str
 }
 
 /**
  * Repeat string n times
  */
-export function repeat(str:string, n: number) {
+export function repeat(str: string, n: number) {
   return new Array(n + 1).join(str)
 }
 
 /**
  * Limit number of chars.
  */
-export function truncate(str:string, maxChars:number,onlyFullWords:boolean=false, append:string="...") {
+export function truncate(str: string, maxChars: number, onlyFullWords: boolean = false, append: string = '...') {
   maxChars = onlyFullWords ? maxChars + 1 : maxChars
 
   str = trim(str)
@@ -282,42 +280,42 @@ export function truncate(str:string, maxChars:number,onlyFullWords:boolean=false
   }
   str = str.substr(0, maxChars - append.length)
   //crop at last space or remove trailing whitespace
-  str = onlyFullWords ? str.substr(0, str.lastIndexOf(" ")) : trim(str)
+  str = onlyFullWords ? str.substr(0, str.lastIndexOf(' ')) : trim(str)
   return str + append
 }
 
 const WHITE_SPACES = [
-  " ",
-  "\n",
-  "\r",
-  "\t",
-  "\f",
-  "\v",
-  "\u00A0",
-  "\u1680",
-  "\u180E",
-  "\u2000",
-  "\u2001",
-  "\u2002",
-  "\u2003",
-  "\u2004",
-  "\u2005",
-  "\u2006",
-  "\u2007",
-  "\u2008",
-  "\u2009",
-  "\u200A",
-  "\u2028",
-  "\u2029",
-  "\u202F",
-  "\u205F",
-  "\u3000"
+  ' ',
+  '\n',
+  '\r',
+  '\t',
+  '\f',
+  '\v',
+  '\u00A0',
+  '\u1680',
+  '\u180E',
+  '\u2000',
+  '\u2001',
+  '\u2002',
+  '\u2003',
+  '\u2004',
+  '\u2005',
+  '\u2006',
+  '\u2007',
+  '\u2008',
+  '\u2009',
+  '\u200A',
+  '\u2028',
+  '\u2029',
+  '\u202F',
+  '\u205F',
+  '\u3000',
 ]
 
 /**
  * Remove chars from beginning of string.
  */
-export  function ltrim(str:string, chars: string[] = WHITE_SPACES) {
+export function ltrim(str: string, chars: string[] = WHITE_SPACES) {
   var start = 0,
     len = str.length,
     charLen = chars.length,
@@ -339,14 +337,13 @@ export  function ltrim(str:string, chars: string[] = WHITE_SPACES) {
     }
   }
 
-  return start >= len ? "" : str.substr(start, len)
+  return start >= len ? '' : str.substr(start, len)
 }
 
 /**
  * Remove chars from end of string.
  */
-export  function rtrim(str:string, chars:string[]= WHITE_SPACES) {
-
+export function rtrim(str: string, chars: string[] = WHITE_SPACES) {
   var end = str.length - 1,
     charLen = chars.length,
     found = true,
@@ -367,19 +364,18 @@ export  function rtrim(str:string, chars:string[]= WHITE_SPACES) {
     }
   }
 
-  return end >= 0 ? str.substring(0, end + 1) : ""
+  return end >= 0 ? str.substring(0, end + 1) : ''
 }
 
 /**
  * Remove white-spaces from beginning and end of string.
  */
-export  function trim(str:string, chars: string[] = WHITE_SPACES) {
+export function trim(str: string, chars: string[] = WHITE_SPACES) {
   return ltrim(rtrim(str, chars), chars)
 }
 
-
-export  function initials(str: string) {
+export function initials(str: string) {
   // @ts-ignore
-  let arr:any = str.match(/\b\w/g) || []
+  let arr: any = str.match(/\b\w/g) || []
   return ((arr.shift() || '') + (arr.pop() || '')).toUpperCase()
 }

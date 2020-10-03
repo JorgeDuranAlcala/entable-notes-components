@@ -1,1 +1,1 @@
-export { default } from './ChipSelect';
+export { default } from './ChipSelect'

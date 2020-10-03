@@ -29,7 +29,7 @@ const styles = (theme: Theme): any => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      'transition': 'all 0.5s'
+      transition: 'all 0.5s',
     },
     inputRoot: {
       color: 'inherit',
@@ -46,16 +46,13 @@ const styles = (theme: Theme): any => {
           width: '20ch',
         },
       },
-    }
+    },
   }
 }
 
-export interface StyleProps  extends WithStyles<typeof styles> {
-   
-}
+export interface StyleProps extends WithStyles<typeof styles> {}
 
-export interface SearchProps extends StyleProps, ISearch{
-}
+export interface SearchProps extends StyleProps, ISearch {}
 
 function Search(props: SearchProps) {
   const {
@@ -65,46 +62,45 @@ function Search(props: SearchProps) {
     minChars = 3,
     width = '90%',
     minWidth = '10rem',
-    classes
+    classes,
   } = props
   const [searchMode, setSearchMode] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
 
-  useEffect(
-    () => {
-      if (debouncedSearchTerm && (debouncedSearchTerm.length >= minChars)) {
-        handleSearch(debouncedSearchTerm[0])
-      }
-    },
-    [debouncedSearchTerm]
-  )
+  useEffect(() => {
+    if (debouncedSearchTerm && debouncedSearchTerm.length >= minChars) {
+      handleSearch(debouncedSearchTerm[0])
+    }
+  }, [debouncedSearchTerm])
   function handleSearchMode() {
     setSearchMode(!searchMode)
     toggleSearchMode()
   }
   if (searchMode) {
     return (
-      <ClickAwayListener  onClickAway={()=> handleSearchMode()}>
-  
-          <InputBase
-            placeholder={placeholder}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            style={{ minWidth: minWidth, width: width }}
-            inputProps={{ 'aria-label': 'search' }}
-          />
+      <ClickAwayListener onClickAway={() => handleSearchMode()}>
+        <InputBase
+          placeholder={placeholder}
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          style={{ minWidth: minWidth, width: width }}
+          inputProps={{ 'aria-label': 'search' }}
+        />
       </ClickAwayListener>
     )
-  } else return (
-    <IconButton>
-      <SearchIcon onClick={() => {
-        handleSearchMode()
-      }} />
-    </IconButton>
-  )
+  } else
+    return (
+      <IconButton>
+        <SearchIcon
+          onClick={() => {
+            handleSearchMode()
+          }}
+        />
+      </IconButton>
+    )
 }
 
 export default withStyles(styles)(Search)

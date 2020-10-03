@@ -1,19 +1,14 @@
-import memoize from "memoize-one"
-import { isFunction, __DEV__ } from "./assertion"
-import { FunctionArguments } from "./types"
+import memoize from 'memoize-one'
+import { isFunction, __DEV__ } from './assertion'
+import { FunctionArguments } from './types'
 
-export function runIfFn<T, U>(
-  valueOrFn: T | ((...args: U[]) => T),
-  ...args: U[]
-): T {
+export function runIfFn<T, U>(valueOrFn: T | ((...args: U[]) => T), ...args: U[]): T {
   return isFunction(valueOrFn) ? valueOrFn(...args) : valueOrFn
 }
 
-export function callAllHandlers<T extends (event: any) => void>(
-  ...fns: (T | undefined)[]
-) {
+export function callAllHandlers<T extends (event: any) => void>(...fns: (T | undefined)[]) {
   return function (event: FunctionArguments<T>[0]) {
-    fns.some((fn) => {
+    fns.some(fn => {
       fn && fn(event)
       return event && event.defaultPrevented
     })

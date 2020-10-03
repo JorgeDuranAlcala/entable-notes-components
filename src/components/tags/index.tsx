@@ -1,3 +1,3 @@
-import Tag  from './Tag'
+import Tag from './Tag'
 import Tags from './Tags'
-export { Tag, Tags}
+export { Tag, Tags }

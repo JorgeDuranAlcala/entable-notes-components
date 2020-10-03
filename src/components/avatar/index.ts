@@ -31,8 +31,8 @@ export interface IAvatar {
   icon?: boolean
   pal?: Palettes
   cStyle?: any
-  Icon?:  OverridableComponent<SvgIconTypeMap<{}, "svg">> | null
-  handleClick?: (e:any) => void
+  Icon?: OverridableComponent<SvgIconTypeMap<{}, 'svg'>> | null
+  handleClick?: (e: any) => void
 }
 
 export default Avatar

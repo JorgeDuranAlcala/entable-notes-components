@@ -1,38 +1,40 @@
 .table-ellipsis-container {
-    width: 150px;
-    overflow: hidden;
+  width: 150px;
+  overflow: hidden;
 }
 
 .table-ellipsis {
-    &.editable {
-        position: absolute!important;
-        background-color: white;
-        margin-top: -11px;
-        margin-left: -3px;
-        z-index: 10!important;
-        fieldset {
-            border-color: gray!important;
-        }
-        .MuiOutlinedInput-inputMultiline {
-            padding: 5px!important;
-        }
+  &.editable {
+    position: absolute !important;
+    background-color: white;
+    margin-top: -11px;
+    margin-left: -3px;
+    z-index: 10 !important;
+    fieldset {
+      border-color: gray !important;
     }
-    &.noneditable {
-        fieldset {
-            border: none;
-        }
-        input {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    .MuiOutlinedInput-inputMultiline {
+      padding: 5px !important;
     }
+  }
+  &.noneditable {
+    fieldset {
+      border: none;
+    }
+    input {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 
-    div, input, fieldset  {
-        padding: 0!important;
-        width: 100%!important;
-        color: rgba(0, 0, 0, 0.87);
-        font-size: 0.6875rem;
-        font-weight: 400;
-    }
+  div,
+  input,
+  fieldset {
+    padding: 0 !important;
+    width: 100% !important;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.6875rem;
+    font-weight: 400;
+  }
 }

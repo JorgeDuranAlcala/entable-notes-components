@@ -3,4 +3,4 @@ import TableContext from './table-context'
 import GlobalContext from './global-context'
 import ProjectContext from './project-context'
 
-export { CurrentBufferContext,  GlobalContext, ProjectContext, TableContext }
+export { CurrentBufferContext, GlobalContext, ProjectContext, TableContext }

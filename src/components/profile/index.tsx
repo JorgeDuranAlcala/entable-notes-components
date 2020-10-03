@@ -18,13 +18,7 @@ const Profile = (props: any) => {
 
   return (
     <div {...rest} className={clsx(classes.root, className)}>
-      <Avatar
-        alt="John Doe"
-        className={classes.avatar}
-        component={Link}
-        src={user.avatar}
-        to="/"
-      />
+      <Avatar alt="John Doe" className={classes.avatar} component={Link} src={user.avatar} to="/" />
       <Typography className={classes.name} variant="h4">
         {user.name}
       </Typography>

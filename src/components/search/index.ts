@@ -9,4 +9,3 @@ export interface ISearch {
 }
 export default Search
 export { Search }
-

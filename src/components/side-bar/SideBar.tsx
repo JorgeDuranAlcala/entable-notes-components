@@ -1,11 +1,6 @@
 import React, { ReactElement, useState } from 'react'
 import clsx from 'clsx'
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from '@material-ui/core'
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import Fab from '@material-ui/core/Fab'
@@ -23,8 +18,8 @@ import icons from 'icons'
 import useStyles from './styles'
 import useLayoutStyles from '../styles'
 
-const SpaceShape = "square"
-export interface SideItems  {
+const SpaceShape = 'square'
+export interface SideItems {
   avatar?: IAvatar
   title?: string
   top?: any[]
@@ -34,7 +29,7 @@ export interface SideItems  {
 
 interface Props {
   spaces: any
-  collapseSide?: (e:any) => void
+  collapseSide?: (e: any) => void
   mini?: boolean
 }
 
@@ -75,11 +70,11 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   }
   const avatarSize = depth ? 'xs' : 'sm'
   const fontSize = !depth ? 'md' : 'sm'
-  const secondFontSize = !depth? 'sm' : 'xs'
-  
-  let src = ""
+  const secondFontSize = !depth ? 'sm' : 'xs'
+
+  let src = ''
   let IconComp: any = null
-  let isIcon = false 
+  let isIcon = false
   if (icon && icons[icon]) {
     if (typeof icons[icon] === 'string') {
       src = icons[icon]
@@ -88,42 +83,44 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
       IconComp = icons[icon]
     }
   }
-  const renderIcon = <Avatar
-                      src={src}
-                      icon={isIcon}
-                      Icon={IconComp}
-                      size={avatarSize}
-                      border={false}
-                      shape={SpaceShape}
-                      name={name}
-                      pal={Palettes.space}
-                      title={description} />
+  const renderIcon = (
+    <Avatar
+      src={src}
+      icon={isIcon}
+      Icon={IconComp}
+      size={avatarSize}
+      border={false}
+      shape={SpaceShape}
+      name={name}
+      pal={Palettes.space}
+      title={description}
+    />
+  )
 
-  const even = (depth % 2 === 0)
+  const even = depth % 2 === 0
   const listItemCls = clsx({
     [classes.listItem]: true,
     [classes.activeListItem]: space.active,
     'flex w-full items-center cursor-pointer': true,
     'pl-4': depth && mini,
-    'pl-8': depth &&  !mini,
+    'pl-8': depth && !mini,
     'px-2': !depth,
     'justify-between': !mini,
-    'justify-center flex-col mt-4': mini
+    'justify-center flex-col mt-4': mini,
   })
 
-  const children = open &&
-  <nav className="flex flex-col space-between">
-    {(spaces).map((cspace: any, cindex: number) => {
-      return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
-    })}
-  </nav>
+  const children = open && (
+    <nav className="flex flex-col space-between">
+      {spaces.map((cspace: any, cindex: number) => {
+        return <RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />
+      })}
+    </nav>
+  )
 
   if (mini) {
     return (
       <div className="flex flex-col">
-        <li
-          className={listItemCls}
-          onClick={handleClick}>
+        <li className={listItemCls} onClick={handleClick}>
           {renderIcon}
         </li>
         {children}
@@ -133,39 +130,26 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
 
   const textCls = clsx({
     'flex justify-end mr-4': !even,
-    'ml-4': even
+    'ml-4': even,
   })
   const nodeCls = clsx({
     'flex align-center flex-col': true,
-    'pl-8': depth > 0
+    'pl-8': depth > 0,
   })
   const expandMore = !even && notOpen && <ExpandMore />
   const expandLess = !even && open && <ExpandLess />
-  const nodeInfo =
-          (<div className={nodeCls}>
-              <Text
-                color={theme.palette.side.main.color}
-                fontSize={fontSize}
-                className={textCls}
-              >
-                {name}
-              </Text>
-              <Text
-                color={theme.palette.side.main.color}
-                fontSize={secondFontSize}
-                opacity="0.8"
-                className={textCls}
-              >
-              {
-                  `${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`
-              }
-              </Text>
-            </div>)
-  const items =  (
-    <li
-      className={listItemCls}
-      onClick={handleClick}
-    >
+  const nodeInfo = (
+    <div className={nodeCls}>
+      <Text color={theme.palette.side.main.color} fontSize={fontSize} className={textCls}>
+        {name}
+      </Text>
+      <Text color={theme.palette.side.main.color} fontSize={secondFontSize} opacity="0.8" className={textCls}>
+        {`${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`}
+      </Text>
+    </div>
+  )
+  const items = (
+    <li className={listItemCls} onClick={handleClick}>
       {!even ? renderIcon : null}
       {!mini && nodeInfo}
       {even ? renderIcon : null}
@@ -174,8 +158,14 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
     </li>
   )
 
-  return (children ? (<div className="flex flex-col">{items}{children}</div>) : items )
-  
+  return children ? (
+    <div className="flex flex-col">
+      {items}
+      {children}
+    </div>
+  ) : (
+    items
+  )
 }
 
 function SideBar({ spaces }: Props): ReactElement {
@@ -187,12 +177,12 @@ function SideBar({ spaces }: Props): ReactElement {
     [layoutClasses.sidebar]: true,
     [layoutClasses.mini]: mini,
     [layoutClasses.fullMenu]: !mini,
-    ' flex flex-col justify-between': true
+    ' flex flex-col justify-between': true,
   })
   const bCls = clsx({
-    "flex flex-col justify-between py-2": true,
-    "items-end m-4": !mini,
-    "items-center": mini
+    'flex flex-col justify-between py-2': true,
+    'items-end m-4': !mini,
+    'items-center': mini,
   })
 
   function toggleMini() {
@@ -202,17 +192,20 @@ function SideBar({ spaces }: Props): ReactElement {
   return (
     <div className={nCls}>
       <List className={layoutClasses.scrollBar} component="nav" disablePadding>
-        {(children || []).map((space: any, index: number) => <RenderSpaceTree key={index} mini={mini} space={space} />)}
+        {(children || []).map((space: any, index: number) => (
+          <RenderSpaceTree key={index} mini={mini} space={space} />
+        ))}
       </List>
-        <List component="nav" disablePadding className={bCls}>
-        {setMini && <ListItemIcon component="li" className={"p-4"} >
-          <ArrowBack className={"cursor-pointer"} onClick={toggleMini}/>
-        </ListItemIcon>}
-        <Fab size="small" color="secondary" aria-label="add"
-          className="mt-2">
-            <AddIcon />
+      <List component="nav" disablePadding className={bCls}>
+        {setMini && (
+          <ListItemIcon component="li" className={'p-4'}>
+            <ArrowBack className={'cursor-pointer'} onClick={toggleMini} />
+          </ListItemIcon>
+        )}
+        <Fab size="small" color="secondary" aria-label="add" className="mt-2">
+          <AddIcon />
         </Fab>
-        </List>
+      </List>
     </div>
   )
 }

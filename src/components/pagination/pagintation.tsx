@@ -1,61 +1,60 @@
+import React, { useState } from 'react'
+import { getRange, getPageInfo } from 'paging-algorithm'
 
-import React, { useState } from 'react';
-import { getRange, getPageInfo } from 'paging-algorithm';
-
-export type HandlePageChange = (page:number, e?:any) => void;
+export type HandlePageChange = (page: number, e?: any) => void
 
 interface PaginationProps {
-    total: number
-    className: string
-    limit: number
-    pageCount: number
-    currentPage: number
-    pageValue: number
-    onPageChange: HandlePageChange
+  total: number
+  className: string
+  limit: number
+  pageCount: number
+  currentPage: number
+  pageValue: number
+  onPageChange: HandlePageChange
 }
 
 interface PaginationItemProps {
-    pages: number[]
-    currentPage: number
-    hasNextPage: boolean
-    hasPreviousPage: boolean
-    previousPage: number
-    nextPage: number
-    totalPages: number
-    pageValue: number
-    onPageChange: HandlePageChange
+  pages: number[]
+  currentPage: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+  previousPage: number
+  nextPage: number
+  totalPages: number
+  pageValue: number
+  onPageChange: HandlePageChange
 }
 
 const defaultProps: PaginationProps = {
-    total: 10,
-    className: '',
-    limit: 10,
-    pageCount: 5,
-    currentPage: 0,
-    pageValue: 0,
-    onPageChange: (page:number) => console.log(page)
-};
+  total: 10,
+  className: '',
+  limit: 10,
+  pageCount: 5,
+  currentPage: 0,
+  pageValue: 0,
+  onPageChange: (page: number) => console.log(page),
+}
 
 function Pagination(props: PaginationProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
   const { onPageChange } = props
   if (props.currentPage && currentPage !== props.currentPage) {
     setCurrentPage(props.currentPage)
   }
 
   const _getPageItemProps = (props: PaginationItemProps) => {
-    const { pageValue, onPageChange: handlePageChange, ...rest } = props;
+    const { pageValue, onPageChange: handlePageChange, ...rest } = props
 
-    const onPageChange = (e:any) => {
+    const onPageChange = (e: any) => {
       if (typeof handlePageChange === 'function') {
-        handlePageChange(pageValue, e);
+        handlePageChange(pageValue, e)
       }
-      setCurrentPage(pageValue);
-    };
+      setCurrentPage(pageValue)
+    }
 
     return {
       onClick: onPageChange,
-      ...rest
+      ...rest,
     }
   }
 
@@ -65,7 +64,7 @@ function Pagination(props: PaginationProps) {
     limit,
     pageCount,
     total,
-    page: currentPage
+    page: currentPage,
   })
 
   const { firstPage, lastPage, hasNextPage, hasPreviousPage, previousPage, nextPage, totalPages } = pageInfo
@@ -74,28 +73,26 @@ function Pagination(props: PaginationProps) {
 
   return (
     <div className={className}>
-         <div>
-              <button
-                {..._getPageItemProps({
-                    pages,
-                    currentPage,
-                    hasNextPage,
-                    hasPreviousPage,
-                    previousPage,
-                    nextPage,
-                    totalPages,
-                    pageValue: 1,
-                    onPageChange
-                })}
-              >
-                first
-              </button>
-
-            </div>
-     
+      <div>
+        <button
+          {..._getPageItemProps({
+            pages,
+            currentPage,
+            hasNextPage,
+            hasPreviousPage,
+            previousPage,
+            nextPage,
+            totalPages,
+            pageValue: 1,
+            onPageChange,
+          })}
+        >
+          first
+        </button>
+      </div>
     </div>
   )
 }
 Pagination.defaultProps = defaultProps
 
-export default Pagination;
+export default Pagination

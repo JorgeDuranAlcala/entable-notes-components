@@ -6,27 +6,26 @@ import SelectLabel from './SelectLabel'
 
 configure({ adapter: new Adapter() })
 
-
 describe('Tags | Non-editable', () => {
-    const values = ['one','two','three']
-    const component = null
+  const values = ['one', 'two', 'three']
+  const component = null
 
-    it('renders component correctly', () => {
-        const wrapper = mount(component)
-        const tags = wrapper.find('.MuiBox-root[data-test="table-tags"]')
+  it('renders component correctly', () => {
+    const wrapper = mount(component)
+    const tags = wrapper.find('.MuiBox-root[data-test="table-tags"]')
 
-        expect(tags.length).toEqual(1)
-        // values.forEach((value, index) => {
-        //     expect(tags.props().children[index].props.children).toEqual(value)
-        // })
-    });
+    expect(tags.length).toEqual(1)
+    // values.forEach((value, index) => {
+    //     expect(tags.props().children[index].props.children).toEqual(value)
+    // })
+  })
 
-    it('matches snapshot', () => {
-        const tree = renderer.create(component,).toJSON()
+  it('matches snapshot', () => {
+    const tree = renderer.create(component).toJSON()
 
-        expect(tree).toMatchSnapshot()
-        values.forEach((value, index) => {
-            expect(tree.children[index].children[0]).toEqual(value)
-        })
-    });
+    expect(tree).toMatchSnapshot()
+    values.forEach((value, index) => {
+      expect(tree.children[index].children[0]).toEqual(value)
+    })
+  })
 })

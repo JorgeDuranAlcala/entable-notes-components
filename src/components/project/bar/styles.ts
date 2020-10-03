@@ -43,7 +43,7 @@ export default makeStyles((theme: any) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: theme.shape.borderRadius,
     padding: theme.spacing(1.5),
-    paddingRight: theme.spacing(3.5)
+    paddingRight: theme.spacing(3.5),
   },
   closeIcon: {
     position: 'absolute',
@@ -55,9 +55,9 @@ export default makeStyles((theme: any) => ({
   },
   tooltip: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
   },
   primaryText: {
     color: theme.palette.custom.primary,
-  }
+  },
 }))

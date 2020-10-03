@@ -1,5 +1,5 @@
-import { isNotNumber } from "./chakra/assertion"
-import { warn } from "./chakra/function"
+import { isNotNumber } from './chakra/assertion'
+import { warn } from './chakra/function'
 
 export const minSafeInteger = Number.MIN_SAFE_INTEGER || -9007199254740991
 export const maxSafeInteger = Number.MAX_SAFE_INTEGER || 9007199254740991
@@ -92,7 +92,7 @@ export function clampValue(value: number, min: number, max: number) {
 
   warn({
     condition: max < min,
-    message: "[Chakra UI] clamp: max cannot be less than min",
+    message: '[Chakra UI] clamp: max cannot be less than min',
   })
 
   return Math.min(Math.max(value, min), max)
