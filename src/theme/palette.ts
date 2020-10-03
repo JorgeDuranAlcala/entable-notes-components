@@ -220,8 +220,6 @@ export function getPaletteColors(pal: Palettes, all: boolean=false, color?: stri
 export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {  
   const colors = getPaletteColors(pal, true)
   const idx = hash % colors.length
-  debugger
-  console.log(colors)
   return colors[idx]
 }
 

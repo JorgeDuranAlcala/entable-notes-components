@@ -70,7 +70,7 @@ function Search(props: SearchProps) {
   const [searchMode, setSearchMode] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const debouncedSearchTerm = useDebounce(searchTerm, 500)
-  debugger
+
   useEffect(
     () => {
       if (debouncedSearchTerm && (debouncedSearchTerm.length >= minChars)) {
@@ -80,12 +80,10 @@ function Search(props: SearchProps) {
     [debouncedSearchTerm]
   )
   function handleSearchMode() {
-    debugger
     setSearchMode(!searchMode)
     toggleSearchMode()
   }
   if (searchMode) {
-    debugger
     return (
       <ClickAwayListener  onClickAway={()=> handleSearchMode()}>
   

@@ -17,8 +17,7 @@ export default makeStyles((theme: Theme) => createStyles({
     },
     fullMenu: {
         gridTemplateColumns: `minmax(${ui.sideMenuWidth}, max-content) auto`,
-        width: '300px',
-        height: '50vh'
+        width: '300px'
     },
     header: {
         gridArea: 'header',
@@ -28,8 +27,7 @@ export default makeStyles((theme: Theme) => createStyles({
     mini: {
         gridTemplateColumns: `80px auto`,
         background: cyan[600],
-        width: '100px',
-        height: '50vh'
+        width: `${ui.miniMenuWidth}`
     },
     collapsed: {
         gridTemplateAreas: `
@@ -43,10 +41,33 @@ export default makeStyles((theme: Theme) => createStyles({
         gridArea: 'logo',
         background: cyan[600],
     },
+    // https://codepen.io/alligatorio/pen/abORvVW
+    // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar2
+    scrollBar: {
+        overflowY: "auto",
+        margin: 0,
+        padding: 0,
+        '&::-webkit-scrollbar': {
+            width: '0.25rem'
+        },
+        '&::-webkit-scrollbar-track': {
+            boxShadow: 'inset 0 0 5px grey',
+            borderRadius: '0.5rem',
+            backgroundColor: '#000'
+        },
+        '&::-webkit-scrollbar-thumb': {
+            background: 'red', 
+            borderRadius: '0.5rem'
+        },
+        '&::-webkit-scrollbar-thumb:hover': {
+            background: '#b30000'
+        }
+    },
     sidebar: {
         gridArea: 'sidebar',
         background: theme.palette.side.main,
-        color: theme.palette.side.color
+        color: theme.palette.side.color,
+        height: '60vh'
     },
     main: {
         gridArea: 'main',

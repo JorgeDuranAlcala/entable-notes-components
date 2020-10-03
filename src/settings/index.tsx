@@ -14,7 +14,7 @@ const defaults:Settings = {
     country: 'US',
     ui: {
         sideMenuWidth: '400px',
-        miniMenuWidth: '6px',
+        miniMenuWidth: '64px',
         rightDrawerWidth: '600px',
         headerHeight: '64px',
         header2Height: '100px',

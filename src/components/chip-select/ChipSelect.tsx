@@ -187,7 +187,6 @@ function MultiValue(props:any) {
 
 function Menu(props:any) {
 	const classes = useStyles()
-	debugger
 	return (
 		<Paper square className={classes.paper} {...props.innerProps}>
 			{props.children}

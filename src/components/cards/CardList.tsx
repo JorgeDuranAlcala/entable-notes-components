@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function RenderItem({ item, checkbox, oppSide, metric, size = "sm", shape = "circle", indent, index, secondColor, last }: RenderItemType) {
   const { avatar } = item
-  debugger
   const renderAvatar = avatar ? <Avatar src={avatar.src}
     name={avatar.name}
     size={size}
@@ -94,7 +93,7 @@ function CardList(props: ICardList) {
     showZero = true,
     borderless = false
   } = props
-  debugger
+  
   // @ts-ignore
   const dropdowns = null
   const [filterItems, setFilterItems] = useState(items)

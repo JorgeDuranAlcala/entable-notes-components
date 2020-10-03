@@ -51,26 +51,6 @@ const getMembers = (space: any) => {
   return memberCount
 }
 
-export const SpaceNode = (space: any) => {
-  const members: number = getMembers(space)
-  const classes = useStyles()
-  const [setCurrentSpace, currentSpace] = useState(null)
-  
-  const handleClickSpace = (space: any) => {
-    alert(`Set path xxx/space/${space.id}`)
-  }
-
-  return (
-    <li className="flex items-center pv-1"
-    onClick={() => handleClickSpace(space)}>
-          <Avatar
-              name={space.name.toUpperCase()}
-              shape="square"
-          />
-      </li>
-  )
-}
-
 export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   const members: number = getMembers(space)
   const classes = useStyles()
@@ -122,9 +102,9 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   const listItemCls = clsx({
     [classes.listItem]: true,
     [classes.activeListItem]: space.active,
-    'flex w-full  p-2 items-center': true,
+    'flex w-full px-2 items-center cursor-pointer': true,
     'justify-between': !mini,
-    'justify-center flex-col': mini
+    'justify-center flex-col mt-4': mini
   })
   const children = open &&
   <li className="flex flex-col space-between">
@@ -153,7 +133,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
               <Text
                 color={theme.palette.side.main.color}
                 fontSize={fontSize}
-                className="mt-1 ml-4"
+                className="ml-4"
               >
                 {name}
               </Text>
@@ -183,30 +163,6 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
 
   return (children ? (<div className="flex flex-col">{items}{children}</div>) : items )
   
-  /*
-  return (
-   <ListItem
-    key={space.title}
-    activeClassName={space.active ? classes.activeListItem : ''}
-    className={`${classes.listItem} `}
-    component="li"
-      to={space.href}
-      onClick={handleClick}
-    >
-      {!even ? renderIcon : null}
-      {!mini && <ListItemText
-        classes={{ primary: classes.listItemText }}
-        primary={space.title}
-      />}
-      {even
-        ? renderIcon :
-          open
-          ? <ExpandLess />
-          : <ExpandMore />}
-      {open }
-    </ListItem> 
-    )
-  */
 }
 
 function SideBar({ spaces }: Props): ReactElement {
@@ -214,27 +170,33 @@ function SideBar({ spaces }: Props): ReactElement {
   const layoutClasses = useLayoutStyles()
   const [mini, setMini] = useState(false)
   const children = spaces.spaces
-  let cls = layoutClasses.sidebar + ' '
-  cls += mini ? layoutClasses.mini : layoutClasses.fullMenu
-  debugger
-  cls += ' flex flex-col justify-between'
+  const nCls = clsx({
+    [layoutClasses.sidebar]: true,
+    [layoutClasses.mini]: mini,
+    [layoutClasses.fullMenu]: !mini,
+    ' flex flex-col justify-between': true
+  })
+  const bCls = clsx({
+    "flex flex-col justify-between  py-2": true,
+    "items-end m-4": !mini,
+    "items-center": mini
+  })
 
   function toggleMini() {
     setMini(!mini)
   }
 
   return (
-    <div className={cls}>
-      <List component="nav" disablePadding>
+    <div className={nCls}>
+      <List className={layoutClasses.scrollBar} component="nav" disablePadding>
         {(children || []).map((space: any, index: number) => <RenderSpaceTree key={index} mini={mini} space={space} />)}
       </List>
-     
-        <List component="nav" disablePadding className="flex justify-center align-center">
-        {setMini && <ListItemIcon className={classes.listItemIcon} onClick={toggleMini}>
-          <ArrowBack />
+        <List component="nav" disablePadding className={bCls}>
+        {setMini && <ListItemIcon component="li" className={"p-4"} >
+          <ArrowBack className={"cursor-pointer"} onClick={toggleMini}/>
         </ListItemIcon>}
         <Fab size="small" color="secondary" aria-label="add"
-          className={classes.margin}>
+          className="mt-2">
             <AddIcon />
         </Fab>
         </List>
