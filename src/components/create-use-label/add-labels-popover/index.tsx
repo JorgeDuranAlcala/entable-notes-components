@@ -1,7 +1,7 @@
-import React, { ReactElement, useState, useRef } from "react";
-import { Button, Popover, Typography, useTheme } from "@material-ui/core";
-import PencilIcon from "@material-ui/icons/Edit";
-import board from "mocks/board.json";
+import React, { ReactElement, useState, useRef } from "react"
+import { Button, Popover, Typography, useTheme } from "@material-ui/core"
+import PencilIcon from "@material-ui/icons/Edit"
+import board from "mocks/board.json"
 import {
   blue,
   green,
@@ -9,35 +9,34 @@ import {
   purple,
   red,
   yellow,
-} from "@material-ui/core/colors";
-import Label from './Label';
-import Color from './Color';
-
-import useStyles from "./styles";
+} from "@material-ui/core/colors"
+import Label from './label'
+import Color from './color'
+import useStyles from "./styles"
 
 interface Props {}
 
 
 function AddLabelsPopover(props: any): ReactElement {
-  const classes = useStyles();
-  const theme = useTheme();
+  const classes = useStyles()
+  const theme = useTheme()
   const inputRef = useRef<HTMLInputElement | null>(null)
-  const [labels, setLabels] = useState(board.labels);
-  const [input, setInput] = useState<string>("Add label");
-  const [addNewLabel, setAddNewLabel] = useState<boolean>(false);
-  const [activeInput, setActiveInput] = useState<boolean>(false);
-  const [activeEditInput, setActiveEditInput] = useState<boolean>(false);
-  const [activeEditColor, setActiveEditColor] = useState<boolean>(false);
-  const [colorSelected, setColorSelected] = useState<string>("");
-  const [labelId, setLabelId] = useState<string>("");
-  const [colorOnMouse, setColorOnMouse] = useState<string>("");
+  const [labels, setLabels] = useState(board.labels)
+  const [input, setInput] = useState<string>("Add label")
+  const [addNewLabel, setAddNewLabel] = useState<boolean>(false)
+  const [activeInput, setActiveInput] = useState<boolean>(false)
+  const [activeEditInput, setActiveEditInput] = useState<boolean>(false)
+  const [activeEditColor, setActiveEditColor] = useState<boolean>(false)
+  const [colorSelected, setColorSelected] = useState<string>("")
+  const [labelId, setLabelId] = useState<string>("")
+  const [colorOnMouse, setColorOnMouse] = useState<string>("")
   const [colors, setColors] = useState<string[]>([
     blue[500],
     red[300],
     green[500],
     purple[400],
     yellow[300],
-  ]);
+  ])
 
   const create_label = () => {
     let newLabel = {
@@ -46,17 +45,17 @@ function AddLabelsPopover(props: any): ReactElement {
       class: "",
       bg: colorSelected ? colorSelected : grey[200],
       color: theme.palette.text.primary,
-    };
+    }
 
     setInput("")
     setColorSelected("")
 
     if(labels.find(label => label.name === newLabel.name)) { 
-      setLabels([...labels]);
+      setLabels([...labels])
     } else {
-      setLabels([...labels, newLabel]);
+      setLabels([...labels, newLabel])
     }
-  };
+  }
   const edit_label = (value: string, id: string) => {
      let x = labels.map(label => (
         (label.id == id)
@@ -64,11 +63,11 @@ function AddLabelsPopover(props: any): ReactElement {
           : label
       ))
       setLabels([...x])
-  };
+  }
   const edit_color = (id: string) => {
     setLabelId(id)
     setActiveEditColor(true)
- };
+ }
 
   const choose_color_edit = (color: string) => {
     let x = labels.map(label => (
@@ -78,26 +77,26 @@ function AddLabelsPopover(props: any): ReactElement {
     ))
     setLabels([...x])
     setActiveEditColor(false)
- };
+ }
 
   const handleColor = (color: string) => {
-    setColorSelected(color);
-    setActiveInput(true);
+    setColorSelected(color)
+    setActiveInput(true)
     inputRef.current?.focus()
-  };
+  }
   const onApply = () => {
-    create_label();
-    setActiveInput(false);
+    create_label()
+    setActiveInput(false)
     setActiveEditInput(!activeEditInput)
-    setAddNewLabel(!addNewLabel);
-  };
+    setAddNewLabel(!addNewLabel)
+  }
 
   const selectLabel = (bg: string, name: string) => {
-    const { current } = props.labelref;
-    current.innerText = name;
-    current.style.backgroundColor = bg;
-    props.popupState.close();
-  };
+    const { current } = props.labelref
+    current.innerText = name
+    current.style.backgroundColor = bg
+    props.popupState.close()
+  }
 
   return (
     <Popover
@@ -161,9 +160,9 @@ function AddLabelsPopover(props: any): ReactElement {
                 border: `2px dashed ${grey[300]}`,
               }}
               onClick={() => {
-                setActiveInput(true);
+                setActiveInput(true)
                 inputRef.current?.focus()
-                if (activeInput) create_label();
+                if (activeInput) create_label()
               }}
             >
               <Typography>New Label</Typography>
@@ -208,7 +207,7 @@ function AddLabelsPopover(props: any): ReactElement {
         </div>
       </div>
     </Popover>
-  );
+  )
 }
 
-export default AddLabelsPopover;
+export default AddLabelsPopover

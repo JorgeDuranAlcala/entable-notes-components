@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from '@material-ui/core'
-import { blue, grey } from '@material-ui/core/colors';
-import { common } from '@material-ui/core/colors/';
+import { blue, grey } from '@material-ui/core/colors'
+import { common } from '@material-ui/core/colors/'
 
 export default makeStyles((theme: Theme) => ({
     container: {
