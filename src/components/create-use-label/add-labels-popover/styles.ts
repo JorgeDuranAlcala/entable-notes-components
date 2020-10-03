@@ -7,11 +7,11 @@ export default makeStyles((theme: Theme) => ({
         maxWidth: '31.25rem',
         minHeight: '18.75rem',
     },
-    popover_body: {
+    popoverBody: {
         borderBottom: `2px solid ${grey[300]}`,
         flex: 0.8
     },
-    popover_footer: {
+    popoverFooter: {
         flex: 0.2
     },
     btn: {

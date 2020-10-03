@@ -1,15 +1,20 @@
-import React, { ReactElement, useRef } from "react";
-import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
-import AddLabelsPopover from "./add-labels-popover";
+import React, { ReactElement, useRef } from "react"
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state"
+import AddLabelsPopover from "./add-labels-popover"
 
-type Label = { id: string; bg: string; color: string; name: string };
+type Label = {
+      id: string
+      bg: string
+      color: string
+      name: string
+}
 
 interface Props {
-  labels: Label[];
+  labels: Label[]
 }
 
 function CreateUseLabel({ labels }: Props): ReactElement {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null)
 
   return (
     <PopupState variant="popover" popupId="add-new-labels">
@@ -37,7 +42,7 @@ function CreateUseLabel({ labels }: Props): ReactElement {
         </div>
       )}
     </PopupState>
-  );
+  )
 }
 
-export default CreateUseLabel;
+export default CreateUseLabel

@@ -111,7 +111,7 @@ function AddLabelsPopover(props: any): ReactElement {
       }}
     >
       <div className={`${classes.container} flex flex-col`}>
-        <div className={`${classes.popover_body} p-4 grid grid-cols-3 gap-5`}>
+        <div className={`${classes.popoverBody} p-4 grid grid-cols-3 gap-5`}>
           {labels.map((label) => (
             <Label
               id={label.id}
@@ -185,7 +185,7 @@ function AddLabelsPopover(props: any): ReactElement {
             ))}
           </div>
         )}
-        <div className={`${classes.popover_footer} flex`}>
+        <div className={`${classes.popoverFooter} flex`}>
           <Button
             fullWidth
             className={`${classes.btn} p-4`}
