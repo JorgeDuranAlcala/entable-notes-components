@@ -112,11 +112,11 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   })
 
   const children = open &&
-  <List component="nav" className="flex flex-col space-between">
+  <nav className="flex flex-col space-between">
     {(spaces).map((cspace: any, cindex: number) => {
       return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
     })}
-  </List>
+  </nav>
 
   if (mini) {
     return (
