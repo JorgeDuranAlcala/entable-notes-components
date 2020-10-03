@@ -120,14 +120,15 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
 
   if (mini) {
     return (
-      <li
-        className={listItemCls}
-        onClick={handleClick}
-      >
+      <div className="flex flex-col">
+        <li
+          className={listItemCls}
+          onClick={handleClick}>
           {renderIcon}
-        {children && <div className="flex flex-col">{children}</div>}
-      </li>
-    ) 
+        </li>
+        {children}
+      </div>
+    )
   }
 
   const textCls = clsx({
