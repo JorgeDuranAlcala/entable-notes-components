@@ -99,19 +99,24 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
                       pal={Palettes.space}
                       title={description} />
 
+  const even = (depth % 2 === 0)
   const listItemCls = clsx({
     [classes.listItem]: true,
     [classes.activeListItem]: space.active,
-    'flex w-full px-2 items-center cursor-pointer': true,
+    'flex w-full items-center cursor-pointer': true,
+    'pl-4': depth && mini,
+    'pl-8': depth &&  !mini,
+    'px-2': !depth,
     'justify-between': !mini,
     'justify-center flex-col mt-4': mini
   })
+
   const children = open &&
-  <li className="flex flex-col space-between">
+  <List component="nav" className="flex flex-col space-between">
     {(spaces).map((cspace: any, cindex: number) => {
       return (<RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />)
     })}
-  </li>
+  </List>
 
   if (mini) {
     return (
@@ -125,15 +130,22 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
     ) 
   }
 
-  const even = (depth % 2 === 0)
+  const textCls = clsx({
+    'flex justify-end mr-4': !even,
+    'ml-4': even
+  })
+  const nodeCls = clsx({
+    'flex align-center flex-col': true,
+    'pl-8': depth > 0
+  })
   const expandMore = !even && notOpen && <ExpandMore />
   const expandLess = !even && open && <ExpandLess />
   const nodeInfo =
-          (<div className="flex align-center  flex-col">
+          (<div className={nodeCls}>
               <Text
                 color={theme.palette.side.main.color}
                 fontSize={fontSize}
-                className="ml-4"
+                className={textCls}
               >
                 {name}
               </Text>
@@ -141,7 +153,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
                 color={theme.palette.side.main.color}
                 fontSize={secondFontSize}
                 opacity="0.8"
-                className="ml-6"
+                className={textCls}
               >
               {
                   `${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`
@@ -177,7 +189,7 @@ function SideBar({ spaces }: Props): ReactElement {
     ' flex flex-col justify-between': true
   })
   const bCls = clsx({
-    "flex flex-col justify-between  py-2": true,
+    "flex flex-col justify-between py-2": true,
     "items-end m-4": !mini,
     "items-center": mini
   })
