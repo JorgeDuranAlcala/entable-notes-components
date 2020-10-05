@@ -104,7 +104,6 @@ export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false, activ
   const menuColor = side.color
 
   const handlePopoverClose = (e: any) => {
-    debugger
     setOpen(false)
     setActiveItem(null)
     popoverContent = null
