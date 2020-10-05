@@ -17,7 +17,6 @@ import Tooltip from 'components/tooltip'
 import icons from 'icons'
 import useStyles from './styles'
 import useLayoutStyles from '../styles'
-import { setMilliseconds } from 'date-fns/esm'
 
 const SpaceShape = 'square'
 export interface SideItems {
@@ -41,6 +40,7 @@ let popoverRendered: boolean = false
 let classes: any = null
 let layoutClasses: any = null
 let side: any = null
+let activeItem: any = null
 
 const getMembers = (space: any) => {
   const { members } = space
@@ -55,15 +55,19 @@ const getMembers = (space: any) => {
   return memberCount
 }
 
+function setActiveItem(item: any) {
+  activeItem = item
+}
+
 function PopOverMenu(props: any) {
   const { handlePopoverClose, anchorEl, children } = props
   const open = Boolean(anchorEl)
   const id = open ? 'sidebar-right-menu' : undefined
   const [isOpen, setIsOpen] = useState(true)
 
-  function closePopover() {
+  function closePopover(e:any) {
     setIsOpen(false)
-    handlePopoverClose()
+    handlePopoverClose(e)
   }
 
   return (isOpen ? (
@@ -88,19 +92,21 @@ function PopOverMenu(props: any) {
   ): null)
 }
 
-export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any) => {
+export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false, active }: any) => {
   const members: number = getMembers(space)
-  const [activeItem, setActiveItem] = useState<any>(null)
   const [open, setOpen] = useState(isOpen)
   const [currentSpace, setCurrentSpace] = useState(null)
+
   const ref = useRef(null)
   const name = space.name.toUpperCase()
   const { icon, description, spaces } = space
   const notOpen = !!(!open && spaces && spaces.length)
   const menuColor = side.color
 
-  const handlePopoverClose = () => {
-    setOpen(!open)
+  const handlePopoverClose = (e: any) => {
+    debugger
+    setOpen(false)
+    setActiveItem(null)
     popoverContent = null
   }
 
@@ -128,11 +134,17 @@ export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any)
   }
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(ref)
     if (!space.spaces || !space.spaces.length) {
       setCurrentSpace(space)
+      setActiveItem(ref.current)
     } else {
+      if (open) {
+        setActiveItem(null)
+      } else {
+        setActiveItem(ref.current)
+      }
       if (mini && !open) {
-        debugger
         if (!popoverContent) {
           miniMenu(e.currentTarget)
         }
@@ -157,6 +169,7 @@ export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any)
       IconComp = icons[icon]
     }
   }
+
   const renderIcon = (
     <Avatar
       src={src}
@@ -174,7 +187,7 @@ export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any)
   const even = depth % 2 === 0
   const listItemCls = clsx({
     [classes.listItem]: true,
-    [classes.activeListItem]: space.active,
+    [classes.activeListItem]: active && ref.current && active === ref.current,
     'flex w-full items-center cursor-pointer': true,
     'pl-4': depth && mini,
     'pl-8': depth && !mini,
@@ -186,7 +199,7 @@ export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any)
   const children = open && !mini &&  (
     <nav className="flex flex-col space-between">
       {spaces.map((cspace: any, cindex: number) => {
-        return <RenderTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />
+        return <RenderTree key={cindex} mini={mini} space={cspace} active={activeItem} depth={depth + 1} />
       })}
     </nav>
   )
@@ -258,8 +271,7 @@ function SideBarInner({ spaces }: Props): ReactElement {
     'items-end m-4': !mini,
     'items-center': mini,
   })
-  debugger
-
+  
   function toggleMini() {
     setMini(!mini)
   }
@@ -268,7 +280,11 @@ function SideBarInner({ spaces }: Props): ReactElement {
     <div className={nCls}>
       <List className={layoutClasses.scrollBar} component="nav" disablePadding>
         {(children || []).map((space: any, index: number) => (
-          <RenderTree key={index} mini={mini} space={space} />
+          <RenderTree key={index}
+            mini={mini}
+            space={space}
+            active={activeItem}
+          />
         ))}
       </List>
       <List component="nav" disablePadding className={bCls}>

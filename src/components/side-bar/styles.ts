@@ -13,11 +13,8 @@ export default makeStyles((theme: ITheme) => {
         },
       },
       activeListItem: {
-        borderLeft: `4px solid ${theme.palette.custom.primary}`,
-        backgroundColor: theme.palette.custom.secondary,
-        '& $listItemText': {
-          color: theme.palette.contrastText,
-        },
+        backgroundColor: theme.palette.side.light,
+        borderLeft: `4px solid ${theme.palette.accent.main}`
       },
       miniPopoverMenu: {
         height: 'auto'
