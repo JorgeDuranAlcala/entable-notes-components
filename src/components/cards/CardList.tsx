@@ -60,14 +60,14 @@ function RenderItem({
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
   const styles = useStyles()
   const itemObj: any = item || {}
-  itemObj.name = itemObj.name || avatar.name
+  itemObj.name = itemObj.name || avatar?.name
   itemObj.subTitle = Array.isArray(itemObj.subTitle)
     ? itemObj.subTitle[0]
-    : itemObj.subTitle
+    : itemObj.subTitle[0]
     ? itemObj.subTitle
-    : avatar.title
-    ? avatar.title
-    : ''
+    : itemObj.subTitle
+    ? avatar?.title
+    : avatar?.title
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
@@ -76,7 +76,7 @@ function RenderItem({
     <div className={cls}>
       {renderAvatar}
       <div className="flex flex-col min-w-0 ml-2">
-        <div className={`${styles.firstText} leading-none mr-2`}>{avatar.name}</div>
+        <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
         <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
       </div>
     </div>
