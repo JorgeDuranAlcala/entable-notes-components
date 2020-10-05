@@ -1,12 +1,12 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
-import PaletteOptions from '@material-ui/core/styles/createMuiTheme'
+import {ITheme } from '@material-ui/core/styles/createMuiTheme'
 import { GlobalContext } from 'context/global-context'
 import { FONT_BASIS, makePalette, ThemeZoom, unit, tablePadding } from './index'
 import { roundNum } from 'helpers'
 // https://www.sipios.com/blog-tech/how-to-use-styled-components-with-material-ui-in-a-react-app
 import typography from './typography'
 
-function createTheme(variant: ThemeZoom): any {
+function createTheme(variant: ThemeZoom): ITheme {
   let palette: any = makePalette(variant)
   const { zoom } = variant
   const { colors } = palette
@@ -22,7 +22,7 @@ function createTheme(variant: ThemeZoom): any {
     fontSize: GlobalContext.fontSize,
     spacing: (factor: number) => `${roundNum(0.6 * factor)}${unit}`,
     lineHeight: GlobalContext.fontSize,
-  })
+  }) as ITheme
   const { spacing, zoomSpacing, zoomFontSize } = theme
   const fontSize = {
     xs: zoomFontSize(FONT_BASIS),
@@ -48,7 +48,7 @@ function createTheme(variant: ThemeZoom): any {
     padding += unit
   }
   GlobalContext.fontSize = fontSize
-  const modTheme: any = createMuiTheme(
+  const modTheme: ITheme = createMuiTheme(
     /**
      * @see https://material-ui.com/customization/themes/#theme-configuration-variables
      * https://material-ui.com/customization/typography/
@@ -115,8 +115,8 @@ function createTheme(variant: ThemeZoom): any {
           },
         },
       },
-    }
-  )
+    } as IThemeOptions
+  ) 
   //  return responsiveFontSizes(modTheme)
   GlobalContext.theme = theme
   return modTheme

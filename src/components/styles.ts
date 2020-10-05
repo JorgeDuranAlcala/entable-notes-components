@@ -46,8 +46,6 @@ export default makeStyles((theme: Theme) =>
     // https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_scrollbar2
     scrollBar: {
       overflowY: 'auto',
-      margin: 0,
-      padding: 0,
       overflowX: 'hidden',
       '&::-webkit-scrollbar': {
         width: '0.25rem',

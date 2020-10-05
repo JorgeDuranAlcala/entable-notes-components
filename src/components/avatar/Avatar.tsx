@@ -19,7 +19,8 @@ export function valToAvatars(values: any[], col?: any): IAvatar[] {
   })
 }
 
-const styles = (theme: Theme): any => {
+const styles = (_theme: Theme): any => {
+  const { theme } = GlobalContext
   const { fontSize, palette, shape, zoomSpacing, typography } = theme
   const color = palette.type === 'light' ? palette.grey[400] : palette.grey['A700']
   const def = palette.background.default
@@ -148,8 +149,8 @@ const Avatar = function Avatar(props: AvatarProps) {
     // @ts-ignore
     style.cursor = 'pointer'
   }
-  const theme = useTheme()
-  const { palette, themeZoom } = theme
+  const { theme } = GlobalContext
+  const { palette } = theme
   const [loadedSrc, setLoadedSrc] = useState<boolean>(false)
 
   let children = null

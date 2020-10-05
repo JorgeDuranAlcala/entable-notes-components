@@ -1,22 +1,23 @@
-import React, { ReactElement, useState } from 'react'
+import React, { ReactElement, useState, useRef } from 'react'
 import clsx from 'clsx'
-import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
+import ClickAwayListener from '@material-ui/core/ClickAwayListener'
+import { List, ListItemIcon } from '@material-ui/core'
+import { Popover } from '@material-ui/core'
 import { useTheme } from '@material-ui/core/styles'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
-import Typography from '@material-ui/core/Typography'
 import { Palettes } from 'theme/palette'
 import Avatar, { IAvatar } from 'components/avatar'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
-import Text from 'components/Text'
-import Scrollbar from 'simplebar-react'
+import Text from 'components/text'
 import { DARK } from 'theme'
 import Tooltip from 'components/tooltip'
 import icons from 'icons'
 import useStyles from './styles'
 import useLayoutStyles from '../styles'
+import { setMilliseconds } from 'date-fns/esm'
 
 const SpaceShape = 'square'
 export interface SideItems {
@@ -31,7 +32,15 @@ interface Props {
   spaces: any
   collapseSide?: (e: any) => void
   mini?: boolean
+  RightBar?: React.ReactElement
 }
+
+let RightBarList: React.ReactElement
+let popoverContent: any = null
+let popoverRendered: boolean = false
+let classes: any = null
+let layoutClasses: any = null
+let side: any = null
 
 const getMembers = (space: any) => {
   const { members } = space
@@ -46,28 +55,92 @@ const getMembers = (space: any) => {
   return memberCount
 }
 
-export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
+function PopOverMenu(props: any) {
+  const { handlePopoverClose, anchorEl, children } = props
+  const open = Boolean(anchorEl)
+  const id = open ? 'sidebar-right-menu' : undefined
+  const [isOpen, setIsOpen] = useState(true)
+
+  function closePopover() {
+    setIsOpen(false)
+    handlePopoverClose()
+  }
+
+  return (isOpen ? (
+      <ClickAwayListener onClickAway={handlePopoverClose}>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={closePopover}
+          anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+          }}
+          transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+          }}
+          >
+          {children}
+        </Popover>
+      </ClickAwayListener>
+  ): null)
+}
+
+export const RenderTree = ({ mini = false, space, depth = 0, isOpen=false}: any) => {
   const members: number = getMembers(space)
-  const classes = useStyles()
-  const layoutClasses = useLayoutStyles()
-  const theme = useTheme()
-  let cls = layoutClasses.sidebar
-  cls += mini ? layoutClasses.miniMenu : ''
-  cls += ' flex flex-col justify-between'
   const [activeItem, setActiveItem] = useState<any>(null)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(isOpen)
   const [currentSpace, setCurrentSpace] = useState(null)
+  const ref = useRef(null)
   const name = space.name.toUpperCase()
   const { icon, description, spaces } = space
   const notOpen = !!(!open && spaces && spaces.length)
+  const menuColor = side.color
 
-  const handleClick = () => {
+  const handlePopoverClose = () => {
+    setOpen(!open)
+    popoverContent = null
+  }
+
+  function miniMenu(el:any) {
+    const { sidebar, scrollBar } = layoutClasses
+    const anchorEl = el
+    const cls = clsx({
+      [sidebar]: true,
+      [scrollBar]: true,
+      'h-auto, py-2': true
+    })
+
+    const innerContent = (
+      <nav className={cls} style={{height: 'auto'}}>
+        <RenderTree mini={false} space={space} depth={0} isOpen={true}/>
+      </nav>
+    )
+    popoverContent =
+        (<PopOverMenu
+            anchorEl={anchorEl}
+            handlePopoverClose={handlePopoverClose}
+        >
+          {innerContent}
+        </PopOverMenu>)
+  }
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (!space.spaces || !space.spaces.length) {
       setCurrentSpace(space)
     } else {
+      if (mini && !open) {
+        debugger
+        if (!popoverContent) {
+          miniMenu(e.currentTarget)
+        }
+      }
       setOpen(!open)
     }
   }
+ 
   const avatarSize = depth ? 'xs' : 'sm'
   const fontSize = !depth ? 'md' : 'sm'
   const secondFontSize = !depth ? 'sm' : 'xs'
@@ -75,6 +148,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   let src = ''
   let IconComp: any = null
   let isIcon = false
+  
   if (icon && icons[icon]) {
     if (typeof icons[icon] === 'string') {
       src = icons[icon]
@@ -109,25 +183,27 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
     'justify-center flex-col mt-4': mini,
   })
 
-  const children = open && (
+  const children = open && !mini &&  (
     <nav className="flex flex-col space-between">
       {spaces.map((cspace: any, cindex: number) => {
-        return <RenderSpaceTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />
+        return <RenderTree key={cindex} mini={mini} space={cspace} depth={depth + 1} />
       })}
     </nav>
   )
 
   if (mini) {
     return (
-      <div className="flex flex-col">
-        <li className={listItemCls} onClick={handleClick}>
-          {renderIcon}
-        </li>
-        {children}
-      </div>
+        <React.Fragment>
+          <div className="flex flex-col">
+            <li className={listItemCls} onClick={handleClick}>
+              {renderIcon}
+            </li>
+            {children &&  children}
+          </div>
+          {open && popoverContent}
+        </React.Fragment>
     )
   }
-
   const textCls = clsx({
     'flex justify-end mr-4': !even,
     'ml-4': even,
@@ -140,16 +216,16 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   const expandLess = !even && open && <ExpandLess />
   const nodeInfo = (
     <div className={nodeCls}>
-      <Text color={theme.palette.side.main.color} fontSize={fontSize} className={textCls}>
+      <Text color={menuColor} fontSize={fontSize} className={textCls}>
         {name}
       </Text>
-      <Text color={theme.palette.side.main.color} fontSize={secondFontSize} opacity="0.8" className={textCls}>
+      <Text color={menuColor} fontSize={secondFontSize} opacity="0.8" className={textCls}>
         {`${members ? `${members} Team ${members > 1 ? 'Members' : 'Member'}` : `No Members`}`}
       </Text>
     </div>
   )
   const items = (
-    <li className={listItemCls} onClick={handleClick}>
+    <li ref={ref} className={listItemCls} onClick={handleClick}>
       {!even ? renderIcon : null}
       {!mini && nodeInfo}
       {even ? renderIcon : null}
@@ -168,9 +244,7 @@ export const RenderSpaceTree = ({ mini, space, depth = 0 }: any) => {
   )
 }
 
-function SideBar({ spaces }: Props): ReactElement {
-  const classes = useStyles()
-  const layoutClasses = useLayoutStyles()
+function SideBarInner({ spaces }: Props): ReactElement {
   const [mini, setMini] = useState(false)
   const children = spaces.spaces
   const nCls = clsx({
@@ -184,6 +258,7 @@ function SideBar({ spaces }: Props): ReactElement {
     'items-end m-4': !mini,
     'items-center': mini,
   })
+  debugger
 
   function toggleMini() {
     setMini(!mini)
@@ -193,12 +268,12 @@ function SideBar({ spaces }: Props): ReactElement {
     <div className={nCls}>
       <List className={layoutClasses.scrollBar} component="nav" disablePadding>
         {(children || []).map((space: any, index: number) => (
-          <RenderSpaceTree key={index} mini={mini} space={space} />
+          <RenderTree key={index} mini={mini} space={space} />
         ))}
       </List>
       <List component="nav" disablePadding className={bCls}>
         {setMini && (
-          <ListItemIcon component="li" className={'p-4'}>
+          <ListItemIcon className={'p-4'}>
             <ArrowBack className={'cursor-pointer'} onClick={toggleMini} />
           </ListItemIcon>
         )}
@@ -208,6 +283,18 @@ function SideBar({ spaces }: Props): ReactElement {
       </List>
     </div>
   )
+}
+
+function SideBar({ spaces, RightBar }: Props): ReactElement {
+  if (RightBar) {
+    RightBarList = RightBar
+  }
+  const theme = useTheme()
+  side = theme.palette.side
+  classes = useStyles()
+  layoutClasses = useLayoutStyles()
+
+  return (<SideBarInner spaces={spaces} />)
 }
 
 export default SideBar

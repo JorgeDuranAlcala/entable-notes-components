@@ -1,7 +1,5 @@
-import { ThemeZoom } from 'theme'
-import { Buffer, FontSize } from 'types'
+import { ThemeZoom, FontSize } from 'theme'
 import defaults, { Settings } from '../settings'
-import { Cell, CellValue, Column } from 'apps/table/types'
 
 const FULL_SCREEN = 'full_screen'
 const THEME_ZOOM = 'theme_zoom'
@@ -55,8 +53,6 @@ interface IGlobalContext {
   boardId?: number
   laneBy?: number
   laneId?: string
-  rows: any[]
-  columns: Column[]
   anchorEl?: any
   setCurrentBuffer: (buffers: Buffer) => void
   setBuffers: (buffers: Buffer[]) => void

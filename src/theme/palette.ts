@@ -11,10 +11,9 @@ import {
   deepPurple,
   blueGrey,
 } from '@material-ui/core/colors'
-import { Theme } from '@material-ui/core/styles'
 import { emphasize } from '@material-ui/core/styles/colorManipulator'
 import { lightenOrDarkenColor, getContrastText } from 'helpers/color'
-import { ThemeZoom, Color, ColorValue, ColorObj } from './index'
+import { ITheme, ThemeZoom, Color, ColorValue, ColorObj } from './index'
 
 export const WHITE = '#fff'
 export const BLACK = '#000'
@@ -344,7 +343,7 @@ const makePalette = (themeZoom: ThemeZoom, colors = { ...defaultColors }) => {
   return palette
 }
 
-export function getColors(theme: Theme, props: any) {
+export function getColors(theme: ITheme, props: any) {
   const { shade = 'main', bg = 'neutral', color, style, inverse, round, ...rest } = props
   const { palette } = theme
   // @ts-ignore

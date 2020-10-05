@@ -1,10 +1,12 @@
 import React from 'react'
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles'
 import { DARK, WHITE, BLACK } from 'theme/palette'
+import { GlobalContext } from 'context'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({}))
 export const Text = (props: any) => {
-  const theme = useTheme()
+  const { theme } = GlobalContext
+  debugger
   const classes = useStyles()
   const { fontSize = 'md', color, as = 'p', className = '', opacity = 1 } = props
   const size = theme.fontSize[fontSize] ? theme.fontSize[fontSize] : fontSize
