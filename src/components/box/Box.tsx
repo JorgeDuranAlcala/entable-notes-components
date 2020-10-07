@@ -13,6 +13,7 @@ import { IBox } from './index'
 export const Box = forwardRef((props: IBox, ref: any) => {
   // @ts-ignore
   const { color, style, inverse, round, className = '', ...rest } = props
+  console.log(props)
   const theme = useTheme()
   const cls = `flex justify-between items-center ${className}`
 

@@ -37,6 +37,7 @@ export enum CardItemMetric {
 }
 
 export type CardItem = {
+  id: string;
   avatar?: IAvatar
   title?: string
   subTitle?: string[] | string
@@ -51,6 +52,7 @@ export type GroupedItem = {
 }
 
 export interface ICardList {
+  cardListId: string;
   title: string
   menu?: Menu | MenuAction[]
   bottomAction?: BottomButtonAction[]

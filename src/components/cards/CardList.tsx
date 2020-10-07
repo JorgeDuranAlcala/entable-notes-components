@@ -10,6 +10,7 @@ import { Search } from 'components/search'
 import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 
 type RenderItemType = {
   item: CardItem
@@ -71,15 +72,25 @@ function RenderItem({
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
-
+  console.log(avatar?.name, item.id)
   return (
-    <div className={cls}>
-      {renderAvatar}
-      <div className="flex flex-col min-w-0 ml-2">
-        <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
-        <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
-      </div>
-    </div>
+    <Draggable draggableId={avatar?.name} index={index} >
+      {
+        (provided) => (
+          <div className={cls}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+          >
+            {renderAvatar}
+            <div className="flex flex-col min-w-0 ml-2">
+              <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
+              <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
+            </div>
+          </div>
+        )
+      }
+    </Draggable>
   )
 }
 
@@ -185,10 +196,34 @@ function CardList(props: ICardList) {
   })
   let cls = 'flex-col max-w-xs w-full pl-3  py-4'
   cls += borderless ? '' : ' shadow-md'
+
+  function onDragEnd(result: DropResult) {
+      if(!result) return;
+        console.log(result)
+        const items = Array.from(filterItems as Iterable<CardItem>);
+        const [reorderedItem] = items.splice(result.source.index, 1)
+        if(result.destination) items.splice( result.destination.index, 0, reorderedItem)
+        setFilterItems(items)
+  }
+
   return (
-    <Box className={cls}>
+    <Box className={cls} >
       {cardHeader}
-      {renderItems}
+      <DragDropContext onDragEnd={onDragEnd} >
+        <Droppable droppableId="card-list">
+          {
+            (provided) => (
+              <ul className="flex flex-col items-center w-full" 
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {renderItems}
+                {provided.placeholder}
+              </ul>
+            )
+          }
+        </Droppable>
+      </DragDropContext>
     </Box>
   )
 }
