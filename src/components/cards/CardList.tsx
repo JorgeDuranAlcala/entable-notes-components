@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { makeStyles, withStyles, Theme, useTheme } from '@material-ui/core/styles'
-import { IconButton } from '@material-ui/core'
+import { Button, IconButton } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AddIcon from '@material-ui/icons/Add'
 import { properCase } from 'helpers/string'
@@ -11,6 +11,8 @@ import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import { move } from "helpers/array"
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
 type RenderItemType = {
   item: CardItem
@@ -22,7 +24,8 @@ type RenderItemType = {
   indent?: number
   secondColor: string
   index: number
-  last: boolean
+  last: boolean,
+  Move?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -56,6 +59,7 @@ function RenderItem({
   index,
   secondColor,
   last,
+  Move
 }: RenderItemType) {
   const { avatar } = item
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
@@ -72,24 +76,27 @@ function RenderItem({
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
-  console.log(avatar?.name, item.id)
+ 
   return (
-    <Draggable draggableId={avatar?.name} index={index} >
-      {
-        (provided) => (
-          <div className={cls}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-          >
-            {renderAvatar}
-            <div className="flex flex-col min-w-0 ml-2">
-              <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
-              <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
-            </div>
-          </div>
-        )
-      }
+      <Draggable draggableId={`cardItem-${index}`} index={index} isDragDisabled={!Move}  >
+            {
+              (provided, snapshot) => (
+                <div className={cls}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                >
+                  {renderAvatar}
+                  <div className="flex flex-col min-w-0 ml-2">
+                    <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
+                    <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
+                  </div>
+                  <div className="flex justify-end items-center ml-4" >
+                  { snapshot.isDragging && <DragIndicatorIcon />}
+                  </div>
+                </div>
+              )
+            }
     </Draggable>
   )
 }
@@ -115,6 +122,7 @@ function CardList(props: ICardList) {
   const dropdowns = null
   const [filterItems, setFilterItems] = useState(items)
   const [searchMode, setSearchMode] = useState(false)
+  const [Move, setMove] = useState(false)
   const emptyArray = items.length === 0
   const grouped = items.length !== 0 && Array.isArray(items[0])
   function handleSearch(str: string) {
@@ -163,6 +171,7 @@ function CardList(props: ICardList) {
           index={gIndex}
           secondColor={secondColor}
           last={gIndex === groupItem.items.length - 1}
+          
         />
       ))
 
@@ -189,6 +198,7 @@ function CardList(props: ICardList) {
           metric={metric}
           index={index}
           secondColor={secondColor}
+          Move={Move}
           last={index === items.length - 1}
         />
       )
@@ -199,31 +209,37 @@ function CardList(props: ICardList) {
 
   function onDragEnd(result: DropResult) {
       if(!result) return;
-        console.log(result)
-        const items = Array.from(filterItems as Iterable<CardItem>);
-        const [reorderedItem] = items.splice(result.source.index, 1)
-        if(result.destination) items.splice( result.destination.index, 0, reorderedItem)
-        setFilterItems(items)
-  }
+      
+      setFilterItems(move([...filterItems], result.source.index, result.destination?.index))
+    }
+
+    console.log(Move)
 
   return (
     <Box className={cls} >
       {cardHeader}
-      <DragDropContext onDragEnd={onDragEnd} >
-        <Droppable droppableId="card-list">
-          {
-            (provided) => (
-              <ul className="flex flex-col items-center w-full" 
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {renderItems}
-                {provided.placeholder}
-              </ul>
-            )
-          }
-        </Droppable>
-      </DragDropContext>
+          <DragDropContext onDragEnd={onDragEnd} >
+            <Droppable droppableId="card-list">
+              {
+                (provided) => (
+                  <ul className="flex flex-col items-center w-full" 
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {renderItems}
+                    {provided.placeholder}
+                  </ul>
+                )
+              }
+            </Droppable>
+        </DragDropContext>
+     { !Move && <Button variant="contained" color="secondary" onClick={() => setMove(!Move)}>Move Cards</Button>}
+      {
+        Move && (<div className="inline-flex justify-between w-full mt-4 pr-4" >
+            <Button variant="contained" color="primary"  onClick={() => setMove(!Move) }>Save</Button>
+            <Button variant="contained" color="default" onClick={() => {setMove(false);setFilterItems(items)}}>Cancel</Button>
+          </div>)
+      }
     </Box>
   )
 }
