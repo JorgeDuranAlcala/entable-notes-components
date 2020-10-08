@@ -58,9 +58,8 @@ export interface ICardList {
   metric?: CardItemMetric
   checkbox?: boolean
   search?: boolean
-  add?: boolean
   borderless?: boolean
-  onAdd?: (val: any) => void
+  onUpdate?: (val: any) => void
   size?: Size // refers to avatar size
   shape?: Shape // refers to avatar shape
   oppSide?: boolean // avatar or checklist on opposit side
