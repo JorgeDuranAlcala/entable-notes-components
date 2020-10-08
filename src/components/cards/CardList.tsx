@@ -11,8 +11,9 @@ import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
-import { move as moveArrayEl } from "helpers/array"
+import { move as moveArrayEl, removeFromArrayAtPosition as removeEl } from "helpers/array"
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 type RenderItemType = {
   item: CardItem
@@ -25,7 +26,8 @@ type RenderItemType = {
   secondColor: string
   index: number
   last: boolean,
-  moveable?: boolean
+  moveable?: boolean;
+  onDeleteItem?: (index: number) => void; 
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -59,7 +61,8 @@ function RenderItem({
   index,
   secondColor,
   last,
-  moveable
+  moveable,
+  onDeleteItem
 }: RenderItemType) {
   const { avatar } = item
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
@@ -81,7 +84,7 @@ function RenderItem({
   const innerContent = (
     <React.Fragment>
       {renderAvatar}
-      <div className="flex flex-col min-w-0 ml-2  w-full">
+      <div className="flex flex-col min-w-0 ml-2 pl-3  w-full" >
         <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
         <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
       </div>
@@ -102,9 +105,10 @@ function RenderItem({
                   onMouseOut={() => setShowIcon(false)}
                 >
                   {innerContent}
-                  <div className="flex justify-end items-center ml-4" >
-                    { ShowIcon && moveable && <DragIndicatorIcon/> }
+                  <div className="flex items-center mr-4" >
+                    { ShowIcon && moveable && <DragIndicatorIcon style={{transition: 'all .5s ease-in-out'}} /> }
                     { snapshot.isDragging && <DragIndicatorIcon />}
+                    { moveable && <DeleteIcon onClick={() => onDeleteItem && onDeleteItem(index)}  /> }
                   </div>
                 </div>
               )
@@ -140,6 +144,12 @@ function CardList(props: ICardList) {
   function handleSearchMode() {
     setSearchMode(!searchMode)
   }
+
+  function onDeleteItem(index: number) {
+      const newArray = removeEl(filterItems, index)
+      setFilterItems(newArray)
+  }
+
   const placeholder = `Search ${properCase(title)}...`
   const theme = useTheme()
   const secondColor: string = theme.palette.primary.contrastText
@@ -179,7 +189,7 @@ function CardList(props: ICardList) {
           index={gIndex}
           secondColor={secondColor}
           last={gIndex === groupItem.items.length - 1}
-          
+          onDeleteItem={onDeleteItem}
         />
       ))
 
@@ -208,6 +218,7 @@ function CardList(props: ICardList) {
           secondColor={secondColor}
           moveable={move}
           last={index === items.length - 1}
+          onDeleteItem={onDeleteItem}
         />
       )
     }
@@ -228,7 +239,7 @@ function CardList(props: ICardList) {
             <Droppable droppableId="card-list">
               {
                 (provided) => (
-                  <ul className="flex flex-col items-center w-full" 
+                  <ul className="flex flex-col items-center w-full " 
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                   >
@@ -239,9 +250,11 @@ function CardList(props: ICardList) {
               }
             </Droppable>
         </DragDropContext>
-     { !move && moveable && <Button variant="contained" color="secondary" onClick={() => setMove(!move)}>Move Cards</Button>}
+      <div className="mt-2">
+        { !move && moveable && filterItems  && <Button variant="contained" color="secondary" onClick={() => setMove(!move)}>Move Cards</Button>}
+      </div>
       {
-        move && (<div className="inline-flex justify-between w-full mt-4 pr-4" >
+        move && filterItems.length > 0 && (<div className="inline-flex justify-between w-full mt-4 pr-4" >
             <Button variant="contained" color="primary"  onClick={() => setMove(!move) }>Save</Button>
             <Button variant="contained" color="default" onClick={() => {setMove(false);setFilterItems(items)}}>Cancel</Button>
           </div>)
