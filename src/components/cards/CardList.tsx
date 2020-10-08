@@ -106,7 +106,7 @@ function RenderItem({
                 >
                   {innerContent}
                   <div className="flex items-center mr-4" >
-                    { ShowIcon && moveable && <DragIndicatorIcon style={{transition: 'all .5s ease-in-out'}} /> }
+                    { ShowIcon && moveable && <DragIndicatorIcon /> }
                     { snapshot.isDragging && <DragIndicatorIcon />}
                     { moveable && <DeleteIcon onClick={() => onDeleteItem && onDeleteItem(index)}  /> }
                   </div>
