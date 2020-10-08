@@ -211,6 +211,10 @@
   padding-left: 0.75rem
 }
 
+.pr-4 {
+  padding-right: 1rem
+}
+
 .pb-4 {
   padding-bottom: 1rem
 }

@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { makeStyles, withStyles, Theme, useTheme } from '@material-ui/core/styles'
-import { IconButton } from '@material-ui/core'
+import { Button, IconButton } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AddIcon from '@material-ui/icons/Add'
 import { properCase } from 'helpers/string'
@@ -10,6 +10,9 @@ import { Search } from 'components/search'
 import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
+import { move as moveArrayEl } from "helpers/array"
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 
 type RenderItemType = {
   item: CardItem
@@ -21,7 +24,8 @@ type RenderItemType = {
   indent?: number
   secondColor: string
   index: number
-  last: boolean
+  last: boolean,
+  moveable?: boolean
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -55,6 +59,7 @@ function RenderItem({
   index,
   secondColor,
   last,
+  moveable
 }: RenderItemType) {
   const { avatar } = item
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
@@ -71,16 +76,41 @@ function RenderItem({
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
-
-  return (
-    <div className={cls}>
+  const [ShowIcon, setShowIcon] = useState(false)
+  
+  const innerContent = (
+    <React.Fragment>
       {renderAvatar}
-      <div className="flex flex-col min-w-0 ml-2">
+      <div className="flex flex-col min-w-0 ml-2  w-full">
         <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
         <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
       </div>
-    </div>
+    </React.Fragment>
   )
+  return (!moveable ? (
+    <div className={cls}>
+      {innerContent}
+    </div>) : (
+      <Draggable draggableId={`cardItem-${index}`} index={index} isDragDisabled={!moveable}  >
+            {
+              (provided, snapshot) => (
+                <div className={cls}
+                  {...provided.draggableProps}
+                  {...provided.dragHandleProps}
+                  ref={provided.innerRef}
+                  onMouseOver={() => setShowIcon(!ShowIcon)}
+                  onMouseOut={() => setShowIcon(false)}
+                >
+                  {innerContent}
+                  <div className="flex justify-end items-center ml-4" >
+                    { ShowIcon && moveable && <DragIndicatorIcon/> }
+                    { snapshot.isDragging && <DragIndicatorIcon />}
+                  </div>
+                </div>
+              )
+            }
+    </Draggable>
+  ))
 }
 
 function CardList(props: ICardList) {
@@ -96,16 +126,14 @@ function CardList(props: ICardList) {
     search,
     add,
     onAdd,
+    moveable,
     showZero = true,
     borderless = false,
   } = props
 
-  // @ts-ignore
-  const dropdowns = null
   const [filterItems, setFilterItems] = useState(items)
   const [searchMode, setSearchMode] = useState(false)
-  const emptyArray = items.length === 0
-  const grouped = items.length !== 0 && Array.isArray(items[0])
+  const [move, setMove] = useState(false)
   function handleSearch(str: string) {
     //
   }
@@ -114,8 +142,7 @@ function CardList(props: ICardList) {
   }
   const placeholder = `Search ${properCase(title)}...`
   const theme = useTheme()
-  // @ts-ignore
-  const secondColor: string = theme.palette.neutral.secondColor
+  const secondColor: string = theme.palette.primary.contrastText
   const searchCls = searchMode ? 'inline-flex w-full' : 'inline-flex justify-end'
   const headerRight = (
     <div className={searchCls}>
@@ -152,6 +179,7 @@ function CardList(props: ICardList) {
           index={gIndex}
           secondColor={secondColor}
           last={gIndex === groupItem.items.length - 1}
+          
         />
       ))
 
@@ -178,6 +206,7 @@ function CardList(props: ICardList) {
           metric={metric}
           index={index}
           secondColor={secondColor}
+          moveable={move}
           last={index === items.length - 1}
         />
       )
@@ -185,10 +214,38 @@ function CardList(props: ICardList) {
   })
   let cls = 'flex-col max-w-xs w-full pl-3  py-4'
   cls += borderless ? '' : ' shadow-md'
+
+  function onDragEnd(result: DropResult) {
+    if (!result)
+      return
+    setFilterItems(moveArrayEl([...filterItems], result.source.index, result.destination?.index))
+  }
+
   return (
-    <Box className={cls}>
+    <Box className={cls} >
       {cardHeader}
-      {renderItems}
+          <DragDropContext onDragEnd={onDragEnd} >
+            <Droppable droppableId="card-list">
+              {
+                (provided) => (
+                  <ul className="flex flex-col items-center w-full" 
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {renderItems}
+                    {provided.placeholder}
+                  </ul>
+                )
+              }
+            </Droppable>
+        </DragDropContext>
+     { !move && moveable && <Button variant="contained" color="secondary" onClick={() => setMove(!move)}>Move Cards</Button>}
+      {
+        move && (<div className="inline-flex justify-between w-full mt-4 pr-4" >
+            <Button variant="contained" color="primary"  onClick={() => setMove(!move) }>Save</Button>
+            <Button variant="contained" color="default" onClick={() => {setMove(false);setFilterItems(items)}}>Cancel</Button>
+          </div>)
+      }
     </Box>
   )
 }
