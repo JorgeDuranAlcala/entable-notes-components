@@ -76,13 +76,12 @@ function RenderItem({
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
-
   const [ShowIcon, setShowIcon] = useState(false)
   
   const innerContent = (
     <React.Fragment>
       {renderAvatar}
-      <div className="flex flex-col min-w-0 ml-2">
+      <div className="flex flex-col min-w-0 ml-2  w-full">
         <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
         <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
       </div>
