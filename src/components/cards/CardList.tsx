@@ -76,6 +76,8 @@ function RenderItem({
   let cls = 'flex items-center w-full '
   cls += index ? ' mt-6' : ' mt-4 '
   cls += last ? ' mb-4' : ''
+
+  const [ShowIcon, setShowIcon] = useState(false)
   
   const innerContent = (
     <React.Fragment>
@@ -97,10 +99,13 @@ function RenderItem({
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
                   ref={provided.innerRef}
+                  onMouseOver={() => setShowIcon(!ShowIcon)}
+                  onMouseOut={() => setShowIcon(false)}
                 >
                   {innerContent}
                   <div className="flex justify-end items-center ml-4" >
-                  { snapshot.isDragging && <DragIndicatorIcon />}
+                    { ShowIcon && moveable && <DragIndicatorIcon/> }
+                    { snapshot.isDragging && <DragIndicatorIcon />}
                   </div>
                 </div>
               )
