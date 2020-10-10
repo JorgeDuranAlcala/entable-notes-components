@@ -56,8 +56,8 @@ export interface ICardList {
   menu?: Menu | MenuAction[]
   bottomAction?: BottomButtonAction[]
   metric?: CardItemMetric
-  checkbox?: boolean
-  search?: boolean
+  headerless?: boolean
+  color?: any
   borderless?: boolean
   onUpdate?: (val: any) => void
   size?: Size // refers to avatar size
@@ -69,4 +69,6 @@ export interface ICardList {
   showZero?: boolean // for groups
   items: GroupedItem[] | CardItem[]
   [key: string]: any
+  checkable?: boolean
+  progress?: boolean
 }

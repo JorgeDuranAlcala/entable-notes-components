@@ -160,8 +160,20 @@
   margin-top: 1.5rem
 }
 
+.mt-8 {
+  margin-top: 2rem
+}
+
 .-ml-2 {
   margin-left: -0.5rem
+}
+
+.-mt-8 {
+  margin-top: -2rem
+}
+
+.-ml-20 {
+  margin-left: -5rem
 }
 
 .max-w-xs {
@@ -209,10 +221,6 @@
 
 .pl-3 {
   padding-left: 0.75rem
-}
-
-.pr-4 {
-  padding-right: 1rem
 }
 
 .pb-4 {
@@ -281,6 +289,10 @@
   --text-opacity: 1;
   color: #a0aec0;
   color: rgba(160, 174, 192, var(--text-opacity))
+}
+
+.capitalize {
+  text-transform: capitalize
 }
 
 .whitespace-no-wrap {
