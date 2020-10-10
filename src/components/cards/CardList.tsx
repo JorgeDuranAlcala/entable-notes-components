@@ -90,25 +90,33 @@ function RenderItem({
       </div>
     </React.Fragment>
   )
+
+ 
+
   return (!moveable ? (
     <div className={cls}>
-      {innerContent}
+     {innerContent}
     </div>) : (
-      <Draggable draggableId={`cardItem-${index}`} index={index} isDragDisabled={!moveable}  >
+      <Draggable draggableId={`cardItem-${index}`} index={index} isDragDisabled={!moveable} key={index}  >
             {
               (provided, snapshot) => (
                 <div className={cls}
+                  ref={provided.innerRef}
                   {...provided.draggableProps}
                   {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                  onMouseOver={() => setShowIcon(!ShowIcon)}
+                  onMouseOver={() => setShowIcon(true)}
                   onMouseOut={() => setShowIcon(false)}
                 >
-                  {innerContent}
+                   {innerContent}
                   <div className="flex items-center mr-4" >
                     { ShowIcon && moveable && <DragIndicatorIcon /> }
                     { snapshot.isDragging && <DragIndicatorIcon />}
-                    { moveable && <DeleteIcon onClick={() => onDeleteItem && onDeleteItem(index)}  /> }
+                    { moveable && (
+                        <button className={`${!ShowIcon && "hidden"}`} onClick={() => onDeleteItem && onDeleteItem(index)}>
+                         <DeleteIcon />
+                        </button> 
+                      )
+                    }
                   </div>
                 </div>
               )
