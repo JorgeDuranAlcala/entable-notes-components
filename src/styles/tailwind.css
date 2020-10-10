@@ -291,6 +291,10 @@
   color: rgba(160, 174, 192, var(--text-opacity))
 }
 
+.capitalize {
+  text-transform: capitalize
+}
+
 .whitespace-no-wrap {
   white-space: nowrap
 }

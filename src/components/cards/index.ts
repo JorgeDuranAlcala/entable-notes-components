@@ -56,7 +56,7 @@ export interface ICardList {
   menu?: Menu | MenuAction[]
   bottomAction?: BottomButtonAction[]
   metric?: CardItemMetric
-  header?: boolean
+  headerless?: boolean
   color?: any
   borderless?: boolean
   onUpdate?: (val: any) => void
