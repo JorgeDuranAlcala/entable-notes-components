@@ -9,10 +9,12 @@ import {Playground} from 'docz'
 <Playground>
     <CardList 
       title="Groups"
-      border={1}
       search={true}
       shape="square"
       moveable={true}
+      progress={true}
+      checkable={true}
+      headerless={true}
       items={[{
         id: '1',
         avatar: {
@@ -21,7 +23,8 @@ import {Playground} from 'docz'
         },
         title: "Engineer",
         subTitle: "How do you do",
-        status: "online"
+        status: "online",
+        checked: 1
       },{
         id: '2',
         avatar: {
@@ -30,7 +33,8 @@ import {Playground} from 'docz'
         },
         title: "Engineer",
         subTitle: "How do you do",
-        status: "inactive"
+        status: "inactive",
+        checked: 1
       },{
         id: '3',
         avatar: {

@@ -18,6 +18,7 @@ export interface IProgressBar {
   type?: StatusType
   align?: 'right' | 'left'
   top?: boolean
+  className?: string
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -40,9 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
   progressText: {
-    fontSize: theme.fontSize.xs,
-    opacity: 0.6,
-    letterSpacing: '1px',
+    fontSize: theme.fontSize.md
   },
 }))
 
@@ -55,10 +54,10 @@ export default function ProgressBar({
   align = 'left',
   height = 12,
   top,
+  className=""
 }: IProgressBar) {
   const classes = useStyles()
   const theme = useTheme()
-  const txt = `${value}/${total ? total : '%'} ${title}`
   const color = theme.palette[type].main
   const rootStyle: any =
     align === 'left' ? { left: '1rem', textAlign: 'left', width } : { right: '1rem', textAlign: 'right', width }
@@ -70,10 +69,13 @@ export default function ProgressBar({
     '--width-var': `${widthPerc}%`,
     '--color-var': `${color}`,
   } as React.CSSProperties
+
+  const labelValue = `(${value}/${total ? total : '%'})`
+  const txt = align === 'left' ? `${title} ${labelValue}` : `${labelValue} ${title}`
   const renderText = <span className={clsx(classes.progressText, top ? 'mb-1' : 'mt-1')}>{txt}</span>
 
   return (
-    <div aria-label="progress-bar1" className={clsx(classes.root, 'relative flex flex-col')} style={rootStyle}>
+    <div aria-label="progress-bar1" className={clsx(classes.root, 'relative flex flex-col', className)} style={rootStyle}>
       {top && renderText}
       <div className={clsx(classes.progress, 'w-full')} style={style}></div>
       {!top && renderText}

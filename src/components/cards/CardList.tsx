@@ -10,10 +10,13 @@ import { Search } from 'components/search'
 import Box from 'components/box'
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
+
+import Checkbox, { CheckboxProps } from '@material-ui/core/Checkbox';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd'
 import { move as moveArrayEl, removeFromArrayAtPosition as removeEl } from "helpers/array"
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ProgressBar from 'components/progressbar'
 
 type RenderItemType = {
   item: CardItem
@@ -23,24 +26,16 @@ type RenderItemType = {
   size?: Size
   shape?: Shape
   indent?: number
-  secondColor: string
   index: number
-  last: boolean,
-  moveable?: boolean;
-  onDeleteItem?: (index: number) => void; 
+  last: boolean
+  onDeleteItem?: (index: number) => void;
+  color?: any
+  moveable?: boolean
+  checkable?: boolean
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  secondColor: {
-    // @ts-ignore
-    color: theme.palette.neutral.secondColor,
-  },
-  btn: {
-    '&:hover': {
-      backgroundColor: theme.palette.primary.bg,
-      color: theme.palette.text.primary,
-    },
-  },
+// @ts-ignore
+const useStyles = makeStyles((theme: Theme, props: any) => ({
   firstText: {
     fontSize: theme.fontSize.sm,
   },
@@ -52,17 +47,17 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function RenderItem({
   item,
-  checkbox,
   oppSide,
   metric,
   size = 'sm',
   shape = 'circle',
   indent,
   index,
-  secondColor,
   last,
   moveable,
-  onDeleteItem
+  onDeleteItem,
+  color = "primary",
+  checkable
 }: RenderItemType) {
   const { avatar } = item
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
@@ -72,17 +67,26 @@ function RenderItem({
   itemObj.subTitle = Array.isArray(itemObj.subTitle)
     ? itemObj.subTitle[0]
     : itemObj.subTitle[0]
-    ? itemObj.subTitle
-    : itemObj.subTitle
-    ? avatar?.title
-    : avatar?.title
-  let cls = 'flex items-center w-full '
-  cls += index ? ' mt-6' : ' mt-4 '
+      ? itemObj.subTitle
+      : itemObj.subTitle
+        ? avatar?.title
+        : avatar?.title
+  let cls = 'flex items-center w-full'
+  cls += index ? ' mt-2 ' : ' mt-8 '
   cls += last ? ' mb-4' : ''
-  const [ShowIcon, setShowIcon] = useState(false)
+  const [showIcon, setShowIcon] = useState(false)
+  const [checked, setChecked] = useState(!!itemObj.checked)
+  
+  const toggleItemCheck = ((item: any) => {
+    setChecked(!checked)
+    item.checked = item.checked ? 0 : Date.now()
+  })
+  
+  const checkItem = checkable && (<Checkbox checked={checked} onChange={toggleItemCheck}   color={color}  />)
   
   const innerContent = (
     <React.Fragment>
+      {checkItem}
       {renderAvatar}
       <div className="flex flex-col min-w-0 ml-2 pl-3  w-full" >
         <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
@@ -90,8 +94,6 @@ function RenderItem({
       </div>
     </React.Fragment>
   )
-
- 
 
   return (!moveable ? (
     <div className={cls}>
@@ -109,10 +111,10 @@ function RenderItem({
                 >
                    {innerContent}
                   <div className="flex items-center mr-4" >
-                    { ShowIcon && moveable && <DragIndicatorIcon /> }
+                    { showIcon && moveable && <DragIndicatorIcon /> }
                     { snapshot.isDragging && <DragIndicatorIcon />}
                     { moveable && (
-                        <button className={`${!ShowIcon && "hidden"}`} onClick={() => onDeleteItem && onDeleteItem(index)}>
+                        <button className={`${!showIcon && "hidden"}`} onClick={() => onDeleteItem && onDeleteItem(index)}>
                          <DeleteIcon />
                         </button> 
                       )
@@ -128,12 +130,12 @@ function RenderItem({
 function CardList(props: ICardList) {
   const {
     title = '',
-    size,
+    size='sm',
     shape,
+    headerless = false,
     menu = [],
     bottomAction = [],
     metric,
-    checkbox,
     items = [],
     search,
     add,
@@ -141,11 +143,14 @@ function CardList(props: ICardList) {
     moveable,
     showZero = true,
     borderless = false,
+    checkable = false,
+    progress = false
   } = props
 
   const [filterItems, setFilterItems] = useState(items)
   const [searchMode, setSearchMode] = useState(false)
-  const [move, setMove] = useState(false)
+  const sm = size === 'sm'
+
   function handleSearch(str: string) {
     //
   }
@@ -160,8 +165,8 @@ function CardList(props: ICardList) {
 
   const placeholder = `Search ${properCase(title)}...`
   const theme = useTheme()
-  const secondColor: string = theme.palette.primary.contrastText
-  const searchCls = searchMode ? 'inline-flex w-full' : 'inline-flex justify-end'
+  let searchCls = searchMode ? 'inline-flex w-full' : 'inline-flex justify-end'
+  searchCls += headerless ? ' w-full' : ''
   const headerRight = (
     <div className={searchCls}>
       {search && (
@@ -172,13 +177,18 @@ function CardList(props: ICardList) {
       </IconButton>
     </div>
   )
+
   const cardHeader = (
     <div className="inline-flex items-center justify-between w-full">
-      {!searchMode && <div className="text-2xl leading-tight">{title}</div>}
+      {!searchMode && !headerless && <div className="text-2xl leading-tight">{title}</div>}
       {headerRight}
     </div>
   )
 
+  const totalCount = progress && checkable ? filterItems.length : 0
+  // @ts-ignore
+  const checkedCount = totalCount ? filterItems.reduce(((count, item) => count + (item.checked ? 1 : 0))
+  , 0) : 0
   // @ts-ignore
   const renderItems = filterItems.map((item: GroupedItem | CardItem, index: number) => {
     // @ts-ignore
@@ -192,10 +202,9 @@ function CardList(props: ICardList) {
           item={gItem}
           size={size}
           shape={shape}
-          checkbox={checkbox}
           indent={5}
           index={gIndex}
-          secondColor={secondColor}
+          checkable={checkable}
           last={gIndex === groupItem.items.length - 1}
           onDeleteItem={onDeleteItem}
         />
@@ -220,17 +229,17 @@ function CardList(props: ICardList) {
           item={item as CardItem}
           size={size}
           shape={shape}
-          checkbox={checkbox}
+          checkable={checkable}
           metric={metric}
           index={index}
-          secondColor={secondColor}
-          moveable={move}
+          moveable={moveable}
           last={index === items.length - 1}
           onDeleteItem={onDeleteItem}
         />
       )
     }
   })
+
   let cls = 'flex-col max-w-xs w-full pl-3  py-4'
   cls += borderless ? '' : ' shadow-md'
 
@@ -241,32 +250,25 @@ function CardList(props: ICardList) {
   }
 
   return (
-    <Box className={cls} >
+    <Box className={cls}>
       {cardHeader}
-          <DragDropContext onDragEnd={onDragEnd} >
-            <Droppable droppableId="card-list">
-              {
-                (provided) => (
-                  <ul className="flex flex-col items-center w-full " 
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {renderItems}
-                    {provided.placeholder}
-                  </ul>
-                )
-              }
-            </Droppable>
-        </DragDropContext>
-      <div className="mt-2">
-        { !move && moveable && filterItems  && <Button variant="contained" color="secondary" onClick={() => setMove(!move)}>Move Cards</Button>}
-      </div>
-      {
-        move && filterItems.length > 0 && (<div className="inline-flex justify-between w-full mt-4 pr-4" >
-            <Button variant="contained" color="primary"  onClick={() => setMove(!move) }>Save</Button>
-            <Button variant="contained" color="default" onClick={() => {setMove(false);setFilterItems(items)}}>Cancel</Button>
-          </div>)
-      }
+      {totalCount && <ProgressBar width="80%" value={checkedCount} total={totalCount} align="left" top={true} height={sm ? 6 : undefined} title={headerless ? title : ''} className="-ml-20 -mt-8"/>}
+      {moveable ? (
+        <DragDropContext onDragEnd={onDragEnd} >
+          <Droppable droppableId="card-list">
+            {
+              (provided) => (
+                <ul className="flex flex-col items-center w-full" 
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {renderItems}
+                  {provided.placeholder}
+                </ul>
+              )
+            }
+          </Droppable>
+        </DragDropContext>) : renderItems}
     </Box>
   )
 }
