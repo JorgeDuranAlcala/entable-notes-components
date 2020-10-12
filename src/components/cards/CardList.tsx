@@ -37,11 +37,11 @@ type RenderItemType = {
 // @ts-ignore
 const useStyles = makeStyles((theme: Theme, props: any) => ({
   firstText: {
-    fontSize: theme.fontSize.sm,
+    fontSize: theme.fontSize.md,
   },
   secondText: {
     opacity: 0.8,
-    fontSize: theme.fontSize.xs,
+    fontSize: theme.fontSize.sm,
   },
 }))
 
@@ -63,16 +63,12 @@ function RenderItem({
   const renderAvatar = avatar ? <Avatar src={avatar.src} name={avatar.name} size={size} shape={shape} /> : null
   const styles = useStyles()
   const itemObj: any = item || {}
-  itemObj.name = itemObj.name || avatar?.name
-  itemObj.subTitle = Array.isArray(itemObj.subTitle)
+  itemObj.subTitle = itemObj.subTitle ? Array.isArray(itemObj.subTitle)
     ? itemObj.subTitle[0]
-    : itemObj.subTitle[0]
-      ? itemObj.subTitle
-      : itemObj.subTitle
-        ? avatar?.title
-        : avatar?.title
+    : itemObj.subTitle
+  : ''
   let cls = 'flex items-center w-full'
-  cls += index ? ' mt-2 ' : ' mt-8 '
+  cls += avatar ? index ? ' mt-2 ' : ' mt-8 ': index ? '' : ' mt-2'
   cls += last ? ' mb-4' : ''
   const [showIcon, setShowIcon] = useState(false)
   const [checked, setChecked] = useState(!!itemObj.checked)
@@ -83,14 +79,14 @@ function RenderItem({
   })
   
   const checkItem = checkable && (<Checkbox checked={checked} onChange={toggleItemCheck}   color={color}  />)
-  
+  const firstTextCls = `${styles.firstText} leading-none mr-2 ` + (checkable && checked ? ' line-through' : '')
   const innerContent = (
     <React.Fragment>
       {checkItem}
       {renderAvatar}
-      <div className="flex flex-col min-w-0 ml-2 pl-3  w-full" >
-        <div className={`${styles.firstText} leading-none mr-2`}>{avatar?.name}</div>
-        <div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>
+      <div className="flex flex-col min-w-0 ml-2 w-full" >
+        <div className={firstTextCls}>{itemObj.title}</div>
+        {itemObj.subTitle && (<div className={`${styles.secondText} leading-none mt-1`}>{itemObj.subTitle}</div>)}
       </div>
     </React.Fragment>
   )
@@ -252,7 +248,7 @@ function CardList(props: ICardList) {
   return (
     <Box className={cls}>
       {cardHeader}
-      {totalCount && <ProgressBar width="80%" value={checkedCount} total={totalCount} align="left" top={true} height={sm ? 6 : undefined} title={headerless ? title : ''} className="-ml-20 -mt-8"/>}
+      {totalCount && <ProgressBar width="80%" value={Math.round(checkedCount/totalCount * 100)} align="left" top={true} height={sm ? 6 : undefined} title={headerless ? title : ''} className="-ml-20 -mt-4"/>}
       {moveable ? (
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable droppableId="card-list">
