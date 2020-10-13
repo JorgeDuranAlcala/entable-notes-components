@@ -68,7 +68,7 @@ function RenderItem({
     : itemObj.subTitle
   : ''
   let cls = 'flex items-center w-full'
-  cls += avatar ? index ? ' mt-2 ' : ' mt-8 ': index ? '' : ' mt-2'
+  cls += avatar ? index ? ' mt-2 ' : ' mt-6 ': index ? '' : ' mt-6 '
   cls += last ? ' mb-4' : ''
   const [showIcon, setShowIcon] = useState(false)
   const [checked, setChecked] = useState(!!itemObj.checked)
