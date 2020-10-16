@@ -1,0 +1,20 @@
+---
+name: Country
+route: /country
+---
+
+import Country from "./Country";
+import {Playground} from 'docz'
+
+<Playground>
+
+
+<Country
+  country="IN"
+  size="lg"
+  setShowEditor={content => console.log(`setShowEditor: ${content}`)}
+  updateCell={newCellValue => alert(`Sent to Parent: ${newCellValue}`)}
+/>
+
+
+</Playground>

@@ -174,9 +174,9 @@ function CardList(props: ICardList) {
     </div>
   )
 
-  const cardHeader = (
+  const cardHeader = !headerless && (
     <div className="inline-flex items-center justify-between w-full">
-      {!searchMode && !headerless && <div className="text-2xl leading-tight">{title}</div>}
+      {!searchMode &&  <div className="text-2xl leading-tight">{title}</div>}
       {headerRight}
     </div>
   )
