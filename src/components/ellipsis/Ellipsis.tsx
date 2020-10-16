@@ -6,12 +6,12 @@ import './styles.scss'
 export interface EllipsisProps {
   /** Default string to be rendered */
   text: string
-  classes: any
+  classes?: any
   /** Updates row data in parent component with the purpose of persisting when switching table page */
   updateCell: (text: string) => void
 }
 
-export default function Ellipsis({ text, updateCell, classes }: EllipsisProps) {
+export default function Ellipsis({ text, updateCell, classes ={fontSize:''}}: EllipsisProps) {
   const [value, setValue] = React.useState(text)
   const textfieldRef = React.useRef(null)
   const { fontSize } = classes
@@ -23,14 +23,13 @@ export default function Ellipsis({ text, updateCell, classes }: EllipsisProps) {
 
   React.useEffect(() => {
     // @ts-ignore
+    const current:any = textfieldRef?.current
+    const firstChild = current?.firstChild
     if (
-      textfieldRef &&
-      textfieldRef.current &&
-      textfieldRef.current.firstChild &&
-      textfieldRef.current.firstChild.children[0].nodeName === 'TEXTAREA'
+      firstChild &&
+      firstChild.children[0].nodeName === 'TEXTAREA'
     ) {
-      // @ts-ignore
-      textfieldRef.current.firstChild.children[0].focus()
+      firstChild.children[0].focus()
     }
   })
 
