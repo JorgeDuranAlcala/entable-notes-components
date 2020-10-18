@@ -16,8 +16,8 @@ function TooltipList(props: IProps) {
           <p style={{ marginBottom: 5 }}>
             <strong>Users</strong>
           </p>
-          {content.map(item => (
-            <p style={{ marginBottom: 5 }}>{item}</p>
+          {content.map((item, idx) => (
+            <p style={{ marginBottom: 5 }} key={idx}>{item}</p>
           ))}
         </div>
       }
