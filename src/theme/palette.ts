@@ -227,8 +227,12 @@ export function getPaletteColors(pal: PaletteType, all: boolean = false, color?:
   return colors
 }
 
-export function getHashColor(hash: number, pal: Palettes = Palettes.otherAll) {
-  const colors = getPaletteColors(pal, true)
+// @ts-ignore
+export function getHashColor(hash: number, pal: Palettes = Palettes.avatar) {
+  debugger
+  // @ts-ignore
+  const p: PaletteType = pal as PaletteType
+  const colors = getPaletteColors(p, true)
   const idx = hash % colors.length
   return colors[idx]
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import clsx from 'clsx'
 
 import Person from '@material-ui/icons/Person'
-import { WithStyles, withStyles, Theme, useTheme } from '@material-ui/core/styles'
+import { WithStyles, withStyles, useTheme } from '@material-ui/core/styles'
+import { ITheme } from 'types'
 import { hashNumber, getInitials } from 'helpers/misc'
 import GlobalContext from 'context/global-context'
 import { LIGHT, WHITE, BLACK, getHashColor, Palettes } from 'theme/palette'
@@ -19,8 +20,7 @@ export function valToAvatars(values: any[], col?: any): IAvatar[] {
   })
 }
 
-const styles = (_theme: Theme): any => {
-  const { theme } = GlobalContext
+const styles = (theme: ITheme): any => {
   const { fontSize, palette, shape, zoomSpacing, typography } = theme
   const color = palette.type === 'light' ? palette.grey[400] : palette.grey['A700']
   const def = palette.background.default
