@@ -22,8 +22,8 @@ export default makeStyles((theme: Theme) => ({
   },
   label: {
     backgroundColor: grey[200],
-    width: '7.5rem',
-    height: '3rem',
+    width: '6rem',
+    height: '2rem',
   },
   left: {
     zIndex: 2,

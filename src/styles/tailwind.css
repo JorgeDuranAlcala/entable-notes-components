@@ -168,6 +168,10 @@
   margin-top: -1rem
 }
 
+.-mb-8 {
+  margin-bottom: -2rem
+}
+
 .-ml-20 {
   margin-left: -5rem
 }
@@ -190,6 +194,10 @@
 
 .p-0 {
   padding: 0
+}
+
+.p-2 {
+  padding: 0.5rem
 }
 
 .p-4 {
