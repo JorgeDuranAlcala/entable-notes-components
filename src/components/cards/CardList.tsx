@@ -4,10 +4,13 @@ import { makeStyles, withStyles, Theme, useTheme } from '@material-ui/core/style
 import { Button, IconButton } from '@material-ui/core'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import AddIcon from '@material-ui/icons/Add'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { properCase } from 'helpers/string'
 import { Avatar, Size, Shape } from 'components/avatar/index'
 import { Search } from 'components/search'
 import Box from 'components/box'
+import { stopPropagation } from 'helpers/misc'
+
 import { ICardList, CardItem, CardItemMetric, GroupedItem, MenuAction } from './index'
 import i18nStrings from 'i18n/strings'
 
@@ -140,11 +143,12 @@ function CardList(props: ICardList) {
     showZero = true,
     borderless = false,
     checkable = false,
-    progress = false
+    progress = false,
+    collapsible=false
   } = props
-
   const [filterItems, setFilterItems] = useState(items)
   const [searchMode, setSearchMode] = useState(false)
+  const [collapsed, setCollapsed] = useState(progress && collapsible)
   const sm = size === 'sm'
 
   function handleSearch(str: string) {
@@ -182,11 +186,16 @@ function CardList(props: ICardList) {
   )
 
   const totalCount = progress && checkable ? filterItems.length : 0
+
   // @ts-ignore
-  const checkedCount = totalCount ? filterItems.reduce(((count, item) => count + (item.checked ? 1 : 0))
+  let checkedCount = collapsed && totalCount ? filterItems.reduce(((count, item) => count + (item.checked ? 1 : 0))
   , 0) : 0
   // @ts-ignore
-  const renderItems = filterItems.map((item: GroupedItem | CardItem, index: number) => {
+  const renderItems = collapsed ? [] : filterItems.map((item: GroupedItem | CardItem, index: number) => {
+    if (totalCount) {
+      // @ts-ignore
+      checkedCount += item.checked ? 1 : 0
+    }
     // @ts-ignore
     if (item.group) {
       const groupItem = item as GroupedItem
@@ -245,11 +254,25 @@ function CardList(props: ICardList) {
     setFilterItems(moveArrayEl([...filterItems], result.source.index, result.destination?.index))
   }
 
+  function toggleCollapse(e: any) {
+    stopPropagation(e)
+    setCollapsed(!collapsed)
+  }
+
+  const showCollapse = totalCount && collapsible
+  const collapseCls = showCollapse &&  !collapsed ? 'mt-1 cursor-pointer  -mb-8 ': 'mt-1 cursor-pointer'
+  const collapseContent = showCollapse ?
+    <div className={collapseCls}>
+      <ExpandMoreIcon style={{fontSize:'1.5rem'}}  onClick={(e) => toggleCollapse(e)} />
+    </div>
+    : null
+  
   return (
     <Box className={cls}>
       {cardHeader}
-      {totalCount && <ProgressBar width="80%" value={Math.round(checkedCount/totalCount * 100)} align="left" top={true} height={sm ? 6 : undefined} title={headerless ? title : ''} className="-ml-20 -mt-4"/>}
-      {moveable ? (
+      {totalCount && <ProgressBar width="80%" value={Math.round(checkedCount / totalCount * 100)} align="left" top={true} height={sm ? 6 : undefined} title={headerless ? title : ''} className="-ml-20 -mt-4" />}
+      {collapseContent}
+      {moveable && !collapsed &&  renderItems.length ? (
         <DragDropContext onDragEnd={onDragEnd} >
           <Droppable droppableId="card-list">
             {

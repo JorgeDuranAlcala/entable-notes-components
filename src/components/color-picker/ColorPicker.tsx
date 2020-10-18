@@ -56,7 +56,7 @@ const ColorPicker = (props: IProps) => {
           />
         ))}
       </div>
-      {shades && <ColorShades shades={shades} color={colorSelected} handleClick={handleShadeSelection} />}
+      {shades && <ColorShades shades={shades} handleClick={handleShadeSelection} />}
     </div>
   )
 }

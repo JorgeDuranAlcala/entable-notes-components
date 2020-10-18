@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { withStyles, WithStyles } from '@material-ui/core'
-import Button from '@material-ui/core/Button'
+import Button from 'components/button'
 import { PaletteColor } from 'theme/palette'
 import styles from './styles'
 import ColorSelected from '../color-selected'

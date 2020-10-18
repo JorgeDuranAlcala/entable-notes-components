@@ -70,5 +70,7 @@ export interface ICardList {
   items: GroupedItem[] | CardItem[]
   [key: string]: any
   checkable?: boolean
+  collapsible?: boolean
   progress?: boolean
 }
+
