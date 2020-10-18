@@ -4,8 +4,9 @@ route: /color-picker
 ---
 
 import ColorPicker from "./ColorPicker";
+import Palettes from '../../theme/palette';
 import {Playground} from 'docz'
 
 <Playground>
-    <ColorPicker/>
+    <ColorPicker pal={Palettes.status}/>
 </Playground>

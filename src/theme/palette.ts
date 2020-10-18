@@ -187,13 +187,13 @@ export type PaletteColor = {
   text: string
 }
 
-export function getPaletteColors(pal: Palettes, all: boolean = false, color?: string) {
+export function getPaletteColors(pal: PaletteType, all: boolean = false, color?: string) {
   const colors: PaletteColor[] = []
   const colorKeys = color ? [color] : Object.keys(Colors)
   let shades: any[]
   const allShades = all || !!color
-
-  switch (Palettes[pal]) {
+  debugger
+  switch (pal) {
     case PaletteType.dark:
       shades = [...PALETTE_DARK]
       break
@@ -207,7 +207,7 @@ export function getPaletteColors(pal: Palettes, all: boolean = false, color?: st
     default:
       shades = [...PALETTE_ALL]
   }
-
+  debugger
   if (!allShades) {
     shades.splice(0, shades.length / 2)
     shades.length = 1
