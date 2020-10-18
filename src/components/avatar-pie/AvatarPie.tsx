@@ -14,6 +14,7 @@ function getSize(siz: Size, half?: boolean) {
     idx = 2
   }
   const spacing = zoomSpacing(idx + 2)
+  console.log('spacing', spacing);
   return half ? roundNum(Number(spacing.split('rem')[0]) / 2) + 'rem' : spacing
 }
 
@@ -21,14 +22,8 @@ function getBorderAndMargin(size: Size) {
   const { palette } = GlobalContext.theme
   return {
     borderColor: palette.background.default,
-    margin: {
-      marginTop: '0.3rem',
-      marginLeft: '0.3rem',
-    },
-    plusMargin: {
-      marginTop: '0.1rem',
-      marginLeft: '0.6rem',
-    },
+    margin: {},
+    plusMargin: {},
   }
 }
 
@@ -90,18 +85,80 @@ const groupGrid = [
       borderTopLeftRadius: borderRadius,
       borderRight: border,
     },
-    { gridColumnStart: 2, gridColumnEnd: 2, gridRowStart: 1, gridRowEnd: 1, borderTopRightRadius: borderRadius },
+    { 
+        gridColumnStart: 2,
+        gridColumnEnd: 2,
+        gridRowStart: 1,
+        gridRowEnd: 1,
+        borderTopRightRadius: borderRadius,
+    },
     {
-      gridColumnStart: 1,
-      gridColumnEnd: 3,
       gridRowStart: 2,
+      gridColumnStart: 1,
       gridRowEnd: 2,
+      gridColumnEnd: 3,
       borderBottomLeftRadius: borderRadius,
       borderBottomRightRadius: borderRadius,
       borderTop: border,
     },
   ],
 ]
+
+const lineHeight = {
+    xs: [{
+        lineHeight: '0.75rem',
+        paddingLeft: '0.125rem'
+    },{
+        lineHeight: '0.75rem',
+    },{
+        lineHeight: '0.6rem',
+        textAlign: 'center'
+    }],
+
+    sm: [{
+        lineHeight: '1rem',
+        paddingLeft: '0.2rem'
+    },{
+        lineHeight: '1rem',
+        paddingLeft: '0.1rem'
+    },{
+        lineHeight: '0.8125rem',
+        textAlign: 'center'
+    }],
+
+    md: [{
+        lineHeight: '1.4rem',
+        paddingLeft: '0.5rem'
+    },{
+        lineHeight: '1.4rem',
+        paddingLeft: '0.2rem'
+    },{
+        paddingTop: '0.0175rem',
+        textAlign: 'center'
+    }],
+
+    lg: [{
+        lineHeight: '1.75rem',
+        paddingLeft: '0.6rem'
+    },{
+        lineHeight: '1.75rem',
+        paddingLeft: '0.3rem'
+    },{
+        lineHeight: '1.5rem',
+        textAlign: 'center'
+    }],
+
+    xl: [{
+        lineHeight: '1.85rem',
+        paddingLeft: '0.8rem'
+    },{
+        lineHeight: '1.85rem',
+        paddingLeft: '0.5rem'
+    },{
+        lineHeight: '1.7rem',
+        textAlign: 'center'
+    }]
+}
 
 export interface IProps extends StyleProps {
   avatars: IAvatar[]
@@ -121,7 +178,7 @@ function AvatarPie(props: IProps) {
   const outlineCls = outline ? classes.border : ''
   const borderAndMargin = getBorderAndMargin(size)
   const { borderColor, margin, plusMargin } = borderAndMargin
-  console.log('fontSize', fontSize.md)
+  
   return (
     <TooltipList title="Users" content={props.avatars.map(avatar => avatar.name) as string[]}>
       <div
@@ -141,14 +198,17 @@ function AvatarPie(props: IProps) {
           const initials = isPlus && idx === 2 ? 2 : 1
           const cStyle = isPlus && idx === 2 ? plusMargin : margin
           const avatarStyle = idx === 2 ? { height: getSize(size) } : { height: columnHeight }
+          const nameStyle =  lineHeight[size] && !src ? lineHeight[size][idx] : {};
+          
           return (
             <Avatar
-              style={{ ...grid, ...avatarStyle, fontSize: fontSize.sm, borderColor }}
+              style={{ ...grid, ...avatarStyle, fontSize: fontSize.sm, borderColor,  ...nameStyle }}
               src={avatar.src}
               name={avatar.name}
-              size="md"
+              size={size}
               initials={initials}
               custom={true}
+              key={idx}
               cStyle={{ ...cStyle }}
             />
           )

@@ -1,13 +1,13 @@
 export const DARK = '#000'
 export const WHITE = '#fff'
-export const logWarnings = true
+export const logWarnings = false
 export const CONTRAST_TRESHOLD = 5
 
 export function decomposeColor(color: string): { type: string; values: number[] } {
   if (color.charAt(0) === '#') {
     return decomposeColor(convertHexToRGB(color))
   }
-  const logWarnings = true
+  const logWarnings = false
   const marker = color.indexOf('(')
   const type = color.substring(0, marker)
   const strValues = color.substring(marker + 1, color.length - 1).split(',')

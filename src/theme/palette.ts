@@ -229,7 +229,6 @@ export function getPaletteColors(pal: PaletteType, all: boolean = false, color?:
 
 // @ts-ignore
 export function getHashColor(hash: number, pal: Palettes = Palettes.avatar) {
-  debugger
   // @ts-ignore
   const p: PaletteType = pal as PaletteType
   const colors = getPaletteColors(p, true)
