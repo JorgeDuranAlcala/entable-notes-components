@@ -1,4 +1,3 @@
-import { Theme, ThemeOptions, Palette, PaletteColor, PaletteColorOptions, PaletteOptions } from '@material-ui/core/styles/createMuiTheme'
 import { themePalette, getColors, LIGHT, DARK } from './palette'
 export type LIGHTORDARK = 'light' | 'dark'
 export { default } from './theme-provider'
@@ -8,81 +7,6 @@ export { default as typography } from './typography'
 export { default as ThemeContext } from './theme-context'
 export { default as ThemeProvider } from './theme-provider'
 export { themePalette, LIGHT, DARK, getColors }
-
-export interface IPalette extends Palette {
-  accent: PaletteColor
-  danger: PaletteColor
-  contrastText: string
-  neutral: PaletteColor
-  inverse: PaletteColor
-  side: PaletteColor
-  default: PaletteColor
-  custom: {
-      contrastText: string
-      primary: string,
-      secondary: string
-  }
-}
-
-export interface IPaletteColorOptions extends PaletteColorOptions{
-  light: string
-  main: string
-  dark: string
-  color: string
-  contrastText: string
-  secondColor: string
-  inverse: {
-      light: string
-      main: string
-      dark: string
-      color: string
-      contrastText: string
-      secondColor: string
-  }
-}
-
-export interface IPalette extends Palette{
-  accent: PaletteColor
-  danger: PaletteColor
-  contrastText: string
-  neutral: PaletteColor
-  inverse: PaletteColor
-  side: PaletteColor
-  default: PaletteColor
-  custom: {
-      contrastText: string
-      primary: string,
-      secondary: string
-  }
-}
-
-export interface IThemeOptions extends ThemeOptions{
-  zoomFontSize: (factor: number) => string
-  zoomSpacing: (factor: number) => number
-  fontSize: FontSize
-  lineHeight: FontSize
-  palette: PaletteOptions
-  props: {
-    MuiButtonBase: {
-      disableRipple: true,
-    },
-    MuiButton: {
-      variant: 'contained',
-      disableElevation: true,
-    },
-    MuiTextField: {
-      variant: 'outlined',
-    },
-  },
-}
-
-export interface ITheme extends Theme{
-  zoomFontSize: (factor:number) => string
-  zoomSpacing: (factor: number) => number
-  fontSize: FontSize
-  lineHeight: FontSize
-  palette: PaletteColor
-}
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' 
 

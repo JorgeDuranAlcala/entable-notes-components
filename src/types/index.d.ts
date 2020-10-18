@@ -10,6 +10,22 @@ import {
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 declare module '@material-ui/core/styles/createPalette' {
+  interface PeletteColor {
+    light: string
+    main: string
+    dark: string
+    color: string
+    contrastText: string
+    secondColor: string
+    inverse: {
+      light: string
+      main: string
+      dark: string
+      color: string
+      contrastText: string
+      secondColor: string
+    }
+  }
   interface PaletteColorOptions {
     light: string
     main: string
@@ -79,4 +95,13 @@ declare module '@material-ui/core/styles/overrides' {
   interface ComponentNameToClassKey {
     MuiAutocomplete: AutoCompleteClassKey
   }
+}
+
+
+export interface ITheme extends Theme{
+  zoomFontSize: (factor:number) => string
+  zoomSpacing: (factor: number) => number
+  fontSize: FontSize
+  lineHeight: FontSize
+  palette: PaletteColor
 }

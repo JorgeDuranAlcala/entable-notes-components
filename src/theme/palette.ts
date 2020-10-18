@@ -13,7 +13,8 @@ import {
 } from '@material-ui/core/colors'
 import { emphasize } from '@material-ui/core/styles/colorManipulator'
 import { lightenOrDarkenColor, getContrastText } from 'helpers/color'
-import { ITheme, ThemeZoom, Color, ColorValue, ColorObj } from './index'
+import { ITheme } from 'types'
+import { ThemeZoom, Color, ColorValue, ColorObj } from './index'
 
 export const WHITE = '#fff'
 export const BLACK = '#000'

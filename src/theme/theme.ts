@@ -1,5 +1,5 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
-import {ITheme } from '@material-ui/core/styles/createMuiTheme'
+import { ITheme } from 'types'
 import { GlobalContext } from 'context/global-context'
 import { FONT_BASIS, makePalette, ThemeZoom, unit, tablePadding } from './index'
 import { roundNum } from 'helpers'
@@ -115,7 +115,7 @@ function createTheme(variant: ThemeZoom): ITheme {
           },
         },
       },
-    } as IThemeOptions
+    }
   ) 
   //  return responsiveFontSizes(modTheme)
   GlobalContext.theme = theme
