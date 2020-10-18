@@ -88,6 +88,10 @@
   font-weight: 500
 }
 
+.h-12 {
+  height: 3rem
+}
+
 .h-auto {
   height: auto
 }
@@ -301,6 +305,10 @@
 
 .whitespace-no-wrap {
   white-space: nowrap
+}
+
+.w-12 {
+  width: 3rem
 }
 
 .w-full {
