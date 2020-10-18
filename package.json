@@ -59,17 +59,14 @@
     "typescript": "3.9.7"
   },
   "scripts": {
-    "start": "yarn run tailwind && yarn stubby & cross-env TSC_WATCHFILE=UseFsEventsWithFallbackDynamicPolling react-scripts start",
     "docz": "yarn run tailwind && docz dev",
     "docz:build": "docz build",
     "docz:serve": "docz build && docz serve",
-    "build": "yarn run tailwind && yarn run purge-tailwind && yarn postinstall && cross-env GENERATE_SOURCEMAP=false react-scripts build  && yarn analyze",
     "tailwind": "tailwind build ./src/styles/tailwind-config.css -c ./tailwind.config.js -o ./src/styles/tailwind.css",
     "purge-tailwind": "node ./purge-tailwindcss.js",
     "start:gmapson": "REACT_APP_NOMOCKS=true yarn start",
     "test": "react-scripts test --testPathIgnorePatterns=src/vendors/*",
     "eject": "react-scripts eject",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "stubby": "stubby --watch --data ./src/mocks/stubby.json",
     "format": "prettier \"./src/**/*.+(js|jsx|css|less|scss|ts|tsx|md)\" --write"
   },
