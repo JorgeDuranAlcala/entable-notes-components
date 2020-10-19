@@ -80,3 +80,5 @@ export function zeroFill(num: number, width: number) {
   }
   return number.toString()
 }
+
+export function stopPropagation() {}
