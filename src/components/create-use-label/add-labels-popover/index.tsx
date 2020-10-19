@@ -6,6 +6,7 @@ import { blue, green, grey, purple, red, yellow } from '@material-ui/core/colors
 import Label from './label'
 import Color from './color'
 import useStyles from './styles'
+import { removeFromArrayAtPosition as removeElement} from 'helpers/array'
 
 interface Props {}
 
@@ -26,7 +27,7 @@ function AddLabelsPopover(props: any): ReactElement {
 
   const create_label = () => {
     let newLabel = {
-      id: (Number(labels.slice(-1)[0].id) + 1).toString(),
+      id:  Boolean(labels.length) ? (Number(labels.slice(-1)[0].id) + 1).toString() : "1",
       name: input,
       class: '',
       bg: colorSelected ? colorSelected : grey[200],
@@ -76,6 +77,13 @@ function AddLabelsPopover(props: any): ReactElement {
     props.popupState.close()
   }
 
+  const deleteLabel = (id: string) => {
+      let array = [...labels]
+      let index = labels.findIndex(label => label.id === id)
+      let newArray = removeElement(array, index)
+      setLabels(newArray)
+  }
+
   return (
     <Popover
       {...props}
@@ -100,10 +108,11 @@ function AddLabelsPopover(props: any): ReactElement {
               setEditInput={setActiveEditInput}
               editLabel={edit_label}
               editColor={edit_color}
-              className={`flex items-center justify-center cursor-pointer relative ${classes.label}`}
+              className={`flex items-center justify-between cursor-pointer relative p-2  ${classes.label}`}
               onClick={() => selectLabel(label.bg, label.name)}
               bg={label.bg}
               addNewLevel={addNewLabel}
+              deleteLabel={deleteLabel}
             />
           ))}
 
