@@ -59,7 +59,7 @@ const DialogActions = withStyles((theme) => ({
 export default function Dialog(props:any) {
   const { title, handleClose, RightContent, LeftContent, ariaLabelledby= 'two-column-dialog-title' } = props
   const theme = useTheme()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(true)
   const [isDirty, setIsDirty] = React.useState(false)
   const [leftScreen, setLeftScreen] = React.useState(true)
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
