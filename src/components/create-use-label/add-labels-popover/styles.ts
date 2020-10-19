@@ -22,8 +22,8 @@ export default makeStyles((theme: Theme) => ({
   },
   label: {
     backgroundColor: grey[200],
-    width: '6rem',
-    height: '2rem',
+    minWidth: '7.5rem',
+    minHeight: '2rem',
   },
   left: {
     zIndex: 2,
@@ -48,4 +48,7 @@ export default makeStyles((theme: Theme) => ({
       fontSize: '1.4rem',
     },
   },
+  deleteButton: {
+    zIndex: 5
+  }
 }))
