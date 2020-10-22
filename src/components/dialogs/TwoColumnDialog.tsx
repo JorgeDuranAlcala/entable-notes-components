@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    header: {
+        display: 'flex',
+        padding: theme.spacing(1),
+        justifyContent: 'space-between'
+    },
     closeButton: {
-        position: 'absolute',
-        right: theme.spacing(1),
-        top: theme.spacing(1),
         color: theme.palette.grey[500],
     },
     leftButton: {
@@ -86,7 +88,7 @@ const Dialog = (props:any) => {
 
   return (
     <MuiDialog onClose={handleClose} fullScreen={fullScreen} aria-labelledby={ariaLabelledby} open={open}>
-        <div>
+        <div className={classes.header}>
             <Hidden mdUp>
             {
                 visibleRight ?
@@ -102,7 +104,7 @@ const Dialog = (props:any) => {
             {
                 onClose ? 
                     <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                        <CloseIcon />
+                        <CloseIcon fontSize="large"/>
                     </IconButton>
                     :
                     null
