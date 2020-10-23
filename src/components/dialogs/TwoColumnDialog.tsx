@@ -57,15 +57,9 @@ const Dialog = (props:any) => {
     const classes = useStyles()
     const [visibleRight, setVisibleRight] = useState(false);
 
-    const [spacing, setSpacing] = React.useState<GridSpacing>(2)
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSpacing(Number((event.target as HTMLInputElement).value) as GridSpacing);
-    }
-
     useLayoutEffect(() => {
         if (fullScreen !== isFullScreen) {
-            setIsFullScreen(fullScreen)
+            setIsFullScreen(fullScreen);
         }
     }, [fullScreen]);
 
@@ -82,15 +76,15 @@ const Dialog = (props:any) => {
     };
 
     const onClose = () => {
-        setOpen(false)
-        handleClose &&  handleClose()
+        setOpen(false);
+        handleClose &&  handleClose();
     };
 
   return (
     <MuiDialog onClose={handleClose} fullScreen={fullScreen} aria-labelledby={ariaLabelledby} open={open}>
         <div className={classes.header}>
-            <Hidden mdUp>
-            {
+        {
+            isFullScreen ?
                 visibleRight ?
                     <IconButton aria-label="close" className={classes.leftButton} onClick={hideRight}>
                         <KeyboardArrowLeftIcon fontSize="large"/>
@@ -99,37 +93,38 @@ const Dialog = (props:any) => {
                     <IconButton aria-label="close" className={classes.rightButton} onClick={showRight}>
                         <KeyboardArrowRightIcon fontSize="large"/>
                     </IconButton>
-            }
-            </Hidden>
-            {
-                onClose ? 
-                    <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-                        <CloseIcon fontSize="large"/>
-                    </IconButton>
-                    :
-                    null
-            }
+                :
+                <div />
+        }
+
+        {
+            onClose ? 
+                <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+                    <CloseIcon fontSize="large"/>
+                </IconButton>
+                :
+                null
+        }
         </div>
         <DialogContent dividers>
             <Grid container >
-                <Hidden mdUp>
-                {
+            {
+                isFullScreen ?
                     visibleRight ?
                         rightContent
                         :
                         leftContent
-                }
-                </Hidden>
-                
-                <Hidden mdDown>
-                    <Grid item xs={12} md={6}>
-                        {leftContent}
-                    </Grid>
+                    :
+                    <>
+                        <Grid item xs={12} md={6}>
+                            {leftContent}
+                        </Grid>
 
-                    <Grid item xs={12} md={6}>
-                        {rightContent}
-                    </Grid>
-                </Hidden>
+                        <Grid item xs={12} md={6}>
+                            {rightContent}
+                        </Grid>
+                    </>
+            }
             </Grid>
         </DialogContent>
       </MuiDialog>
