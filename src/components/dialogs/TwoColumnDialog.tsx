@@ -38,13 +38,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     rightButton: {
 
     }
-}));
+}))
 
 const DialogContent = withStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
     },
-}))(MuiDialogContent);
+}))(MuiDialogContent)
 
 const Dialog = (props:any) => {
     const { title, handleClose, rightContent, leftContent, ariaLabelledby= 'two-column-dialog-title' } = props
@@ -55,30 +55,30 @@ const Dialog = (props:any) => {
     const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const [isFullScreen, setIsFullScreen] = useState(fullScreen)
     const classes = useStyles()
-    const [visibleRight, setVisibleRight] = useState(false);
+    const [visibleRight, setVisibleRight] = useState(false)
 
     useLayoutEffect(() => {
         if (fullScreen !== isFullScreen) {
-            setIsFullScreen(fullScreen);
+            setIsFullScreen(fullScreen)
         }
-    }, [fullScreen]);
+    }, [fullScreen])
 
     const handleClickOpen = () => {
-        setOpen(true);
-    };
+        setOpen(true)
+    }
   
     const showRight = () => {
-        setVisibleRight(true);
-    };
+        setVisibleRight(true)
+    }
 
     const hideRight = () => {
-        setVisibleRight(false);
-    };
+        setVisibleRight(false)
+    }
 
     const onClose = () => {
-        setOpen(false);
-        handleClose &&  handleClose();
-    };
+        setOpen(false)
+        handleClose &&  handleClose()
+    }
 
   return (
     <MuiDialog onClose={handleClose} fullScreen={fullScreen} aria-labelledby={ariaLabelledby} open={open}>
@@ -129,6 +129,6 @@ const Dialog = (props:any) => {
         </DialogContent>
       </MuiDialog>
   )
-};
+}
 
-export default Dialog;
+export default Dialog
