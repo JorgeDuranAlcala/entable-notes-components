@@ -1,12 +1,30 @@
 ---
-name: TwoColumnDialog
-route: /two-column-dialog
+name: DialogTwoColumn
+route: /dialog-two-column
 ---
 
-import Dialog from "./TwoColumnDialog";
+import Dialog from "./TwoColumnDialog"
+import Typography from '@material-ui/core/Typography'
 import {Playground} from 'docz'
 
 
 <Playground>
-    Dark
+    <Dialog
+        title="TwoColumnDialog"
+        handleClose={() => {alert('close dialog')}}
+        leftContent={(
+            <Typography gutterBottom>
+                Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+                in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+            </Typography>
+        )}
+        
+        rightContent={(
+            <Typography gutterBottom>
+                Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
+                scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
+                auctor fringilla.
+            </Typography>
+        )}
+    />
 </Playground>
